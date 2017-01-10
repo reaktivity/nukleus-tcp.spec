@@ -8,6 +8,7 @@
   <artifactId>nukleus-tcp.spec</artifactId>
   <version>develop-SNAPSHOT</version>
   <name>TCP Nukleus Specification</name>
+  <description>TCP Nukleus Specification</description>
   <url>https://github.com/reaktivity/nukleus-tcp.spec</url>
 
   <licenses>
