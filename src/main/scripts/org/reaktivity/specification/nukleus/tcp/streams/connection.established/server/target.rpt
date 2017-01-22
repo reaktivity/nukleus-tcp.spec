@@ -16,24 +16,27 @@
 
 property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024 * 1024, 64 * 1024)}
 
-property targetInitial ${nuklei.streams("target", "tcp#any")}
+property targetInput ${nuklei.streams("target", "tcp#any")}
+property targetOutputEst ${nuklei.streams("tcp", "target")}
 
-connect await ROUTED_INITIAL
+property newTargetOutputEstId ${nuklei:newStreamId()}
+
+connect await ROUTED_INPUT
         agrona://stream/bidirectional
-        option reader ${agrona:oneToOneReader(targetInitial.buffer)}
-        option writer ${agrona:oneToOneWriter(targetInitial.throttle)}
+        option reader ${agrona:oneToOneReader(targetInput.buffer)}
+        option writer ${agrona:oneToOneWriter(targetInput.throttle)}
 connected
 
 read [0x00 0x00 0x00 0x01]
-read ([0..8]:initialId)
-read ([0..8]:initialRef)
+read ([0..8]:targetInputId)
+read ([0..8]:targetInputRef)
 read ([0..8]:correlationId)
 read [0x10]
 read ([0..8]:localAddress)
 read ([0..8]:remoteAddress)
 
 write [0x40 0x00 0x00 0x02]
-write ${initialId}
+write ${targetInputId}
 write [0x00 0x02 0x00 0x00]
 write flush
 
@@ -41,3 +44,22 @@ write notify WINDOW_UPDATED
 
 close
 closed
+
+connect await ROUTED_INPUT
+        agrona://stream/bidirectional
+        option reader ${agrona:oneToOneReader(targetOutputEst.throttle)}
+        option writer ${agrona:oneToOneWriter(targetOutputEst.buffer)}
+connected
+
+write await WINDOW_UPDATED
+
+write [0x00 0x00 0x00 0x01]
+write ${newTargetOutputEstId}
+write [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
+write ${correlationId}
+write [0x00]
+write flush
+
+close
+closed
+

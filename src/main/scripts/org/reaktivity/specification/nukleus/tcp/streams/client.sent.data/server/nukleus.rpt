@@ -14,25 +14,25 @@
 # under the License.
 #
 
-property newInitialRef ${nuklei:newReferenceId()} # external scope
+property newTargetInputRef ${nuklei:newReferenceId()} # external scope
 
 property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024 * 1024, 64 * 1024)}
 
-property targetInitial ${nuklei.streams("target", "tcp#any")}
-property targetReply ${nuklei.streams("tcp", "reply")}
+property targetInput ${nuklei.streams("target", "tcp#any")}
+property targetOutputEst ${nuklei.streams("tcp", "target")}
 
-property newInitialId ${nuklei:newStreamId()}
+property newTargetInputId ${nuklei:newStreamId()}
 property newCorrelationId ${nuklei:newCorrelationId()}
 
-connect await ROUTED_INITIAL
+connect await ROUTED_INPUT
         agrona://stream/bidirectional
-        option reader ${agrona:oneToOneReader(targetInitial.throttle)}
-        option writer ${agrona:oneToOneWriter(targetInitial.buffer)}
+        option reader ${agrona:oneToOneReader(targetInput.throttle)}
+        option writer ${agrona:oneToOneWriter(targetInput.buffer)}
 connected
 
 write [0x00 0x00 0x00 0x01]
-write ${newInitialId}
-write ${newInitialRef}
+write ${newTargetInputId}
+write ${newTargetInputRef}
 write ${newCorrelationId}
 write [0x10]
 write [0x01] [0x04] [0x7f 0x00 0x00 0x01]
@@ -42,38 +42,33 @@ write [0x9f 0x90]
 write flush
 
 read [0x40 0x00 0x00 0x02]
-read ${newInitialId}
+read ${newTargetInputId}
 read [0..4]
 
 write [0x00 0x00 0x00 0x02]
-write ${newInitialId}
+write ${newTargetInputId}
 write [0x0b] "client data"
 write [0x00]
 write flush
 
 read [0x40 0x00 0x00 0x02]
-read ${newInitialId}
+read ${newTargetInputId}
 read [0..4]
 
 close
 closed
 
-connect await ROUTED_REPLY
+connect await ROUTED_INPUT
         agrona://stream/bidirectional
-        option reader ${agrona:oneToOneReader(targetReply.buffer)}
-        option writer ${agrona:oneToOneWriter(targetReply.throttle)}
+        option reader ${agrona:oneToOneReader(targetOutputEst.buffer)}
+        option writer ${agrona:oneToOneWriter(targetOutputEst.throttle)}
 connected
 
 read [0x00 0x00 0x00 0x01]
-read ([0..8]:replyId)
-read ([0..8]:replyRef)
+read ([0..8]:targetOutputEstId)
+read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 read ${newCorrelationId}
 read [0x00]
-
-write [0x40 0x00 0x00 0x02]
-write ${replyId}
-write [0x00 0x02 0x00 0x00]
-write flush
 
 close
 closed

@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.reaktivity</groupId>
   <artifactId>nukleus-tcp.spec</artifactId>
-  <version>0.2</version>
+  <version>0.3</version>
   <name>TCP Nukleus Specification</name>
   <description>TCP Nukleus Specification</description>
   <url>https://github.com/reaktivity/nukleus-tcp.spec</url>
@@ -45,7 +45,8 @@
 
     <junit.version>4.12</junit.version>
     <k3po.version>3.0.0-alpha-54</k3po.version>
-    <nukleus.spec.version>0.3</nukleus.spec.version>
+    <nukleus.spec.version>0.5</nukleus.spec.version>
+    <nukleus.plugin.version>0.5</nukleus.plugin.version>
   </properties>
 
   <dependencies>
@@ -82,6 +83,21 @@
     </resources>
 
     <plugins>
+      <plugin>
+        <groupId>org.reaktivity</groupId>
+        <artifactId>nukleus-maven-plugin</artifactId>
+        <version>${nukleus.plugin.version}</version>
+        <configuration>
+          <scopeNames>tcp</scopeNames>
+        </configuration>
+        <executions>
+          <execution>
+            <goals>
+              <goal>validate</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
@@ -138,6 +154,34 @@
         </executions>
       </plugin>
     </plugins>
+    <pluginManagement>
+      <plugins>
+        <plugin>
+          <groupId>org.eclipse.m2e</groupId>
+          <artifactId>lifecycle-mapping</artifactId>
+          <version>1.0.0</version>
+          <configuration>
+            <lifecycleMappingMetadata>
+              <pluginExecutions>
+                <pluginExecution>
+                  <pluginExecutionFilter>
+                    <groupId>org.reaktivity</groupId>
+                    <artifactId>nukleus-maven-plugin</artifactId>
+                    <versionRange>[0.4,)</versionRange>
+                    <goals>
+                      <goal>validate</goal>
+                    </goals>
+                  </pluginExecutionFilter>
+                  <action>
+                    <ignore></ignore>
+                  </action>
+                </pluginExecution>
+              </pluginExecutions>
+            </lifecycleMappingMetadata>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
   </build>
 
   <profiles>

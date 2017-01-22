@@ -26,7 +26,6 @@ scope tcp
         struct TcpRouteEx
         {
             tcp::TcpAddress address;
-            uint16 port;
         }
     }
 
