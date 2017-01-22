@@ -43,7 +43,7 @@ write notify WINDOW_UPDATED
 close
 closed
 
-connect await ROUTED_OUTPUT
+connect await ROUTED_INPUT
         agrona://stream/bidirectional
         option reader ${agrona:oneToOneReader(sourceInputEst.throttle)}
         option writer ${agrona:oneToOneWriter(sourceInputEst.buffer)}
@@ -68,7 +68,7 @@ read [0..4]
 
 write [0x00 0x00 0x00 0x02]
 write ${newSourceInputEstId}
-write [0x0d] "server data"
+write [0x0b] "server data"
 write [0x00]
 write flush
 

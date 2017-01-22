@@ -44,7 +44,7 @@ read [0..4]
 close
 closed
 
-connect await ROUTED_OUTPUT
+connect await ROUTED_INPUT
         agrona://stream/bidirectional
         option reader ${agrona:oneToOneReader(sourceInputEst.buffer)}
         option writer ${agrona:oneToOneWriter(sourceInputEst.throttle)}
@@ -65,7 +65,7 @@ write flush
 
 read [0x00 0x00 0x00 0x02]
 read ${sourceInputEstId}
-read [0x0d] "server data"
+read [0x0b] "server data"
 read [0x00]
 
 write [0x40 0x00 0x00 0x02]

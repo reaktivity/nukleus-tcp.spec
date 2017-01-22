@@ -52,6 +52,9 @@ public class ClientIT
     })
     public void shouldEstablishConnection() throws Exception
     {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
         k3po.finish();
     }
 
@@ -64,6 +67,9 @@ public class ClientIT
     })
     public void shouldReceiveServerSentData() throws Exception
     {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
         k3po.finish();
     }
 
@@ -76,6 +82,9 @@ public class ClientIT
     })
     public void shouldReceiveClientSentData() throws Exception
     {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
         k3po.finish();
     }
 
@@ -88,6 +97,9 @@ public class ClientIT
     })
     public void shouldEchoData() throws Exception
     {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
         k3po.finish();
     }
 
@@ -100,6 +112,9 @@ public class ClientIT
     })
     public void shouldInitiateServerClose() throws Exception
     {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
         k3po.finish();
     }
 
@@ -112,6 +127,9 @@ public class ClientIT
     })
     public void shouldInitiateClientClose() throws Exception
     {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
         k3po.finish();
     }
 }

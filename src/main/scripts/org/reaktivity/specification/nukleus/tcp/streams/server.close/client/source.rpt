@@ -44,7 +44,7 @@ read [0..4]
 close
 closed
 
-connect await ROUTED_OUTPUT
+connect await ROUTED_INPUT
         agrona://stream/bidirectional
         option reader ${agrona:oneToOneReader(sourceInputEst.buffer)}
         option writer ${agrona:oneToOneWriter(sourceInputEst.throttle)}
@@ -57,6 +57,11 @@ read ([0..8]:correlationId)
 read [0x10]
 read ([0..8]:localAddress)
 read ([0..8]:remoteAddress)
+
+write [0x40 0x00 0x00 0x02]
+write ${sourceInputEstId}
+write [0x00 0x02 0x00 0x00] # TODO: native long
+write flush
 
 read [0x00 0x00 0x00 0x03]
 read ${sourceInputEstId}
