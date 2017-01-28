@@ -71,6 +71,18 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
+        "${streams}/server.sent.data.multiple.frames/server/nukleus",
+        "${streams}/server.sent.data.multiple.frames/server/target"
+    })
+    public void shouldReceiveServerSentDataWithMultipleFrames() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
         "${streams}/client.sent.data/server/nukleus",
         "${streams}/client.sent.data/server/target"
     })
