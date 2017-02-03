@@ -83,6 +83,18 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
+        "${streams}/server.sent.data.and.close/server/nukleus",
+        "${streams}/server.sent.data.and.close/server/target"
+    })
+    public void shouldReceiveServerSentDataAndClose() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
         "${streams}/client.sent.data/server/nukleus",
         "${streams}/client.sent.data/server/target"
     })
@@ -99,6 +111,18 @@ public class ServerIT
         "${streams}/client.sent.data.multiple.frames/server/target"
     })
     public void shouldReceiveClientSentDataWithMultipleFrames() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streams}/client.sent.data.and.close/server/nukleus",
+        "${streams}/client.sent.data.and.close/server/target"
+    })
+    public void shouldReceiveClientSentDataAndClose() throws Exception
     {
         k3po.finish();
     }

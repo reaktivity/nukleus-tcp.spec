@@ -92,6 +92,21 @@ public class ClientIT
     @Specification({
         "${route}/output/new/nukleus",
         "${route}/output/new/controller",
+        "${streams}/server.sent.data.and.close/client/nukleus",
+        "${streams}/server.sent.data.and.close/client/source"
+    })
+    public void shouldReceiveServerSentDataAndClose() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
         "${streams}/client.sent.data/client/nukleus",
         "${streams}/client.sent.data/client/source"
     })
@@ -111,6 +126,21 @@ public class ClientIT
         "${streams}/client.sent.data.multiple.frames/client/source"
     })
     public void shouldReceiveClientSentDataWithMultipleFrames() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
+        "${streams}/client.sent.data.and.close/client/nukleus",
+        "${streams}/client.sent.data.and.close/client/source"
+    })
+    public void shouldReceiveClientSentDataAndClose() throws Exception
     {
         k3po.start();
         k3po.awaitBarrier("ROUTED_OUTPUT");
