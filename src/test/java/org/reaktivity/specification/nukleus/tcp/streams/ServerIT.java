@@ -31,6 +31,7 @@ public class ServerIT
 {
     private final K3poRule k3po = new K3poRule()
         .addScriptRoot("route", "org/reaktivity/specification/nukleus/tcp/control/route")
+        .addScriptRoot("streamsInvalid", "org/reaktivity/specification/nukleus/tcp/streams.invalid")
         .addScriptRoot("streams", "org/reaktivity/specification/nukleus/tcp/streams");
 
     private final TestRule timeout = new DisableOnDebug(new Timeout(5, SECONDS));
@@ -159,6 +160,18 @@ public class ServerIT
         "${streams}/client.close/server/target"
     })
     public void shouldInitiateClientClose() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streamsInvalid}/server.sent.data.close.data/server/nukleus",
+        "${streamsInvalid}/server.sent.data.close.data/server/target"
+    })
+    public void shouldResetServerSentDataAfterClose() throws Exception
     {
         k3po.finish();
     }

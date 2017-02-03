@@ -16,62 +16,73 @@
 
 property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024 * 1024, 64 * 1024)}
 
-property targetInput ${nuklei.streams("target", "tcp#any")}
-property targetOutputEst ${nuklei.streams("tcp", "target")}
+property sourceOutput ${nuklei.streams("tcp", "source")}
+property sourceInputEst ${nuklei.streams("source", "tcp#any")}
 
-property newTargetOutputEstId ${nuklei:newStreamId()}
+property newSourceInputEstId ${nuklei:newStreamId()}
 
-connect await ROUTED_INPUT
+connect await ROUTED_OUTPUT
         agrona://stream/bidirectional
-        option reader ${agrona:oneToOneReader(targetInput.buffer)}
-        option writer ${agrona:oneToOneWriter(targetInput.throttle)}
+        option reader ${agrona:oneToOneReader(sourceOutput.buffer)}
+        option writer ${agrona:oneToOneWriter(sourceOutput.throttle)}
 connected
 
 read [0x00 0x00 0x00 0x01]
-read ([0..8]:targetInputId)
-read ([0..8]:targetInputRef)
+read ([0..8]:sourceOutputId)
+read ([0..8]:sourceOutputRef)
 read ([0..8]:correlationId)
-read [0x10]
-read ([0..8]:localAddress)
-read ([0..8]:remoteAddress)
+read [0x00]
 
 write [0x40 0x00 0x00 0x02]
-write ${targetInputId}
+write ${sourceOutputId}
 write [0x00 0x02 0x00 0x00]
 write flush
 
 write notify WINDOW_UPDATED
 
 read [0x00 0x00 0x00 0x02]
-read ${targetInputId}
+read ${sourceOutputId}
 read [0x0b] "client data"
 read [0x00]
 
 write [0x40 0x00 0x00 0x02]
-write ${targetInputId}
+write ${sourceOutputId}
 write [0x0d 0x00 0x00 0x00]
 write flush
 
 read [0x00 0x00 0x00 0x03]
-read ${targetInputId}
+read ${sourceOutputId}
 read [0x00]
+
+read [0x00 0x00 0x00 0x02]
+read ${sourceOutputId}
+read [0x07] "invalid"
+read [0x00]
+
+write [0x40 0x00 0x00 0x01]
+write ${sourceOutputId}
+write flush
 
 close
 closed
 
 connect await ROUTED_INPUT
         agrona://stream/bidirectional
-        option reader ${agrona:oneToOneReader(targetOutputEst.throttle)}
-        option writer ${agrona:oneToOneWriter(targetOutputEst.buffer)}
+        option reader ${agrona:oneToOneReader(sourceInputEst.throttle)}
+        option writer ${agrona:oneToOneWriter(sourceInputEst.buffer)}
 connected
 
 write await WINDOW_UPDATED
 
 write [0x00 0x00 0x00 0x01]
-write ${newTargetOutputEstId}
+write ${newSourceInputEstId}
 write [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 write ${correlationId}
-write [0x00]
+write [0x10]
+write [0x01] [0x04] [0x7f 0x00 0x00 0x01]
+write [0x1f 0x90]
+write [0x01] [0x04] [0x7f 0x00 0x00 0x01]
+write [0x9f 0x90]
 write flush
 
 close
