@@ -68,6 +68,8 @@ read ${sourceInputEstId}
 read [0x0d] "server data 1"
 read [0x00]
 
+read notify FIRST_DATA_FRAME_RECEIVED
+
 read [0x00 0x00 0x00 0x02]
 read ${sourceInputEstId}
 read [0x0d] "server data 2"
