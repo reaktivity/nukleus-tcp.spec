@@ -208,4 +208,19 @@ public class ClientIT
         k3po.notifyBarrier("ROUTED_INPUT");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
+        "${streamsInvalid}/client.sent.data.exceeding.window/client/nukleus",
+        "${streamsInvalid}/client.sent.data.exceeding.window/client/source"
+    })
+    public void shouldResetClientSentDataExceedingWindow() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
 }

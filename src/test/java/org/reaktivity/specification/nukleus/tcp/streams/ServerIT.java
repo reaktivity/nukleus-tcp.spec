@@ -175,4 +175,16 @@ public class ServerIT
     {
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streamsInvalid}/server.sent.data.exceeding.window/server/nukleus",
+        "${streamsInvalid}/server.sent.data.exceeding.window/server/target"
+    })
+    public void shouldResetServerSentDataExceedingWindow() throws Exception
+    {
+        k3po.finish();
+    }
 }
