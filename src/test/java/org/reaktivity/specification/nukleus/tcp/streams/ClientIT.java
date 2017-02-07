@@ -213,8 +213,8 @@ public class ClientIT
     @Specification({
         "${route}/output/new/nukleus",
         "${route}/output/new/controller",
-        "${streamsInvalid}/client.sent.data.exceeding.window/client/nukleus",
-        "${streamsInvalid}/client.sent.data.exceeding.window/client/source"
+        "${streamsInvalid}/client.sent.data.and.received.reset/client/nukleus",
+        "${streamsInvalid}/client.sent.data.and.received.reset/client/source"
     })
     public void shouldResetClientSentDataExceedingWindow() throws Exception
     {

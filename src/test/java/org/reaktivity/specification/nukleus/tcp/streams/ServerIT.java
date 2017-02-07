@@ -180,8 +180,8 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
-        "${streamsInvalid}/server.sent.data.exceeding.window/server/nukleus",
-        "${streamsInvalid}/server.sent.data.exceeding.window/server/target"
+        "${streamsInvalid}/server.sent.data.and.received.reset/server/nukleus",
+        "${streamsInvalid}/server.sent.data.and.received.reset/server/target"
     })
     public void shouldResetServerSentDataExceedingWindow() throws Exception
     {
