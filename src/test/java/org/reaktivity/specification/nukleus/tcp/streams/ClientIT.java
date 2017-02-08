@@ -227,8 +227,8 @@ public class ClientIT
     @Specification({
         "${route}/output/new/nukleus",
         "${route}/output/new/controller",
-        "${streams}/client.sent.data.after.close/client/nukleus",
-        "${streams}/client.sent.data.after.close/client/source"
+        "${streams}/client.sent.data.after.end/client/nukleus",
+        "${streams}/client.sent.data.after.end/client/source"
     })
     public void shouldResetClientSentDataAfterClose() throws Exception
     {

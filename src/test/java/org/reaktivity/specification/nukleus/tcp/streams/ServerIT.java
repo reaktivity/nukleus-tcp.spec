@@ -191,8 +191,8 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
-        "${streams}/server.sent.data.after.close/server/nukleus",
-        "${streams}/server.sent.data.after.close/server/target"
+        "${streams}/server.sent.data.after.end/server/nukleus",
+        "${streams}/server.sent.data.after.end/server/target"
     })
     public void shouldResetServerSentDataAfterClose() throws Exception
     {
