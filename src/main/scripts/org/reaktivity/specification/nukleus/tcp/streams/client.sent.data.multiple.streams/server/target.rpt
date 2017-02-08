@@ -28,8 +28,7 @@ connect await ROUTED_INPUT
         option writer ${agrona:oneToOneWriter(targetInput.throttle)}
 connected
 
-# Stream 1
-
+# Stream 1 BEGIN
 read [0x00 0x00 0x00 0x01]
 read ([0..8]:targetInputId1)
 read ([0..8]:targetInputRef)
@@ -38,27 +37,9 @@ read [0x10]
 read ([0..8]:localAddress)
 read ([0..8]:remoteAddress1)
 
-write [0x40 0x00 0x00 0x02]
-write ${targetInputId1}
-write [0x00 0x02 0x00 0x00]
-write flush
+write notify BEGIN_ONE_RECEIVED
 
-write notify WINDOW_ONE_UPDATED
-
-read [0x00 0x00 0x00 0x02]
-read ${targetInputId1}
-read [0x0d] "client data 1"
-read [0x00]
-
-read notify CLIENT_DATA_ONE_RECEIVED
-
-write [0x40 0x00 0x00 0x02]
-write ${targetInputId1}
-write [0x0d 0x00 0x00 0x00]
-write flush
-
-# Stream 2
-
+# Stream 2 BEGIN
 read [0x00 0x00 0x00 0x01]
 read ([0..8]:targetInputId2)
 read ([0..8]:targetInputRef)
@@ -67,22 +48,27 @@ read [0x10]
 read ([0..8]:localAddress)
 read ([0..8]:remoteAddress2)
 
+write notify BEGIN_TWO_RECEIVED
+
+write [0x40 0x00 0x00 0x02]
+write ${targetInputId1}
+write [0x00 0x02 0x00 0x00]
+write flush
+
+read [0x00 0x00 0x00 0x02]
+read ${targetInputId1}
+read [0x0d] "client data 1"
+read [0x00]
+
 write [0x40 0x00 0x00 0x02]
 write ${targetInputId2}
 write [0x00 0x02 0x00 0x00]
 write flush
 
-write notify WINDOW_TWO_UPDATED
-
 read [0x00 0x00 0x00 0x02]
 read ${targetInputId2}
 read [0x0d] "client data 2"
 read [0x00]
-
-write [0x40 0x00 0x00 0x02]
-write ${targetInputId2}
-write [0x0d 0x00 0x00 0x00]
-write flush
 
 connect await ROUTED_INPUT
         agrona://stream/bidirectional
@@ -90,7 +76,7 @@ connect await ROUTED_INPUT
         option writer ${agrona:oneToOneWriter(targetOutputEst.buffer)}
 connected
 
-write await WINDOW_ONE_UPDATED
+write await BEGIN_ONE_RECEIVED
 
 write [0x00 0x00 0x00 0x01]
 write ${newTargetOutputEstId1}
@@ -99,7 +85,7 @@ write ${correlationId1}
 write [0x00]
 write flush
 
-write await WINDOW_TWO_UPDATED
+write await BEGIN_TWO_RECEIVED
 
 write [0x00 0x00 0x00 0x01]
 write ${newTargetOutputEstId2}

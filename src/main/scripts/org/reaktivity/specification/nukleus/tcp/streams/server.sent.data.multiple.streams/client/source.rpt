@@ -23,8 +23,8 @@ property sourceInputEst ${nuklei.streams("source", "tcp#any")}
 
 property newSourceOutputId1 ${nuklei:newStreamId()}
 property newSourceOutputId2 ${nuklei:newStreamId()}
-property newcorrelationId1 ${nuklei:newCorrelationId()}
-property newcorrelationId2 ${nuklei:newCorrelationId()}
+property newCorrelationId1 ${nuklei:newCorrelationId()}
+property newCorrelationId2 ${nuklei:newCorrelationId()}
 
 connect await ROUTED_OUTPUT
         agrona://stream/bidirectional
@@ -35,7 +35,7 @@ connected
 write [0x00 0x00 0x00 0x01]
 write ${newSourceOutputId1}
 write ${newSourceOutputRef}
-write ${newcorrelationId1}
+write ${newCorrelationId1}
 write [0x00]
 write flush
 
@@ -46,7 +46,7 @@ read [0..4]
 write [0x00 0x00 0x00 0x01]
 write ${newSourceOutputId2}
 write ${newSourceOutputRef}
-write ${newcorrelationId2}
+write ${newCorrelationId2}
 write [0x00]
 write flush
 
@@ -63,8 +63,7 @@ connect await ROUTED_INPUT
         option writer ${agrona:oneToOneWriter(sourceInputEst.throttle)}
 connected
 
-# Stream 1
-
+# Stream 1 BEGIN
 read [0x00 0x00 0x00 0x01]
 read ([0..8]:sourceInputEstId1)
 read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
@@ -72,6 +71,15 @@ read ([0..8]:correlationId1)
 read [0x10]
 read ([0..8]:localAddress)
 read ([0..8]:remoteAddress1)
+
+# Stream 2 BEGIN
+read [0x00 0x00 0x00 0x01]
+read ([0..8]:sourceInputEstId2)
+read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
+read ([0..8]:correlationId2)
+read [0x10]
+read ([0..8]:localAddress)
+read ([0..8]:remoteAddress2)
 
 write [0x40 0x00 0x00 0x02]
 write ${sourceInputEstId1}
@@ -84,21 +92,6 @@ read [0x0d] "server data 1"
 read [0x00]
 
 write [0x40 0x00 0x00 0x02]
-write ${sourceInputEstId1}
-write [0x00 0x00 0x00 0x0d]
-write flush
-
-# Stream 2
-
-read [0x00 0x00 0x00 0x01]
-read ([0..8]:sourceInputEstId2)
-read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
-read ([0..8]:correlationId2)
-read [0x10]
-read ([0..8]:localAddress)
-read ([0..8]:remoteAddress2)
-
-write [0x40 0x00 0x00 0x02]
 write ${sourceInputEstId2}
 write [0x00 0x02 0x00 0x00]
 write flush
@@ -107,12 +100,4 @@ read [0x00 0x00 0x00 0x02]
 read ${sourceInputEstId2}
 read [0x0d] "server data 2"
 read [0x00]
-
-write [0x40 0x00 0x00 0x02]
-write ${sourceInputEstId2}
-write [0x00 0x00 0x00 0x0d]
-write flush
-
-close
-closed
 

@@ -28,8 +28,7 @@ connect await ROUTED_OUTPUT
         option writer ${agrona:oneToOneWriter(sourceOutput.throttle)}
 connected
 
-# Stream 1
-
+# Stream 1 BEGIN
 read [0x00 0x00 0x00 0x01]
 read ([0..8]:sourceOutputId1)
 read ([0..8]:sourceOutputRef)
@@ -41,20 +40,9 @@ write ${sourceOutputId1}
 write [0x00 0x02 0x00 0x00]
 write flush
 
-write notify WINDOW_UPDATED
+write notify WINDOW_ONE_UPDATED
 
-read [0x00 0x00 0x00 0x02]
-read ${sourceOutputId1}
-read [0x0d] "client data 1"
-read [0x00]
-
-write [0x40 0x00 0x00 0x02]
-write ${sourceOutputId1}
-write [0x0d 0x00 0x00 0x00]
-write flush
-
-# Stream 2
-
+# Stream 2 BEGIN
 read [0x00 0x00 0x00 0x01]
 read ([0..8]:sourceOutputId2)
 read ([0..8]:sourceOutputRef)
@@ -66,7 +54,17 @@ write ${sourceOutputId2}
 write [0x00 0x02 0x00 0x00]
 write flush
 
-write notify WINDOW_ONE_UPDATED
+write notify WINDOW_TWO_UPDATED
+
+read [0x00 0x00 0x00 0x02]
+read ${sourceOutputId1}
+read [0x0d] "client data 1"
+read [0x00]
+
+write [0x40 0x00 0x00 0x02]
+write ${sourceOutputId1}
+write [0x0d 0x00 0x00 0x00]
+write flush
 
 read [0x00 0x00 0x00 0x02]
 read ${sourceOutputId2}
@@ -78,7 +76,6 @@ write ${sourceOutputId2}
 write [0x0d 0x00 0x00 0x00]
 write flush
 
-write notify WINDOW_TWO_UPDATED
 
 close
 closed
