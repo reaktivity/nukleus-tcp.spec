@@ -27,7 +27,7 @@ property newCorrelationId1 ${nuklei:newCorrelationId()}
 property newCorrelationId2 ${nuklei:newCorrelationId()}
 
 # Override to test for reset
-property secondStreamReplyFrameType [0x40 0x00 0x00 0x02]
+property secondStreamWriteReplyFrameType [0x40 0x00 0x00 0x02]
 
 connect await ROUTED_OUTPUT
         agrona://stream/bidirectional
@@ -75,8 +75,9 @@ write [0x0d] "client data 2"
 write [0x00]
 write flush
 
-read ${secondStreamReplyFrameType}
+read ${secondStreamWriteReplyFrameType}
 read ${newSourceOutputId2}
+read notify SECOND_STREAM_WRITE_REPLY_RECEIVED
 
 connect await ROUTED_INPUT
         agrona://stream/bidirectional
