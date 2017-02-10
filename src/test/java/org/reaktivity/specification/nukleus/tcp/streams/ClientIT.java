@@ -107,10 +107,10 @@ public class ClientIT
     @Specification({
         "${route}/output/new/nukleus",
         "${route}/output/new/controller",
-        "${streams}/server.sent.data.and.close/client/nukleus",
-        "${streams}/server.sent.data.and.close/client/source"
+        "${streams}/server.sent.data.then.end/client/nukleus",
+        "${streams}/server.sent.data.then.end/client/source"
     })
-    public void shouldReceiveServerSentDataAndClose() throws Exception
+    public void shouldReceiveServerSentDataAndEnd() throws Exception
     {
         k3po.start();
         k3po.awaitBarrier("ROUTED_OUTPUT");
@@ -167,10 +167,10 @@ public class ClientIT
     @Specification({
         "${route}/output/new/nukleus",
         "${route}/output/new/controller",
-        "${streams}/client.sent.data.and.close/client/nukleus",
-        "${streams}/client.sent.data.and.close/client/source"
+        "${streams}/client.sent.data.then.end/client/nukleus",
+        "${streams}/client.sent.data.then.end/client/source"
     })
-    public void shouldReceiveClientSentDataAndClose() throws Exception
+    public void shouldReceiveClientSentDataAndEnd() throws Exception
     {
         k3po.start();
         k3po.awaitBarrier("ROUTED_OUTPUT");

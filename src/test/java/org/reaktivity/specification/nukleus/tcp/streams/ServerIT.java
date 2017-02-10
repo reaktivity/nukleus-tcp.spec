@@ -95,10 +95,22 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
-        "${streams}/server.sent.data.and.close/server/nukleus",
-        "${streams}/server.sent.data.and.close/server/target"
+        "${streams}/server.sent.data.multiple.streams.second.was.reset/server/nukleus",
+        "${streams}/server.sent.data.multiple.streams.second.was.reset/server/target"
     })
-    public void shouldReceiveServerSentDataAndClose() throws Exception
+    public void shouldReceiveServerSentDataWithMultipleStreamsSecondWasReset() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streams}/server.sent.data.then.end/server/nukleus",
+        "${streams}/server.sent.data.then.end/server/target"
+    })
+    public void shouldReceiveServerSentDataAndEnd() throws Exception
     {
         k3po.finish();
     }
@@ -143,10 +155,10 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
-        "${streams}/client.sent.data.and.close/server/nukleus",
-        "${streams}/client.sent.data.and.close/server/target"
+        "${streams}/client.sent.data.then.end/server/nukleus",
+        "${streams}/client.sent.data.then.end/server/target"
     })
-    public void shouldReceiveClientSentDataAndClose() throws Exception
+    public void shouldReceiveClientSentDataAndEnd() throws Exception
     {
         k3po.finish();
     }
