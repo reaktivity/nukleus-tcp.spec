@@ -167,6 +167,21 @@ public class ClientIT
     @Specification({
         "${route}/output/new/nukleus",
         "${route}/output/new/controller",
+        "${streams}/client.sent.data.multiple.streams.second.was.reset/client/nukleus",
+        "${streams}/client.sent.data.multiple.streams.second.was.reset/client/source"
+    })
+    public void shouldReceiveClientSentDataWithMultipleStreamsSecondWasReset() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
         "${streams}/client.sent.data.then.end/client/nukleus",
         "${streams}/client.sent.data.then.end/client/source"
     })

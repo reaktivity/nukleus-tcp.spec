@@ -72,7 +72,7 @@ write [0x0d] "client data 2"
 write [0x00]
 write flush
 
-read read [0x40 0x00 0x00 0x01]
+read [0x40 0x00 0x00 0x01]
 read ${newSourceOutputId2}
 read notify SECOND_STREAM_RESET_RECEIVED
 
