@@ -38,7 +38,7 @@ public class ServerIT
     private final NukleusRule nukleus = new NukleusRule()
         .directory("target/nukleus-itests")
         .streams("target", "tcp#any")
-        .streams("tcp", "target");
+        .streams("tcp", "target#partition");
 
     @Rule
     public final TestRule chain = outerRule(nukleus).around(k3po).around(timeout);

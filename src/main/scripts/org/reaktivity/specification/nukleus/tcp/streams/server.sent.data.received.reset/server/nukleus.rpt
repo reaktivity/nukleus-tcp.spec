@@ -19,7 +19,7 @@ property newTargetInputRef ${nuklei:newReferenceId()} # external scope
 property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024 * 1024, 64 * 1024)}
 
 property targetInput ${nuklei.streams("target", "tcp#any")}
-property targetOutputEst ${nuklei.streams("tcp", "target")}
+property targetOutputEst ${nuklei.streams("tcp", "target#partition")}
 
 property newTargetInputIdReset ${nuklei:newStreamId()}
 property newCorrelationIdReset ${nuklei:newCorrelationId()}
