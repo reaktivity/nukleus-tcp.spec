@@ -44,6 +44,7 @@ read [0..4]
 write [0x00 0x00 0x00 0x03]
 write ${newSourceOutputId}
 write [0x00]
+write flush
 
 close
 closed

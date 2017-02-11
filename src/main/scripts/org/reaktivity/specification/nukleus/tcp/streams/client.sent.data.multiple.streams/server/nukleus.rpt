@@ -21,8 +21,10 @@ property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024
 property targetInput ${nuklei.streams("target", "tcp#any")}
 property targetOutputEst ${nuklei.streams("tcp", "target")}
 
-property newTargetInputId ${nuklei:newStreamId()}
-property newCorrelationId ${nuklei:newCorrelationId()}
+property newTargetInputId1 ${nuklei:newStreamId()}
+property newTargetInputId2 ${nuklei:newStreamId()}
+property newCorrelationId1 ${nuklei:newCorrelationId()}
+property newCorrelationId2 ${nuklei:newCorrelationId()}
 
 connect await ROUTED_INPUT
         agrona://stream/bidirectional
@@ -30,10 +32,11 @@ connect await ROUTED_INPUT
         option writer ${agrona:oneToOneWriter(targetInput.buffer)}
 connected
 
+# Stream 1 BEGIN
 write [0x00 0x00 0x00 0x01]
-write ${newTargetInputId}
+write ${newTargetInputId1}
 write ${newTargetInputRef}
-write ${newCorrelationId}
+write ${newCorrelationId1}
 write [0x10]
 write [0x01] [0x04] [0x7f 0x00 0x00 0x01]
 write [0x1f 0x90]
@@ -41,12 +44,35 @@ write [0x01] [0x04] [0x7f 0x00 0x00 0x01]
 write [0x9f 0x90]
 write flush
 
+# Stream 2 BEGIN
+write [0x00 0x00 0x00 0x01]
+write ${newTargetInputId2}
+write ${newTargetInputRef}
+write ${newCorrelationId2}
+write [0x10]
+write [0x01] [0x04] [0x7f 0x00 0x00 0x01]
+write [0x1f 0x90]
+write [0x01] [0x04] [0x7f 0x00 0x00 0x01]
+write [0x9f 0x91]
+write flush
+
 read [0x40 0x00 0x00 0x02]
-read ${newTargetInputId}
+read ${newTargetInputId1}
 read [0..4]
 
-write [0x00 0x00 0x00 0x03]
-write ${newTargetInputId}
+write [0x00 0x00 0x00 0x02]
+write ${newTargetInputId1}
+write [0x0d] "client data 1"
+write [0x00]
+write flush
+
+read [0x40 0x00 0x00 0x02]
+read ${newTargetInputId2}
+read [0..4]
+
+write [0x00 0x00 0x00 0x02]
+write ${newTargetInputId2}
+write [0x0d] "client data 2"
 write [0x00]
 write flush
 
@@ -60,9 +86,15 @@ connect await ROUTED_INPUT
 connected
 
 read [0x00 0x00 0x00 0x01]
-read ([0..8]:targetOutputEstId)
+read ([0..8]:targetOutputEstId1)
 read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
-read ${newCorrelationId}
+read ${newCorrelationId1}
+read [0x00]
+
+read [0x00 0x00 0x00 0x01]
+read ([0..8]:targetOutputEstId2)
+read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
+read ${newCorrelationId2}
 read [0x00]
 
 close

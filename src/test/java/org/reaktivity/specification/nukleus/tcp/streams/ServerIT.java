@@ -83,6 +83,54 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
+        "${streams}/server.sent.data.multiple.frames.partial.writes/server/nukleus",
+        "${streams}/server.sent.data.multiple.frames.partial.writes/server/target"
+    })
+    public void shouldReceiveServerSentDataWithMultipleFramesWithPartialWrites() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streams}/server.sent.data.multiple.streams/server/nukleus",
+        "${streams}/server.sent.data.multiple.streams/server/target"
+    })
+    public void shouldReceiveServerSentDataWithMultipleStreams() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streams}/server.sent.data.multiple.streams.second.was.reset/server/nukleus",
+        "${streams}/server.sent.data.multiple.streams.second.was.reset/server/target"
+    })
+    public void shouldReceiveServerSentDataWithMultipleStreamsSecondWasReset() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streams}/server.sent.data.then.end/server/nukleus",
+        "${streams}/server.sent.data.then.end/server/target"
+    })
+    public void shouldReceiveServerSentDataAndEnd() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
         "${streams}/client.sent.data/server/nukleus",
         "${streams}/client.sent.data/server/target"
     })
@@ -99,6 +147,30 @@ public class ServerIT
         "${streams}/client.sent.data.multiple.frames/server/target"
     })
     public void shouldReceiveClientSentDataWithMultipleFrames() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streams}/client.sent.data.multiple.streams/server/nukleus",
+        "${streams}/client.sent.data.multiple.streams/server/target"
+    })
+    public void shouldReceiveClientSentDataWithMultipleStreams() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streams}/client.sent.data.then.end/server/nukleus",
+        "${streams}/client.sent.data.then.end/server/target"
+    })
+    public void shouldReceiveClientSentDataAndEnd() throws Exception
     {
         k3po.finish();
     }
@@ -135,6 +207,30 @@ public class ServerIT
         "${streams}/client.close/server/target"
     })
     public void shouldInitiateClientClose() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streams}/server.sent.data.after.end/server/nukleus",
+        "${streams}/server.sent.data.after.end/server/target"
+    })
+    public void shouldResetServerSentDataAfterClose() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streams}/server.sent.data.received.reset/server/nukleus",
+        "${streams}/server.sent.data.received.reset/server/target"
+    })
+    public void shouldResetServerSentDataExceedingWindow() throws Exception
     {
         k3po.finish();
     }

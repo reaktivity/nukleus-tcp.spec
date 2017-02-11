@@ -21,8 +21,10 @@ property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024
 property sourceOutput ${nuklei.streams("tcp", "source")}
 property sourceInputEst ${nuklei.streams("source", "tcp#any")}
 
-property newSourceOutputId ${nuklei:newStreamId()}
-property newCorrelationId ${nuklei:newCorrelationId()}
+property newSourceOutputId1 ${nuklei:newStreamId()}
+property newSourceOutputId2 ${nuklei:newStreamId()}
+property newCorrelationId1 ${nuklei:newCorrelationId()}
+property newCorrelationId2 ${nuklei:newCorrelationId()}
 
 connect await ROUTED_OUTPUT
         agrona://stream/bidirectional
@@ -30,39 +32,48 @@ connect await ROUTED_OUTPUT
         option writer ${agrona:oneToOneWriter(sourceOutput.buffer)}
 connected
 
+# Stream 1 BEGIN
 write [0x00 0x00 0x00 0x01]
-write ${newSourceOutputId}
+write ${newSourceOutputId1}
 write ${newSourceOutputRef}
-write ${newCorrelationId}
+write ${newCorrelationId1}
 write [0x00]
 write flush
 
 read [0x40 0x00 0x00 0x02]
-read ${newSourceOutputId}
+read ${newSourceOutputId1}
+read [0..4]
+
+# Stream 2 BEGIN
+write [0x00 0x00 0x00 0x01]
+write ${newSourceOutputId2}
+write ${newSourceOutputRef}
+write ${newCorrelationId2}
+write [0x00]
+write flush
+
+read [0x40 0x00 0x00 0x02]
+read ${newSourceOutputId2}
 read [0..4]
 
 write [0x00 0x00 0x00 0x02]
-write ${newSourceOutputId}
+write ${newSourceOutputId1}
 write [0x0d] "client data 1"
 write [0x00]
 write flush
 
 read [0x40 0x00 0x00 0x02]
-read ${newSourceOutputId}
+read ${newSourceOutputId1}
 read [0..4]
 
 write [0x00 0x00 0x00 0x02]
-write ${newSourceOutputId}
+write ${newSourceOutputId2}
 write [0x0d] "client data 2"
 write [0x00]
 write flush
 
 read [0x40 0x00 0x00 0x02]
-read ${newSourceOutputId}
-read [0..4]
-
-close
-closed
+read ${newSourceOutputId2}
 
 connect await ROUTED_INPUT
         agrona://stream/bidirectional
@@ -71,12 +82,20 @@ connect await ROUTED_INPUT
 connected
 
 read [0x00 0x00 0x00 0x01]
-read ([0..8]:sourceInputEstId)
+read ([0..8]:sourceInputEstId1)
 read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
-read ([0..8]:correlationId)
+read ([0..8]:correlationId1)
 read [0x10]
 read ([0..8]:localAddress)
-read ([0..8]:remoteAddress)
+read ([0..8]:remoteAddress1)
+
+read [0x00 0x00 0x00 0x01]
+read ([0..8]:sourceInputEstId2)
+read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
+read ([0..8]:correlationId2)
+read [0x10]
+read ([0..8]:localAddress)
+read ([0..8]:remoteAddress2)
 
 close
 closed

@@ -39,7 +39,7 @@ write flush
 
 read [0x40 0x00 0x00 0x02]
 read ${newSourceOutputId}
-read [0..4]
+read [0x0F 0x00 0x00 0x00] # TODO: native byte order
 
 write [0x00 0x00 0x00 0x02]
 write ${newSourceOutputId}
@@ -49,20 +49,25 @@ write flush
 
 read [0x40 0x00 0x00 0x02]
 read ${newSourceOutputId}
-read [0..4]
+read [0x05 0x00 0x00 0x00] # Only 5 bytes of the 13 were written TODO: native byte order
 
 write [0x00 0x00 0x00 0x02]
 write ${newSourceOutputId}
-write [0x0d] "client data 2"
+write [0x07] "client "
 write [0x00]
 write flush
 
+write notify SECOND_WRITE_COMPLETED
+
 read [0x40 0x00 0x00 0x02]
 read ${newSourceOutputId}
-read [0..4]
+read [0x0F 0x00 0x00 0x00] # TODO: native byte order
 
-close
-closed
+write [0x00 0x00 0x00 0x02]
+write ${newSourceOutputId}
+write [0x06] "data 2"
+write [0x00]
+write flush
 
 connect await ROUTED_INPUT
         agrona://stream/bidirectional
