@@ -37,7 +37,7 @@ public class ClientIT
 
     private final NukleusRule nukleus = new NukleusRule()
         .directory("target/nukleus-itests")
-        .streams("tcp", "source")
+        .streams("tcp", "source#partition")
         .streams("source", "tcp#any");
 
     @Rule
