@@ -21,8 +21,8 @@ property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024
 property targetInput ${nuklei.streams("target", "tcp#any")}
 property targetOutputEst ${nuklei.streams("tcp", "target")}
 
-property newTargetInputId ${nuklei:newStreamId()}
-property newCorrelationId ${nuklei:newCorrelationId()}
+property newTargetInputIdReset ${nuklei:newStreamId()}
+property newCorrelationIdReset ${nuklei:newCorrelationId()}
 
 connect await ROUTED_INPUT
         agrona://stream/bidirectional
@@ -31,9 +31,9 @@ connect await ROUTED_INPUT
 connected
 
 write [0x00 0x00 0x00 0x01]
-write ${newTargetInputId}
+write ${newTargetInputIdReset}
 write ${newTargetInputRef}
-write ${newCorrelationId}
+write ${newCorrelationIdReset}
 write [0x10]
 write [0x01] [0x04] [0x7f 0x00 0x00 0x01]
 write [0x1f 0x90]
@@ -42,13 +42,8 @@ write [0x9f 0x90]
 write flush
 
 read [0x40 0x00 0x00 0x02]
-read ${newTargetInputId}
+read ${newTargetInputIdReset}
 read [0..4]
-
-write [0x00 0x00 0x00 0x03]
-write ${newTargetInputId}
-write [0x00]
-write flush
 
 close
 closed
@@ -60,10 +55,24 @@ connect await ROUTED_INPUT
 connected
 
 read [0x00 0x00 0x00 0x01]
-read ([0..8]:targetOutputEstId)
+read ([0..8]:targetOutputEstIdReset)
 read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
-read ${newCorrelationId}
+read ${newCorrelationIdReset}
 read [0x00]
+
+write [0x40 0x00 0x00 0x02]
+write ${targetOutputEstIdReset}
+write [0x00 0x02 0x00 0x00]
+write flush
+
+read [0x00 0x00 0x00 0x02]
+read ${targetOutputEstIdReset}
+read [0x19] "server data causing reset"
+read [0x00]
+
+write [0x40 0x00 0x00 0x01]
+write ${targetOutputEstIdReset}
+write flush
 
 close
 closed

@@ -19,7 +19,7 @@ property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024
 property targetInput ${nuklei.streams("target", "tcp#any")}
 property targetOutputEst ${nuklei.streams("tcp", "target")}
 
-property newTargetOutputEstId ${nuklei:newStreamId()}
+property newTargetOutputEstIdReset ${nuklei:newStreamId()}
 
 connect await ROUTED_INPUT
         agrona://stream/bidirectional
@@ -28,19 +28,22 @@ connect await ROUTED_INPUT
 connected
 
 read [0x00 0x00 0x00 0x01]
-read ([0..8]:targetInputId)
-read ([0..8]:targetInputRef)
-read ([0..8]:correlationId)
+read ([0..8]:targetInputIdReset)
+read ([0..8]:targetInputRefReset)
+read ([0..8]:correlationIdReset)
 read [0x10]
-read ([0..8]:localAddress)
-read ([0..8]:remoteAddress)
+read ([0..8]:localAddressReset)
+read ([0..8]:remoteAddressReset)
 
 write [0x40 0x00 0x00 0x02]
-write ${targetInputId}
+write ${targetInputIdReset}
 write [0x00 0x02 0x00 0x00]
 write flush
 
-write notify WINDOW_UPDATED
+write notify WINDOW_UPDATED_RESET
+
+close
+closed
 
 connect await ROUTED_INPUT
         agrona://stream/bidirectional
@@ -48,25 +51,27 @@ connect await ROUTED_INPUT
         option writer ${agrona:oneToOneWriter(targetOutputEst.buffer)}
 connected
 
-write await WINDOW_UPDATED
+write await WINDOW_UPDATED_RESET
 
 write [0x00 0x00 0x00 0x01]
-write ${newTargetOutputEstId}
+write ${newTargetOutputEstIdReset}
 write [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
-write ${correlationId}
+write ${correlationIdReset}
 write [0x00]
 write flush
 
 read [0x40 0x00 0x00 0x02]
-read ${newTargetOutputEstId}
+read ${newTargetOutputEstIdReset}
 read [0..4]
 
 write [0x00 0x00 0x00 0x02]
-write ${newTargetOutputEstId}
-write [0x0b] "server data"
+write ${newTargetOutputEstIdReset}
+write [0x19] "server data causing reset"
 write [0x00]
 write flush
 
-read [0x40 0x00 0x00 0x02]
-read ${newTargetOutputEstId}
-read [0..4] # TODO: read int 13 option byteorder native
+read [0x40 0x00 0x00 0x01]
+read ${newTargetOutputEstIdReset}
+
+close
+closed

@@ -21,8 +21,10 @@ property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024
 property sourceOutput ${nuklei.streams("tcp", "source")}
 property sourceInputEst ${nuklei.streams("source", "tcp#any")}
 
-property newSourceOutputId ${nuklei:newStreamId()}
-property newCorrelationId ${nuklei:newCorrelationId()}
+property newSourceOutputId1 ${nuklei:newStreamId()}
+property newSourceOutputId2 ${nuklei:newStreamId()}
+property newCorrelationId1 ${nuklei:newCorrelationId()}
+property newCorrelationId2 ${nuklei:newCorrelationId()}
 
 connect await ROUTED_OUTPUT
         agrona://stream/bidirectional
@@ -31,34 +33,25 @@ connect await ROUTED_OUTPUT
 connected
 
 write [0x00 0x00 0x00 0x01]
-write ${newSourceOutputId}
+write ${newSourceOutputId1}
 write ${newSourceOutputRef}
-write ${newCorrelationId}
+write ${newCorrelationId1}
 write [0x00]
 write flush
 
 read [0x40 0x00 0x00 0x02]
-read ${newSourceOutputId}
+read ${newSourceOutputId1}
 read [0..4]
 
-write [0x00 0x00 0x00 0x02]
-write ${newSourceOutputId}
-write [0x0d] "client data 1"
-write [0x00]
-write flush
-
-write [0x00 0x00 0x00 0x02]
-write ${newSourceOutputId}
-write [0x0d] "client data 2"
+write [0x00 0x00 0x00 0x01]
+write ${newSourceOutputId2}
+write ${newSourceOutputRef}
+write ${newCorrelationId2}
 write [0x00]
 write flush
 
 read [0x40 0x00 0x00 0x02]
-read ${newSourceOutputId}
-read [0..4]
-
-read [0x40 0x00 0x00 0x02]
-read ${newSourceOutputId}
+read ${newSourceOutputId2}
 read [0..4]
 
 close
@@ -70,38 +63,41 @@ connect await ROUTED_INPUT
         option writer ${agrona:oneToOneWriter(sourceInputEst.throttle)}
 connected
 
+# Stream 1 BEGIN
 read [0x00 0x00 0x00 0x01]
-read ([0..8]:sourceInputEstId)
+read ([0..8]:sourceInputEstId1)
 read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
-read ([0..8]:correlationId)
+read ([0..8]:correlationId1)
 read [0x10]
 read ([0..8]:localAddress)
-read ([0..8]:remoteAddress)
+read ([0..8]:remoteAddress1)
+
+# Stream 2 BEGIN
+read [0x00 0x00 0x00 0x01]
+read ([0..8]:sourceInputEstId2)
+read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
+read ([0..8]:correlationId2)
+read [0x10]
+read ([0..8]:localAddress)
+read ([0..8]:remoteAddress2)
 
 write [0x40 0x00 0x00 0x02]
-write ${sourceInputEstId}
-write [0x0d 0x00 0x00 0x00] # TODO: native int
+write ${sourceInputEstId1}
+write [0x00 0x02 0x00 0x00]
 write flush
 
 read [0x00 0x00 0x00 0x02]
-read ${sourceInputEstId}
+read ${sourceInputEstId1}
 read [0x0d] "server data 1"
 read [0x00]
 
 write [0x40 0x00 0x00 0x02]
-write ${sourceInputEstId}
-write [0x0d 0x00 0x00 0x00] # TODO: native int
+write ${sourceInputEstId2}
+write [0x00 0x02 0x00 0x00]
 write flush
 
 read [0x00 0x00 0x00 0x02]
-read ${sourceInputEstId}
+read ${sourceInputEstId2}
 read [0x0d] "server data 2"
 read [0x00]
 
-write [0x40 0x00 0x00 0x02]
-write ${sourceInputEstId}
-write [0x0d 0x00 0x00 0x00] # TODO: native int
-write flush
-
-close
-closed

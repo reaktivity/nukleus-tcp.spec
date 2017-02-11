@@ -42,6 +42,9 @@ write flush
 
 write notify WINDOW_UPDATED
 
+close
+closed
+
 connect await ROUTED_INPUT
         agrona://stream/bidirectional
         option reader ${agrona:oneToOneReader(targetOutputEst.throttle)}
@@ -70,3 +73,11 @@ write flush
 read [0x40 0x00 0x00 0x02]
 read ${newTargetOutputEstId}
 read [0..4] # TODO: read int 13 option byteorder native
+
+write [0x00 0x00 0x00 0x03]
+write ${newTargetOutputEstId}
+write [0x00]
+write flush
+
+close
+closed
