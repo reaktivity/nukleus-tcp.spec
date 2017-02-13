@@ -18,7 +18,7 @@ property newSourceOutputNewRef ${nuklei:newReferenceId()} # external scope
 
 property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024 * 1024, 64 * 1024)}
 
-property sourceOutput ${nuklei.streams("tcp", "source")}
+property sourceOutput ${nuklei.streams("tcp", "source#partition")}
 property sourceInputEst ${nuklei.streams("source", "tcp#any")}
 
 property newSourceOutputId ${nuklei:newStreamId()}
@@ -67,6 +67,8 @@ read [0x00 0x00 0x00 0x02]
 read ${sourceInputEstId}
 read [0x0d] "server data 1"
 read [0x00]
+
+read notify FIRST_DATA_FRAME_RECEIVED
 
 read [0x00 0x00 0x00 0x02]
 read ${sourceInputEstId}

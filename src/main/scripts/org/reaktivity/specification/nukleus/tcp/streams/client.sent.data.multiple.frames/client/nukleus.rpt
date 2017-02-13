@@ -16,7 +16,7 @@
 
 property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024 * 1024, 64 * 1024)}
 
-property sourceOutput ${nuklei.streams("tcp", "source")}
+property sourceOutput ${nuklei.streams("tcp", "source#partition")}
 property sourceInputEst ${nuklei.streams("source", "tcp#any")}
 
 property newSourceInputEstId ${nuklei:newStreamId()}
@@ -44,6 +44,11 @@ read [0x00 0x00 0x00 0x02]
 read ${sourceOutputId}
 read [0x0d] "client data 1"
 read [0x00]
+
+write [0x40 0x00 0x00 0x02]
+write ${sourceOutputId}
+write [0x0d 0x00 0x00 0x00]
+write flush
 
 read [0x00 0x00 0x00 0x02]
 read ${sourceOutputId}

@@ -37,7 +37,7 @@ public class ClientIT
 
     private final NukleusRule nukleus = new NukleusRule()
         .directory("target/nukleus-itests")
-        .streams("tcp", "source")
+        .streams("tcp", "source#partition")
         .streams("source", "tcp#any");
 
     @Rule
@@ -92,6 +92,36 @@ public class ClientIT
     @Specification({
         "${route}/output/new/nukleus",
         "${route}/output/new/controller",
+        "${streams}/server.sent.data.multiple.streams/client/nukleus",
+        "${streams}/server.sent.data.multiple.streams/client/source"
+    })
+    public void shouldReceiveServerSentDataWithMultipleStreams() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
+        "${streams}/server.sent.data.then.end/client/nukleus",
+        "${streams}/server.sent.data.then.end/client/source"
+    })
+    public void shouldReceiveServerSentDataAndEnd() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
         "${streams}/client.sent.data/client/nukleus",
         "${streams}/client.sent.data/client/source"
     })
@@ -111,6 +141,66 @@ public class ClientIT
         "${streams}/client.sent.data.multiple.frames/client/source"
     })
     public void shouldReceiveClientSentDataWithMultipleFrames() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
+        "${streams}/client.sent.data.multiple.frames.partial.writes/client/nukleus",
+        "${streams}/client.sent.data.multiple.frames.partial.writes/client/source"
+    })
+    public void shouldReceiveClientSentDataWithMultipleFramesWithPartialWrites() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
+        "${streams}/client.sent.data.multiple.streams/client/nukleus",
+        "${streams}/client.sent.data.multiple.streams/client/source"
+    })
+    public void shouldReceiveClientSentDataWithMultipleStreams() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
+        "${streams}/client.sent.data.multiple.streams.second.was.reset/client/nukleus",
+        "${streams}/client.sent.data.multiple.streams.second.was.reset/client/source"
+    })
+    public void shouldReceiveClientSentDataWithMultipleStreamsSecondWasReset() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
+        "${streams}/client.sent.data.then.end/client/nukleus",
+        "${streams}/client.sent.data.then.end/client/source"
+    })
+    public void shouldReceiveClientSentDataAndEnd() throws Exception
     {
         k3po.start();
         k3po.awaitBarrier("ROUTED_OUTPUT");
@@ -156,6 +246,36 @@ public class ClientIT
         "${streams}/client.close/client/source"
     })
     public void shouldInitiateClientClose() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
+        "${streams}/client.sent.data.after.end/client/nukleus",
+        "${streams}/client.sent.data.after.end/client/source"
+    })
+    public void shouldResetClientSentDataAfterClose() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
+        "${streams}/client.sent.data.received.reset/client/nukleus",
+        "${streams}/client.sent.data.received.reset/client/source"
+    })
+    public void shouldResetClientSentDataExceedingWindow() throws Exception
     {
         k3po.start();
         k3po.awaitBarrier("ROUTED_OUTPUT");
