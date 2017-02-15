@@ -56,6 +56,8 @@ write ${newSourceOutputId}
 write [0x00]
 write flush
 
+write notify END_WRITTEN
+
 close
 closed
 

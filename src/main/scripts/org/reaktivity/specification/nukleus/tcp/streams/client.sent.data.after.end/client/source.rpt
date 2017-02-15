@@ -65,6 +65,8 @@ write flush
 read [0x40 0x00 0x00 0x01]
 read ${newSourceOutputId}
 
+read notify RESET_RECEIVED
+
 close
 closed
 
