@@ -77,6 +77,21 @@ public class ClientIT
     @Specification({
         "${route}/output/new/nukleus",
         "${route}/output/new/controller",
+        "${streams}/server.sent.data.exceeding.window/client/nukleus",
+        "${streams}/server.sent.data.exceeding.window/client/source"
+    })
+    public void shouldReceiveServerSentDataInTwoChunks() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
         "${streams}/server.sent.data.multiple.frames/client/nukleus",
         "${streams}/server.sent.data.multiple.frames/client/source"
     })
