@@ -143,10 +143,10 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
-        "${streams}/client.sent.data.exceeding.window/server/nukleus",
-        "${streams}/client.sent.data.exceeding.window/server/target"
+        "${streams}/client.sent.data.overflow/server/nukleus",
+        "${streams}/client.sent.data.overflow/server/target"
     })
-    public void shouldReceiveClientSentDataInTwoChunks() throws Exception
+    public void shouldReceiveServerSentDataWithFlowControl() throws Exception
     {
         k3po.finish();
     }

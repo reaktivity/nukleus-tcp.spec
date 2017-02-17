@@ -77,10 +77,10 @@ public class ClientIT
     @Specification({
         "${route}/output/new/nukleus",
         "${route}/output/new/controller",
-        "${streams}/server.sent.data.exceeding.window/client/nukleus",
-        "${streams}/server.sent.data.exceeding.window/client/source"
+        "${streams}/server.sent.data.overflow/client/nukleus",
+        "${streams}/server.sent.data.overflow/client/source"
     })
-    public void shouldReceiveServerSentDataInTwoChunks() throws Exception
+    public void shouldReceiveServerSentDataWithFlowControl() throws Exception
     {
         k3po.start();
         k3po.awaitBarrier("ROUTED_OUTPUT");
