@@ -179,10 +179,10 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
-        "${streams}/echo.data/server/nukleus",
-        "${streams}/echo.data/server/target"
+        "${streams}/client.and.server.sent.data.multiple.frames/server/nukleus",
+        "${streams}/client.and.server.sent.data.multiple.frames/server/target"
     })
-    public void shouldEchoData() throws Exception
+    public void shouldSendAndReceiveData() throws Exception
     {
         k3po.finish();
     }

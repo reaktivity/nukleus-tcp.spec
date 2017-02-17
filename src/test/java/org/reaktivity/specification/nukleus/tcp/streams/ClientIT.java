@@ -212,10 +212,10 @@ public class ClientIT
     @Specification({
         "${route}/output/new/nukleus",
         "${route}/output/new/controller",
-        "${streams}/echo.data/client/nukleus",
-        "${streams}/echo.data/client/source"
+        "${streams}/client.and.server.sent.data.multiple.frames/client/nukleus",
+        "${streams}/client.and.server.sent.data.multiple.frames/client/source"
     })
-    public void shouldEchoData() throws Exception
+    public void shouldSendAndReceiveData() throws Exception
     {
         k3po.start();
         k3po.awaitBarrier("ROUTED_OUTPUT");
