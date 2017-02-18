@@ -143,8 +143,8 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
-        "${streams}/client.sent.data.overflow/server/nukleus",
-        "${streams}/client.sent.data.overflow/server/target"
+        "${streams}/client.sent.data.flow.control/server/nukleus",
+        "${streams}/client.sent.data.flow.control/server/target"
     })
     public void shouldReceiveServerSentDataWithFlowControl() throws Exception
     {
