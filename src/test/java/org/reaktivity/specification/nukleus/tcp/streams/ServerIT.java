@@ -143,6 +143,18 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
+        "${streams}/client.sent.data.flow.control/server/nukleus",
+        "${streams}/client.sent.data.flow.control/server/target"
+    })
+    public void shouldReceiveServerSentDataWithFlowControl() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
         "${streams}/client.sent.data.multiple.frames/server/nukleus",
         "${streams}/client.sent.data.multiple.frames/server/target"
     })
@@ -179,10 +191,10 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
-        "${streams}/echo.data/server/nukleus",
-        "${streams}/echo.data/server/target"
+        "${streams}/client.and.server.sent.data.multiple.frames/server/nukleus",
+        "${streams}/client.and.server.sent.data.multiple.frames/server/target"
     })
-    public void shouldEchoData() throws Exception
+    public void shouldSendAndReceiveData() throws Exception
     {
         k3po.finish();
     }
