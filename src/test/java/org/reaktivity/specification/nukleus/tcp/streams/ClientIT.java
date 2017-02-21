@@ -268,7 +268,6 @@ public class ClientIT
         k3po.finish();
     }
 
-
     @Test
     @Specification({
         "${route}/output/new/nukleus",
