@@ -80,8 +80,6 @@ write [0x07] "server "
 write [0x00]
 write flush
 
-write notify SECOND_WRITE_COMPLETED
-
 read [0x40 0x00 0x00 0x02]
 read ${newTargetOutputEstId}
 read [0x0F 0x00 0x00 0x00] # TODO: native byte order
