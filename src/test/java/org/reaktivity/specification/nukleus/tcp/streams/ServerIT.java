@@ -227,6 +227,18 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
+        "${streams}/server.close.and.reset/server/nukleus",
+        "${streams}/server.close.and.reset/server/target"
+    })
+    public void shouldInitiateServerCloseWithInputReset() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
         "${streams}/client.close/server/nukleus",
         "${streams}/client.close/server/target"
     })
