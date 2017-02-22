@@ -62,6 +62,20 @@ public class ClientIT
     @Specification({
         "${route}/output/new/nukleus",
         "${route}/output/new/controller",
+        "${streams}/connection.failed/client/nukleus",
+        "${streams}/connection.failed/client/source"
+    })
+    public void connectionFailed() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/output/new/nukleus",
+        "${route}/output/new/controller",
         "${streams}/server.sent.data/client/nukleus",
         "${streams}/server.sent.data/client/source"
     })
