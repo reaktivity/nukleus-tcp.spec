@@ -59,6 +59,18 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
+        "${streams}/connection.failed/server/nukleus",
+        "${streams}/connection.failed/server/target"
+    })
+    public void connectionFailed() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
         "${streams}/server.sent.data/server/nukleus",
         "${streams}/server.sent.data/server/target"
     })
@@ -207,6 +219,18 @@ public class ServerIT
         "${streams}/server.close/server/target"
     })
     public void shouldInitiateServerClose() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streams}/server.close.and.reset/server/nukleus",
+        "${streams}/server.close.and.reset/server/target"
+    })
+    public void shouldInitiateServerCloseWithInputReset() throws Exception
     {
         k3po.finish();
     }
