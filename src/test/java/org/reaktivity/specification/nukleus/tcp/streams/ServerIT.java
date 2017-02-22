@@ -227,6 +227,30 @@ public class ServerIT
     @Specification({
         "${route}/input/new/nukleus",
         "${route}/input/new/controller",
+        "${streams}/client.then.server.sent.end/server/nukleus",
+        "${streams}/client.then.server.sent.end/server/target"
+    })
+    public void shouldReceiveEndAndSendEndInReply() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
+        "${streams}/server.then.client.sent.end/server/nukleus",
+        "${streams}/server.then.client.sent.end/server/target"
+    })
+    public void shouldSendEndAndReceiveEndInReply() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${route}/input/new/nukleus",
+        "${route}/input/new/controller",
         "${streams}/server.sent.end.then.received.data/server/nukleus",
         "${streams}/server.sent.end.then.received.data/server/target"
     })
