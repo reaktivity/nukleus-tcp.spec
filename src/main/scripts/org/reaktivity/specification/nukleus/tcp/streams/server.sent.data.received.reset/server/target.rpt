@@ -31,9 +31,8 @@ read [0x00 0x00 0x00 0x01]
 read ([0..8]:targetInputIdReset)
 read ([0..8]:targetInputRefReset)
 read ([0..8]:correlationIdReset)
-read [0x10]
-read ([0..8]:localAddressReset)
-read ([0..8]:remoteAddressReset)
+read ([0..7]:localAddressReset)
+read ([0..7]:remoteAddressReset)
 
 write [0x40 0x00 0x00 0x02]
 write ${targetInputIdReset}
@@ -57,7 +56,6 @@ write [0x00 0x00 0x00 0x01]
 write ${newTargetOutputEstIdReset}
 write [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 write ${correlationIdReset}
-write [0x00]
 write flush
 
 read [0x40 0x00 0x00 0x02]
@@ -66,8 +64,8 @@ read [0..4]
 
 write [0x00 0x00 0x00 0x02]
 write ${newTargetOutputEstIdReset}
-write [0x19] "server data causing reset"
-write [0x00]
+write [0x00 0x19]
+write "server data causing reset"
 write flush
 
 read [0x40 0x00 0x00 0x01]

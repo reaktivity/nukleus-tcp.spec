@@ -32,9 +32,8 @@ read [0x00 0x00 0x00 0x01]
 read ([0..8]:targetInputId1)
 read ([0..8]:targetInputRef)
 read ([0..8]:correlationId1)
-read [0x10]
-read ([0..8]:localAddress)
-read ([0..8]:remoteAddress1)
+read ([0..7]:localAddress)
+read ([0..7]:remoteAddress1)
 
 write [0x40 0x00 0x00 0x02]
 write ${targetInputId1}
@@ -47,9 +46,8 @@ read [0x00 0x00 0x00 0x01]
 read ([0..8]:targetInputId2)
 read ([0..8]:targetInputRef)
 read ([0..8]:correlationId2)
-read [0x10]
-read ([0..8]:localAddress)
-read ([0..8]:remoteAddress2)
+read ([0..7]:localAddress)
+read ([0..7]:remoteAddress2)
 
 write [0x40 0x00 0x00 0x02]
 write ${targetInputId2}
@@ -72,7 +70,6 @@ write [0x00 0x00 0x00 0x01]
 write ${newTargetOutputEstId1}
 write [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 write ${correlationId1}
-write [0x00]
 write flush
 
 read [0x40 0x00 0x00 0x02]
@@ -86,7 +83,6 @@ write [0x00 0x00 0x00 0x01]
 write ${newTargetOutputEstId2}
 write [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 write ${correlationId2}
-write [0x00]
 write flush
 
 read [0x40 0x00 0x00 0x02]
@@ -95,8 +91,8 @@ read [0..4]
 
 write [0x00 0x00 0x00 0x02]
 write ${newTargetOutputEstId1}
-write [0x0d] "server data 1"
-write [0x00]
+write [0x00 0x0d]
+write "server data 1"
 write flush
 
 read [0x40 0x00 0x00 0x02]
@@ -105,8 +101,8 @@ read [0..4] # TODO: read int 13 option byteorder native
 
 write [0x00 0x00 0x00 0x02]
 write ${newTargetOutputEstId2}
-write [0x0d] "server data 2"
-write [0x00]
+write [0x00 0x0d]
+write "server data 2"
 write flush
 
 read [0x40 0x00 0x00 0x02]

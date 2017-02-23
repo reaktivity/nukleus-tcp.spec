@@ -34,7 +34,6 @@ write [0x00 0x00 0x00 0x01]
 write ${newSourceOutputId}
 write ${newSourceOutputRef}
 write ${newCorrelationId}
-write [0x00]
 write flush
 
 read [0x40 0x00 0x00 0x02]
@@ -43,8 +42,8 @@ read [0..4]
 
 write [0x00 0x00 0x00 0x02]
 write ${newSourceOutputId}
-write [0x26] "client data exceeding permitted window"
-write [0x00]
+write [0x00 0x26]
+write "client data exceeding permitted window"
 write flush
 
 read [0x40 0x00 0x00 0x01]
@@ -63,9 +62,8 @@ read [0x00 0x00 0x00 0x01]
 read ([0..8]:sourceInputEstId)
 read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 read ([0..8]:correlationId)
-read [0x10]
-read ([0..8]:localAddress)
-read ([0..8]:remoteAddress)
+read ([0..7]:localAddress)
+read ([0..7]:remoteAddress)
 
 close
 closed

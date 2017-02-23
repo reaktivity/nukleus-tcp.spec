@@ -34,7 +34,6 @@ write [0x00 0x00 0x00 0x01]
 write ${newSourceOutputId}
 write ${newSourceOutputRef}
 write ${newCorrelationId}
-write [0x00]
 write flush
 
 read [0x40 0x00 0x00 0x02]
@@ -45,7 +44,6 @@ write await END_RECEIVED
 
 write [0x00 0x00 0x00 0x03]
 write ${newSourceOutputId}
-write [0x00]
 write flush
 
 close
@@ -61,9 +59,8 @@ read [0x00 0x00 0x00 0x01]
 read ([0..8]:sourceInputEstId)
 read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 read ([0..8]:correlationId)
-read [0x10]
-read ([0..8]:localAddress)
-read ([0..8]:remoteAddress)
+read ([0..7]:localAddress)
+read ([0..7]:remoteAddress)
 
 write [0x40 0x00 0x00 0x02]
 write ${sourceInputEstId}
@@ -72,7 +69,6 @@ write flush
 
 read [0x00 0x00 0x00 0x03]
 read ${sourceInputEstId}
-read [0x00]
 
 read notify END_RECEIVED
 
