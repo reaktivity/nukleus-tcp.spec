@@ -23,9 +23,9 @@ property newSourceInputEstId1 ${nuklei:newStreamId()}
 property newSourceInputEstId2 ${nuklei:newStreamId()}
 
 connect await ROUTED_OUTPUT
-        agrona://stream/bidirectional
-        option reader ${agrona:oneToOneReader(sourceOutput.buffer)}
-        option writer ${agrona:oneToOneWriter(sourceOutput.throttle)}
+        "agrona://stream/bidirectional"
+        option agrona:reader ${agrona:oneToOneReader(sourceOutput.buffer)}
+        option agrona:writer ${agrona:oneToOneWriter(sourceOutput.throttle)}
 connected
 
 read [0x00 0x00 0x00 0x01]
@@ -56,9 +56,9 @@ close
 closed
 
 connect await ROUTED_INPUT
-        agrona://stream/bidirectional
-        option reader ${agrona:oneToOneReader(sourceInputEst.throttle)}
-        option writer ${agrona:oneToOneWriter(sourceInputEst.buffer)}
+        "agrona://stream/bidirectional"
+        option agrona:reader ${agrona:oneToOneReader(sourceInputEst.throttle)}
+        option agrona:writer ${agrona:oneToOneWriter(sourceInputEst.buffer)}
 connected
 
 write await WINDOW_ONE_UPDATED
