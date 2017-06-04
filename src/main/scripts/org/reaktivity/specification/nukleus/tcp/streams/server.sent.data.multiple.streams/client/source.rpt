@@ -14,86 +14,98 @@
 # under the License.
 #
 
-property newSourceOutputNewRef ${nuklei:newReferenceId()} # external scope
+property newClientAcceptRef ${nuklei:newReferenceId()} # external scope
 
 property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024 * 1024, 64 * 1024)}
 
-property sourceOutput ${nuklei.streams("tcp", "source#partition")}
-property sourceInputEst ${nuklei.streams("source", "tcp#any")}
+property clientAccept ${nuklei.streams("tcp", "source#partition")}
+property clientAcceptReply ${nuklei.streams("source", "tcp#any")}
 
-property newSourceOutputId1 ${nuklei:newStreamId()}
-property newSourceOutputId2 ${nuklei:newStreamId()}
+property newClientAcceptId1 ${nuklei:newStreamId()}
+property newClientAcceptId2 ${nuklei:newStreamId()}
 property newCorrelationId1 ${nuklei:newCorrelationId()}
 property newCorrelationId2 ${nuklei:newCorrelationId()}
 
-connect await ROUTED_OUTPUT
+connect await ROUTED_CLIENT
         "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:oneToOneReader(sourceOutput.throttle)}
-        option agrona:writer ${agrona:oneToOneWriter(sourceOutput.buffer)}
+        option agrona:reader ${agrona:oneToOneReader(clientAccept.throttle)}
+        option agrona:writer ${agrona:oneToOneWriter(clientAccept.buffer)}
 connected
 
 write [0x00 0x00 0x00 0x01]
-write ${newSourceOutputId1}
-write ${newSourceOutputRef}
+write ${newClientAcceptId1}
+write [0x06] "source"
+write ${newClientAcceptRef}
 write ${newCorrelationId1}
 write flush
 
 read [0x40 0x00 0x00 0x02]
-read ${newSourceOutputId1}
+read ${newClientAcceptId1}
+read [0..4]
 read [0..4]
 
 write [0x00 0x00 0x00 0x01]
-write ${newSourceOutputId2}
-write ${newSourceOutputRef}
+write ${newClientAcceptId2}
+write [0x06] "source"
+write ${newClientAcceptRef}
 write ${newCorrelationId2}
 write flush
 
 read [0x40 0x00 0x00 0x02]
-read ${newSourceOutputId2}
+read ${newClientAcceptId2}
+read [0..4]
 read [0..4]
 
 close
 closed
 
-connect await ROUTED_INPUT
+connect await ROUTED_CLIENT
         "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:oneToOneReader(sourceInputEst.buffer)}
-        option agrona:writer ${agrona:oneToOneWriter(sourceInputEst.throttle)}
+        option agrona:reader ${agrona:oneToOneReader(clientAcceptReply.buffer)}
+        option agrona:writer ${agrona:oneToOneWriter(clientAcceptReply.throttle)}
 connected
+
+read await CONNECTED_CLIENT_ONE
 
 # Stream 1 BEGIN
 read [0x00 0x00 0x00 0x01]
-read ([0..8]:sourceInputEstId1)
+read ([0..8]:clientAcceptReplyId1)
+read [0x03] "tcp"
 read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 read ([0..8]:correlationId1)
 read ([0..7]:localAddress)
 read ([0..7]:remoteAddress1)
 
+read await CONNECTED_CLIENT_TWO
+
 # Stream 2 BEGIN
 read [0x00 0x00 0x00 0x01]
-read ([0..8]:sourceInputEstId2)
+read ([0..8]:clientAcceptReplyId2)
+read [0x03] "tcp"
 read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 read ([0..8]:correlationId2)
 read ([0..7]:localAddress)
 read ([0..7]:remoteAddress2)
 
 write [0x40 0x00 0x00 0x02]
-write ${sourceInputEstId1}
+write ${clientAcceptReplyId1}
+write [0x00 0x02 0x00 0x00]
 write [0x00 0x02 0x00 0x00]
 write flush
 
 read [0x00 0x00 0x00 0x02]
-read ${sourceInputEstId1}
+read ${clientAcceptReplyId1}
 read [0x00 0x0d]
 read "server data 1"
 
 write [0x40 0x00 0x00 0x02]
-write ${sourceInputEstId2}
+write ${clientAcceptReplyId2}
+write [0x00 0x02 0x00 0x00]
 write [0x00 0x02 0x00 0x00]
 write flush
 
 read [0x00 0x00 0x00 0x02]
-read ${sourceInputEstId2}
+read ${clientAcceptReplyId2}
 read [0x00 0x0d]
 read "server data 2"
 
