@@ -14,25 +14,26 @@
 # under the License.
 #
 
-property newTargetInputRef ${nuklei:newReferenceId()} # external scope
+property newServerConnectRef ${nuklei:newReferenceId()} # external scope
 
 property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024 * 1024, 64 * 1024)}
 
-property targetInput ${nuklei.streams("target", "tcp#any")}
-property targetOutputEst ${nuklei.streams("tcp", "target#partition")}
+property serverConnect ${nuklei.streams("target", "tcp#any")}
+property serverConnectReply ${nuklei.streams("tcp", "target#partition")}
 
-property newTargetInputId ${nuklei:newStreamId()}
+property newServerConnectId ${nuklei:newStreamId()}
 property newCorrelationId ${nuklei:newCorrelationId()}
 
-connect await ROUTED_INPUT
+connect await ROUTED_SERVER
         "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:oneToOneReader(targetInput.throttle)}
-        option agrona:writer ${agrona:oneToOneWriter(targetInput.buffer)}
+        option agrona:reader ${agrona:oneToOneReader(serverConnect.throttle)}
+        option agrona:writer ${agrona:oneToOneWriter(serverConnect.buffer)}
 connected
 
 write [0x00 0x00 0x00 0x01]
-write ${newTargetInputId}
-write ${newTargetInputRef}
+write ${newServerConnectId}
+write [0x03] "tcp"
+write ${newServerConnectRef}
 write ${newCorrelationId}
 write [0x01] [0x7f 0x00 0x00 0x01]
 write [0x1f 0x90]
@@ -41,34 +42,37 @@ write [0x9f 0x90]
 write flush
 
 read [0x40 0x00 0x00 0x02]
-read ${newTargetInputId}
+read ${newServerConnectId}
+read [0..4]
 read [0..4]
 
 write [0x00 0x00 0x00 0x03]
-write ${newTargetInputId}
+write ${newServerConnectId}
 write flush
 
 close
 closed
 
-connect await ROUTED_INPUT
+connect await ROUTED_SERVER
         "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:oneToOneReader(targetOutputEst.buffer)}
-        option agrona:writer ${agrona:oneToOneWriter(targetOutputEst.throttle)}
+        option agrona:reader ${agrona:oneToOneReader(serverConnectReply.buffer)}
+        option agrona:writer ${agrona:oneToOneWriter(serverConnectReply.throttle)}
 connected
 
 read [0x00 0x00 0x00 0x01]
-read ([0..8]:targetOutputEstId)
+read ([0..8]:serverConnectReplyId)
+read [0x06] "target"
 read [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
 read ${newCorrelationId}
 
 write [0x40 0x00 0x00 0x02]
-write ${targetOutputEstId}
+write ${serverConnectReplyId}
+write [0x00 0x02 0x00 0x00]
 write [0x00 0x02 0x00 0x00]
 write flush
 
 read [0x00 0x00 0x00 0x03]
-read ${targetOutputEstId}
+read ${serverConnectReplyId}
 
 close
 closed

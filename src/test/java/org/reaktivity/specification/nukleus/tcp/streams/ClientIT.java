@@ -30,7 +30,6 @@ import org.reaktivity.specification.nukleus.NukleusRule;
 public class ClientIT
 {
     private final K3poRule k3po = new K3poRule()
-        .addScriptRoot("route", "org/reaktivity/specification/nukleus/tcp/control/route")
         .addScriptRoot("streams", "org/reaktivity/specification/nukleus/tcp/streams");
 
     private final TestRule timeout = new DisableOnDebug(new Timeout(5, SECONDS));
@@ -45,330 +44,265 @@ public class ClientIT
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/connection.established/client/nukleus",
         "${streams}/connection.established/client/source"
     })
     public void shouldEstablishConnection() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/connection.failed/client/nukleus",
         "${streams}/connection.failed/client/source"
     })
     public void connectionFailed() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/server.sent.data/client/nukleus",
         "${streams}/server.sent.data/client/source"
     })
     public void shouldReceiveServerSentData() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/server.sent.data.flow.control/client/nukleus",
         "${streams}/server.sent.data.flow.control/client/source"
     })
     public void shouldReceiveServerSentDataWithFlowControl() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/server.sent.data.multiple.frames/client/nukleus",
         "${streams}/server.sent.data.multiple.frames/client/source"
     })
     public void shouldReceiveServerSentDataWithMultipleFrames() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/server.sent.data.multiple.streams/client/nukleus",
         "${streams}/server.sent.data.multiple.streams/client/source"
     })
     public void shouldReceiveServerSentDataWithMultipleStreams() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/server.sent.data.then.end/client/nukleus",
         "${streams}/server.sent.data.then.end/client/source"
     })
     public void shouldReceiveServerSentDataAndEnd() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/client.sent.data/client/nukleus",
         "${streams}/client.sent.data/client/source"
     })
     public void shouldReceiveClientSentData() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/client.sent.data.multiple.frames/client/nukleus",
         "${streams}/client.sent.data.multiple.frames/client/source"
     })
     public void shouldReceiveClientSentDataWithMultipleFrames() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/client.sent.data.multiple.frames.partial.writes/client/nukleus",
         "${streams}/client.sent.data.multiple.frames.partial.writes/client/source"
     })
     public void shouldReceiveClientSentDataWithMultipleFramesWithPartialWrites() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/client.sent.data.multiple.streams/client/nukleus",
         "${streams}/client.sent.data.multiple.streams/client/source"
     })
     public void shouldReceiveClientSentDataWithMultipleStreams() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/client.sent.data.multiple.streams.second.was.reset/client/nukleus",
         "${streams}/client.sent.data.multiple.streams.second.was.reset/client/source"
     })
     public void shouldReceiveClientSentDataWithMultipleStreamsSecondWasReset() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/client.sent.data.then.end/client/nukleus",
         "${streams}/client.sent.data.then.end/client/source"
     })
     public void shouldReceiveClientSentDataAndEnd() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/client.and.server.sent.data.multiple.frames/client/nukleus",
         "${streams}/client.and.server.sent.data.multiple.frames/client/source"
     })
     public void shouldSendAndReceiveData() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/server.close/client/nukleus",
         "${streams}/server.close/client/source"
     })
     public void shouldInitiateServerClose() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/client.close/client/nukleus",
         "${streams}/client.close/client/source"
     })
     public void shouldInitiateClientClose() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/client.then.server.sent.end/client/nukleus",
         "${streams}/client.then.server.sent.end/client/source"
     })
     public void shouldReceiveEndAndSendEndInReply() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/server.then.client.sent.end/client/nukleus",
         "${streams}/server.then.client.sent.end/client/source"
     })
     public void shouldSendEndAndReceiveEndInReply() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/server.sent.end.then.received.data/client/nukleus",
         "${streams}/server.sent.end.then.received.data/client/source"
     })
     public void shouldWriteDataAfterReceiveEnd() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/client.sent.end.then.received.data/client/nukleus",
         "${streams}/client.sent.end.then.received.data/client/source"
     })
     public void shouldReceiveDataAfterSendingEnd() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/client.sent.data.after.end/client/nukleus",
         "${streams}/client.sent.data.after.end/client/source"
     })
     public void shouldResetClientSentDataAfterClose() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "${route}/output/new/nukleus",
-        "${route}/output/new/controller",
         "${streams}/client.sent.data.received.reset/client/nukleus",
         "${streams}/client.sent.data.received.reset/client/source"
     })
     public void shouldResetClientSentDataExceedingWindow() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_OUTPUT");
-        k3po.notifyBarrier("ROUTED_INPUT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 }

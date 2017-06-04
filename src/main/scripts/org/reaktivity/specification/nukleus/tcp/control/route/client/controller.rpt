@@ -14,31 +14,30 @@
 # under the License.
 #
 
-property newTargetInputRef ${nuklei:newReferenceId()} # external scope
+property nukleiRG010101C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property nukleiUR020000C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
+property controlRG010101C ${nukleiRG010101C.control("tcp")}
 
-property controlUR020000C ${nukleiUR020000C.control("tcp")}
-
-connect await ROUTED_INPUT
-        "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:broadcastReceiver(controlUR020000C.controller)}
-        option agrona:writer ${agrona:manyToOneWriter(controlUR020000C.nukleus)}
+connect "agrona://stream/bidirectional"
+        option agrona:reader ${agrona:broadcastReceiver(controlRG010101C.controller)}
+        option agrona:writer ${agrona:manyToOneWriter(controlRG010101C.nukleus)}
 
 connected
 
-write [0x00 0x00 0x00 0x02]
-write ${controlUR020000C.nextCorrelationId()}
-write [0x00 0x00]
-write [0x03] "any"
+write [0x00 0x00 0x00 0x01]
+write ${controlRG010101C.nextCorrelationId()}
+write [0x01]
+write [0x06] "source"
+write [0x00 0x00 0x00 0x00 0x00 0x00 0x00 0x00]
+write [0x09] "localhost"
 write [0x90 0x1f 0x00 0x00 0x00 0x00 0x00 0x00] # TODO: native long
-write [0x06] "target"
-write ${newTargetInputRef}
-write [0x01] [0x7f 0x00 0x00 0x01]
 write flush
 
-read [0x40 0x00 0x00 0x02]
-read ${controlUR020000C.correlationId()}
+read [0x40 0x00 0x00 0x01]
+read ${controlRG010101C.correlationId()}
+read ([0..8]:newClientAcceptRef)
+
+read notify ROUTED_CLIENT
 
 close
 closed
