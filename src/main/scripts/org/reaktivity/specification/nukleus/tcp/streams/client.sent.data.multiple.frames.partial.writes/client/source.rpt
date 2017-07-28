@@ -19,7 +19,7 @@ property newClientAcceptRef ${nuklei:newReferenceId()} # external scope
 property nuklei ${nuklei:directory("target/nukleus-itests").streamsCapacity(1024 * 1024, 64 * 1024)}
 
 property clientAccept ${nuklei.streams("tcp", "source#partition")}
-property clientAcceptReply ${nuklei.streams("source", "tcp#any")}
+property clientAcceptReply ${nuklei.streams("source", "tcp#source")}
 
 property newClientAcceptId ${nuklei:newStreamId()}
 property newCorrelationId ${nuklei:newCorrelationId()}
@@ -39,7 +39,7 @@ write flush
 
 read [0x40 0x00 0x00 0x02]
 read ${newClientAcceptId}
-read [0x0F 0x00 0x00 0x00] # TODO: native byte order
+read [0x10 0x00 0x00 0x00] # TODO: native byte order
 read [0..4]
 
 write [0x00 0x00 0x00 0x02]
