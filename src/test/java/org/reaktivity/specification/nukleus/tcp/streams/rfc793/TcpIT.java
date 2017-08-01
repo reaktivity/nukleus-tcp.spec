@@ -1,17 +1,17 @@
 /**
- * Copyright 2007-2015, Kaazing Corporation. All rights reserved.
+ * Copyright 2016-2017 The Reaktivity Project
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
+ * The Reaktivity Project licenses this file to you under the Apache License,
+ * version 2.0 (the "License"); you may not use this file except in compliance
+ * with the License. You may obtain a copy of the License at:
  *
- * http://www.apache.org/licenses/LICENSE-2.0
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
  */
 package org.reaktivity.specification.nukleus.tcp.streams.rfc793;
 
@@ -107,6 +107,78 @@ public class TcpIT
         "server.sent.data.received.reset.and.abort/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
     public void serverShouldReceiveResetAndAbortAfterIOExceptionFromWrite() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "client.sent.abort/client",
+        "client.sent.abort/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void clientShouldAbortConnection() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "server.sent.abort/client",
+        "server.sent.abort/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void serverShouldAbortConnection() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "client.sent.abort.and.reset/client",
+        "client.sent.abort.and.reset/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void clientShouldAbortAndResetConnection() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "server.sent.abort.and.reset/client",
+        "server.sent.abort.and.reset/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void serverShouldAbortAndResetConnection() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "client.sent.reset.and.end/client",
+        "client.sent.reset.and.end/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void clientShouldResetConnection() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "server.sent.reset.and.end/client",
+        "server.sent.reset.and.end/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void serverShouldResetConnection() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
