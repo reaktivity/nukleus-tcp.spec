@@ -18,6 +18,7 @@ package org.reaktivity.specification.nukleus.tcp.streams.rfc793;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
@@ -41,6 +42,7 @@ public class TcpIT
     @Rule
     public final TestRule chain = outerRule(k3po).around(timeout);
 
+    @Ignore("BEGIN vs RESET read order not yet guaranteed to match write order")
     @Test
     @Specification({
         "client.received.reset.and.abort/client",
@@ -150,6 +152,7 @@ public class TcpIT
         k3po.finish();
     }
 
+    @Ignore("BEGIN vs RESET read order not yet guaranteed to match write order")
     @Test
     @Specification({
         "server.sent.abort.and.reset/client",
