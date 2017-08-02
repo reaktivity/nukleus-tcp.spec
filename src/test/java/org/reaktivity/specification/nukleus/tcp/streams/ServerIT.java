@@ -248,42 +248,6 @@ public class ServerIT
 
     @Test
     @Specification({
-        "${streams}/client.then.server.sent.end/server/nukleus",
-        "${streams}/client.then.server.sent.end/server/target"
-    })
-    public void shouldReceiveEndAndSendEndInReply() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "${streams}/server.then.client.sent.end/server/nukleus",
-        "${streams}/server.then.client.sent.end/server/target"
-    })
-    public void shouldSendEndAndReceiveEndInReply() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "${streams}/server.sent.end.then.received.data/server/nukleus",
-        "${streams}/server.sent.end.then.received.data/server/target"
-    })
-    public void shouldReceiveDataAfterSendingEnd() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
         "${streams}/client.sent.end.then.received.data/server/nukleus",
         "${streams}/client.sent.end.then.received.data/server/target"
     })
@@ -300,18 +264,6 @@ public class ServerIT
         "${streams}/server.sent.data.after.end/server/target"
     })
     public void shouldResetServerSentDataAfterClose() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "${streams}/server.sent.data.received.reset/server/nukleus",
-        "${streams}/server.sent.data.received.reset/server/target"
-    })
-    public void shouldResetServerSentDataExceedingWindow() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_SERVER");

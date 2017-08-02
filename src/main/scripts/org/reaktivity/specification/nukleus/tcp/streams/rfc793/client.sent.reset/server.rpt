@@ -17,9 +17,7 @@
 property newClientAcceptRef ${nuklei:newReferenceId()} 
 property newServerConnectRef ${newClientAcceptRef} # external scope
 
-property correlationId ${nukleus:newCorrelationId()}  # external scope
-
-property serverConnect "nukleus://target/streams/tcp"
+property serverConnect "nukleus://target/streams/tcp#source"
        
 accept ${serverConnect}
        option nukleus:route ${newServerConnectRef}
@@ -29,6 +27,8 @@ accepted
 
 connected
 
-read abort
+write "some data"
 
-write close
+write aborted
+
+

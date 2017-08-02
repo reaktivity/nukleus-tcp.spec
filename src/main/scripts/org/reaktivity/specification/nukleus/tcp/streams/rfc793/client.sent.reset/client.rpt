@@ -26,7 +26,9 @@ connect await ROUTED_CLIENT
 
 connected
 
+read "some data"
+
 read abort
 
-write close
+read notify READ_ABORTED
 

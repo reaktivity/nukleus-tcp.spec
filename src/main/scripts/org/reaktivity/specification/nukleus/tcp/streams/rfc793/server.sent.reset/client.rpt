@@ -14,21 +14,18 @@
 # under the License.
 #
 
-property newClientAcceptRef ${nuklei:newReferenceId()} 
-property newServerConnectRef ${newClientAcceptRef} # external scope
+property newClientAcceptRef ${nuklei:newReferenceId()} # external scope
 
-property serverConnect "nukleus://target/streams/tcp#source"
-       
-accept ${serverConnect}
-       option nukleus:route ${newServerConnectRef}
-       option nukleus:window 8192
-       option nukleus:transmission "duplex"
-accepted
+property correlationId ${nukleus:newCorrelationId()}
+
+connect await ROUTED_CLIENT
+        "nukleus://tcp/streams/source"
+    option nukleus:route ${newClientAcceptRef}
+    option nukleus:window 8192
+    option nukleus:transmission "duplex"
 
 connected
 
-read closed
+write "some data"
 
 write aborted
-
-

@@ -163,8 +163,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.reset.and.end/client",
-        "client.sent.reset.and.end/server" })
+        "client.sent.reset/client",
+        "client.sent.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
     public void clientShouldResetConnection() throws Exception
     {
@@ -175,8 +175,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.reset.and.end/client",
-        "server.sent.reset.and.end/server" })
+        "server.sent.reset/client",
+        "server.sent.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
     public void serverShouldResetConnection() throws Exception
     {

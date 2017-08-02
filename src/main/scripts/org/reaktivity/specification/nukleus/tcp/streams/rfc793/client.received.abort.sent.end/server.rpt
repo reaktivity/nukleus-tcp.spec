@@ -27,6 +27,8 @@ accepted
 
 connected
 
+write await CONNECTED
+
 read abort
 
 write abort
