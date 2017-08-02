@@ -236,30 +236,6 @@ public class ClientIT
 
     @Test
     @Specification({
-        "${streams}/client.then.server.sent.end/client/nukleus",
-        "${streams}/client.then.server.sent.end/client/source"
-    })
-    public void shouldReceiveEndAndSendEndInReply() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "${streams}/server.then.client.sent.end/client/nukleus",
-        "${streams}/server.then.client.sent.end/client/source"
-    })
-    public void shouldSendEndAndReceiveEndInReply() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
         "${streams}/server.sent.end.then.received.data/client/nukleus",
         "${streams}/server.sent.end.then.received.data/client/source"
     })
