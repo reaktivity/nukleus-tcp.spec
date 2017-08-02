@@ -98,6 +98,7 @@ public class TcpIT
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("CONNECTED_CLIENT");
         k3po.finish();
     }
 

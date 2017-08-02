@@ -24,6 +24,8 @@ connect await ROUTED_CLIENT
 
 connected
 
+write await CONNECTED_CLIENT
+
 write "writing this data results in a reset"
 
 read aborted
