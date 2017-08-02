@@ -269,4 +269,16 @@ public class ClientIT
         k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+        "${streams}/client.sent.data.received.reset/client/nukleus",
+        "${streams}/client.sent.data.received.reset/client/source"
+    })
+    public void shouldResetClientSentDataExceedingWindow() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
 }

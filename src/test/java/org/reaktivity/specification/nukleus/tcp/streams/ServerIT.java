@@ -269,4 +269,16 @@ public class ServerIT
         k3po.notifyBarrier("ROUTED_SERVER");
         k3po.finish();
     }
+
+    @Test
+    @Specification({
+        "${streams}/server.sent.data.received.reset/server/nukleus",
+        "${streams}/server.sent.data.received.reset/server/target"
+    })
+    public void shouldResetServerSentDataExceedingWindow() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
 }
