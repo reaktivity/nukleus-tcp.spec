@@ -14,7 +14,7 @@
 # limitations under the License.
 #
 
-connect await BOUND
+connect await ROUTED_SERVER
         "tcp://localhost:8080"
 connected
 read "server data"

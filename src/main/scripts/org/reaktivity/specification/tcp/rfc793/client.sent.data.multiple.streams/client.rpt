@@ -14,10 +14,16 @@
 # limitations under the License.
 #
 
-connect await BOUND
+connect await ROUTED_SERVER
         "tcp://localhost:8080"
 connected
 
-read notify RESETTABLE
+write notify CLIENT_CONNECTION_ONE_ESTABLISHED
 
-read aborted
+write "client data 1"
+
+connect await CLIENT_CONNECTION_ONE_ESTABLISHED
+        "tcp://localhost:8080"
+connected
+
+write "client data 2"

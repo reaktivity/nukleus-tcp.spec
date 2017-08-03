@@ -14,11 +14,10 @@
 # limitations under the License.
 #
 
-connect await BOUND
-        "tcp://localhost:8080"
+accept "tcp://localhost:8080"
+       notify ROUTED_SERVER
+accepted
 connected
 
-write await RESETTABLE
-
-abort
-
+read "client data 1"
+read "client data 2"

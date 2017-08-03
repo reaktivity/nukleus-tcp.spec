@@ -14,6 +14,9 @@
 # limitations under the License.
 #
 
-connect await BOUND
+connect await ROUTED_SERVER
         "tcp://localhost:8080"
 connected
+
+write "client data 1"
+write "client data 2"

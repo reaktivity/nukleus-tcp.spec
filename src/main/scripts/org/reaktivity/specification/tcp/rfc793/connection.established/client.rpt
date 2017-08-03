@@ -14,8 +14,6 @@
 # limitations under the License.
 #
 
-accept "tcp://localhost:8080"
-       notify BOUND
-
-accepted
+connect await ROUTED_SERVER
+        "tcp://localhost:8080"
 connected

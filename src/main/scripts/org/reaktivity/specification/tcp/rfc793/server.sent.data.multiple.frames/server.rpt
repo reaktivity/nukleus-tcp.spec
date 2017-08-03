@@ -14,35 +14,10 @@
 # limitations under the License.
 #
 
-# Stream 1
-connect await ROUTED_SERVER
-        "tcp://localhost:8080"
+accept "tcp://localhost:8080"
+       notify ROUTED_SERVER
+accepted
 connected
-write "Hello"
-read "Hello"
-write "Goodbye"
-read "Goodbye"
-close
-closed
 
-# Stream 2
-connect await ROUTED_SERVER
-        "tcp://localhost:8080"
-connected
-write "Hello"
-read "Hello"
-write "Goodbye"
-read "Goodbye"
-close
-closed
-
-# Stream 3
-connect await ROUTED_SERVER
-        "tcp://localhost:8080"
-connected
-write "Hello"
-read "Hello"
-write "Goodbye"
-read "Goodbye"
-close
-closed
+write "server data 1"
+write "server data 2"

@@ -42,45 +42,9 @@ public class TcpIT
 
     @Test
     @Specification({
-        "establish.connection/client",
-        "establish.connection/server" })
-    public void shouldEstablishConnection() throws Exception
-    {
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "server.sent.data/client",
-        "server.sent.data/server" })
-    public void shouldReceiveServerSentData() throws Exception
-    {
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "client.sent.data/client",
-        "client.sent.data/server" })
-    public void shouldReceiveClientSentData() throws Exception
-    {
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "echo.data/client",
-        "echo.data/server" })
-    public void shouldEchoData() throws Exception
-    {
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "server.close/client",
-        "server.close/server" })
-    public void shouldInitiateServerClose() throws Exception
+        "client.and.server.sent.data.multiple.frames/client",
+        "client.and.server.sent.data.multiple.frames/server" })
+    public void shouldSendAndReceiveData() throws Exception
     {
         k3po.finish();
     }
@@ -96,18 +60,27 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.reset/client",
-        "server.reset/server" })
-    public void shouldInitiateServerReset() throws Exception
+        "client.sent.data/client",
+        "client.sent.data/server" })
+    public void shouldReceiveClientSentData() throws Exception
     {
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "client.reset/client",
-        "client.reset/server" })
-    public void shouldInitiateClientReset() throws Exception
+        "client.sent.data.multiple.frames/client",
+        "client.sent.data.multiple.frames/server" })
+    public void shouldReceiveClientSentDataInMultipleFrames() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "client.sent.data.multiple.streams/client",
+        "client.sent.data.multiple.streams/server" })
+    public void shouldReceiveClientSentDataOnMultipleStreams() throws Exception
     {
         k3po.finish();
     }
@@ -117,6 +90,42 @@ public class TcpIT
         "concurrent.connections/client",
         "concurrent.connections/server" })
     public void shouldEstablishConcurrentConnections() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "connection.established/client",
+        "connection.established/server" })
+    public void shouldEstablishConnection() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "echo.data/client",
+        "echo.data/server" })
+    public void shouldEchoData() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "server.sent.data/client",
+        "server.sent.data/server" })
+    public void shouldReceiveServerSentData() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "server.close/client",
+        "server.close/server" })
+    public void shouldInitiateServerClose() throws Exception
     {
         k3po.finish();
     }

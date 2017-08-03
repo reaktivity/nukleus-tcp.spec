@@ -42,25 +42,12 @@ public class TcpIT
     @Rule
     public final TestRule chain = outerRule(k3po).around(timeout);
 
-    @Ignore("BEGIN vs RESET read order not yet guaranteed to match write order")
     @Test
     @Specification({
-        "client.received.reset.and.abort/client",
-        "client.received.reset.and.abort/server" })
+        "client.and.server.sent.data.multiple.frames/client",
+        "client.and.server.sent.data.multiple.frames/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-    public void clientShouldReceiveResetAndAbortAfterIOExceptionFromRead() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "server.received.reset.and.abort/client",
-        "server.received.reset.and.abort/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-    public void serverShouldReceiveResetAndAbortAfterIOExceptionFromRead() throws Exception
+    public void shouldSendAndReceiveData() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -79,37 +66,13 @@ public class TcpIT
         k3po.finish();
     }
 
+    @Ignore("BEGIN vs RESET read order not yet guaranteed to match write order")
     @Test
     @Specification({
-        "server.received.abort.sent.end/client",
-        "server.received.abort.sent.end/server" })
+        "client.received.reset.and.abort/client",
+        "client.received.reset.and.abort/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-    public void serverShouldReceiveResetAndAbortAndNoAdditionalResetWhensendEnd() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "client.sent.data.received.reset.and.abort/client",
-        "client.sent.data.received.reset.and.abort/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-    public void clientShouldReceiveResetAndAbortAfterIOExceptionFromWrite() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
-        k3po.notifyBarrier("CONNECTED_CLIENT");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "server.sent.data.received.reset.and.abort/client",
-        "server.sent.data.received.reset.and.abort/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-    public void serverShouldReceiveResetAndAbortAfterIOExceptionFromWrite() throws Exception
+    public void clientShouldReceiveResetAndAbortAfterIOExceptionFromRead() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -130,10 +93,10 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.abort/client",
-        "server.sent.abort/server" })
+        "client.sent.abort.and.reset/client",
+        "client.sent.abort.and.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-    public void serverShouldAbortConnection() throws Exception
+    public void clientShouldAbortAndResetConnection() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -142,10 +105,130 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.abort.and.reset/client",
-        "client.sent.abort.and.reset/server" })
+        "client.sent.data/client",
+        "client.sent.data/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-    public void clientShouldAbortAndResetConnection() throws Exception
+    public void shouldReceiveClientSentData() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "client.sent.data.multiple.frames/client",
+        "client.sent.data.multiple.frames/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void shouldReceiveClientSentDataInMultipleFrames() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "client.sent.data.multiple.streams/client",
+        "client.sent.data.multiple.streams/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void shouldReceiveClientSentDataOnMultipleStreams() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "client.sent.data.multiple.streams.second.was.reset/client",
+        "client.sent.data.multiple.streams.second.was.reset/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void shouldReceiveClientSentDataWithMultipleStreamsSecondWasReset() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "client.sent.data.received.reset.and.abort/client",
+        "client.sent.data.received.reset.and.abort/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void clientShouldReceiveResetAndAbortAfterIOExceptionFromWrite() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "client.sent.data.then.end/client",
+        "client.sent.data.then.end/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void shouldReceiveClientSentDataAndEnd() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "client.sent.reset/client",
+        "client.sent.reset/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void clientShouldResetConnection() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "concurrent.connections/client",
+        "concurrent.connections/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void shouldConveyBidirectionalDataOnConcurrentConnections() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "server.received.abort.sent.end/client",
+        "server.received.abort.sent.end/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void serverShouldReceiveResetAndAbortAndNoAdditionalResetWhensendEnd() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "server.received.reset.and.abort/client",
+        "server.received.reset.and.abort/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void serverShouldReceiveResetAndAbortAfterIOExceptionFromRead() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "server.sent.abort/client",
+        "server.sent.abort/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void serverShouldAbortConnection() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -167,10 +250,10 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.reset/client",
-        "client.sent.reset/server" })
+        "server.sent.data.received.reset.and.abort/client",
+        "server.sent.data.received.reset.and.abort/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-    public void clientShouldResetConnection() throws Exception
+    public void serverShouldReceiveResetAndAbortAfterIOExceptionFromWrite() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");

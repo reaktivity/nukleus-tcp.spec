@@ -16,6 +16,8 @@
 
 property newClientAcceptRef ${nuklei:newReferenceId()} # external scope
 
+property correlationId ${nukleus:newCorrelationId()}
+
 connect await ROUTED_CLIENT
         "nukleus://tcp/streams/source"
     option nukleus:route ${newClientAcceptRef}
@@ -24,10 +26,7 @@ connect await ROUTED_CLIENT
 
 connected
 
-write "writing this data results in a reset"
+write "client data"
 
-read aborted
-
-write aborted
-
+write close
 

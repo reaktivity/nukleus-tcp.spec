@@ -16,18 +16,25 @@
 
 property newClientAcceptRef ${nuklei:newReferenceId()} # external scope
 
+property correlationId ${nukleus:newCorrelationId()}
+
 connect await ROUTED_CLIENT
         "nukleus://tcp/streams/source"
     option nukleus:route ${newClientAcceptRef}
     option nukleus:window 8192
     option nukleus:transmission "duplex"
-
 connected
 
-write "writing this data results in a reset"
+write notify CLIENT_CONNECTION_ONE_ESTABLISHED
 
-read aborted
+write "client data 1"
 
-write aborted
+connect await CLIENT_CONNECTION_ONE_ESTABLISHED
+        "nukleus://tcp/streams/source"
+    option nukleus:route ${newClientAcceptRef}
+    option nukleus:window 8192
+    option nukleus:transmission "duplex"
+connected
 
+write "client data 2"
 

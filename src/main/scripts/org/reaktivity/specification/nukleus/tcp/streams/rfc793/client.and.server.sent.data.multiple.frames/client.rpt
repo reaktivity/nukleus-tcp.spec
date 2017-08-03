@@ -24,10 +24,9 @@ connect await ROUTED_CLIENT
 
 connected
 
-write "writing this data results in a reset"
+write "client data 1"
+write "client data 2"
 
-read aborted
-
-write aborted
-
+read "server data 1"
+read "server data 2"
 

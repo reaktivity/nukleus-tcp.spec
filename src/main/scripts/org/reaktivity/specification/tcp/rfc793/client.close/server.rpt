@@ -15,7 +15,7 @@
 #
 
 accept "tcp://localhost:8080"
-       notify BOUND
+       notify ROUTED_SERVER
 
 accepted
 connected
