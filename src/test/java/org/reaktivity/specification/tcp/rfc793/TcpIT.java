@@ -89,7 +89,7 @@ public class TcpIT
     @Specification({
         "concurrent.connections/client",
         "concurrent.connections/server" })
-    public void shouldEstablishConcurrentConnections() throws Exception
+    public void shouldEstablishConcurrentFullDuplexConnections() throws Exception
     {
         k3po.finish();
     }
@@ -105,18 +105,27 @@ public class TcpIT
 
     @Test
     @Specification({
-        "echo.data/client",
-        "echo.data/server" })
-    public void shouldEchoData() throws Exception
+        "server.sent.data/client",
+        "server.sent.data/server" })
+    public void shouldReceiveServerSentData() throws Exception
     {
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "server.sent.data/client",
-        "server.sent.data/server" })
-    public void shouldReceiveServerSentData() throws Exception
+        "server.sent.data.multiple.frames/client",
+        "server.sent.data.multiple.frames/server" })
+    public void shouldReceiveServerSentDataMultipleFrames() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "server.sent.data.multiple.streams/client",
+        "server.sent.data.multiple.streams/server" })
+    public void shouldReceiveServerSentDataMultipleStreams() throws Exception
     {
         k3po.finish();
     }

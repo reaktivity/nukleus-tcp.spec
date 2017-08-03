@@ -14,11 +14,8 @@
 # limitations under the License.
 #
 
-accept "tcp://localhost:8080"
-       notify ROUTED_SERVER
-accepted
+connect await ROUTED_SERVER
+        "tcp://localhost:8080"
 connected
-read "client data 1"
-write "server data 1"
-read "client data 2"
-write "server data 2"
+
+read "server data"
