@@ -177,6 +177,18 @@ public class TcpIT
 
     @Test
     @Specification({
+        "client.sent.data.received.reset/client",
+        "client.sent.data.received.reset/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void shouldSendResetToClientAppWhenItExceedsWindow() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "client.sent.data.then.end/client",
         "client.sent.data.then.end/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
@@ -346,10 +358,22 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.data.multiple.streams/client",
-        "server.sent.data.multiple.streams/server" })
+        "server.sent.data.multiple.streams.second.was.reset/client",
+        "server.sent.data.multiple.streams.second.was.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
     public void shouldReceiveServerSentDataWithMultipleStreamsSecondWasReset() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "server.sent.data.received.reset.and.abort/client",
+        "server.sent.data.received.reset.and.abort/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void shouldSendResetToServerAppWhenItExceedsWindow() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");

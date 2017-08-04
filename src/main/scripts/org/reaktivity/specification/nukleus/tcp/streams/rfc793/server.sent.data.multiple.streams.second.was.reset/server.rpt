@@ -25,12 +25,18 @@ accept ${serverConnect}
        option nukleus:window ${serverInitialWindow}
        option nukleus:transmission "duplex"
 accepted
-
 connected
 
-write "server data"
+write "server data 1"
 
-write close
+accepted
+connected
 
-write notify END_WRITTEN
+write "server data 2"
+
+write aborted
+
+write notify SECOND_STREAM_RESET_RECEIVED
+
+
 

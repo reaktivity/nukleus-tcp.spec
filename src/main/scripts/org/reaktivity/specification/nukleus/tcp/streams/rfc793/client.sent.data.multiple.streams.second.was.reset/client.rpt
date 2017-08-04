@@ -40,3 +40,4 @@ write "client data 2"
 
 write aborted
 
+write notify CLIENT_TWO_RESET_RECEIVED

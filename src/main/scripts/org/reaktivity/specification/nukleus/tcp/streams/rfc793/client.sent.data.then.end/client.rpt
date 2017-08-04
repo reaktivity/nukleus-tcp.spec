@@ -30,3 +30,5 @@ write "client data"
 
 write close
 
+write notify END_WRITTEN
+

@@ -14,23 +14,17 @@
 # under the License.
 #
 
-property newClientAcceptRef ${nuklei:newReferenceId()} 
-property newServerConnectRef ${newClientAcceptRef} # external scope
+property newClientAcceptRef ${nuklei:newReferenceId()} # external scope
 
-property serverConnect "nukleus://target/streams/tcp#source"
-property serverInitialWindow 8192
-       
-accept ${serverConnect}
-       option nukleus:route ${newServerConnectRef}
-       option nukleus:window ${serverInitialWindow}
-       option nukleus:transmission "duplex"
-accepted
+connect await ROUTED_CLIENT
+        "nukleus://tcp/streams/source"
+    option nukleus:route ${newClientAcceptRef}
+    option nukleus:window 8192
+    option nukleus:throttle "none"
+    option nukleus:transmission "duplex"
 
 connected
 
-write "server data"
+write "writing this data results in a reset"
 
-write close
-
-write notify END_WRITTEN
-
+write aborted
