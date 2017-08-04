@@ -26,9 +26,6 @@ accept ${serverConnect}
        option nukleus:transmission "simplex"
 accepted
 
-# TODO: cause a RESET frame to be sent instead of WINDOW when k3po nukleus transport adds 
-# support for this ("read abort" or "connect abort" without the presence on the connected keyword). 
-# For now where we can do is WINDOW (connected) plus RESET
 connected
 read abort
 

@@ -26,5 +26,7 @@ connect await ROUTED_CLIENT
 
 connected
 
+write await CLOSEABLE
+
 write close
 
