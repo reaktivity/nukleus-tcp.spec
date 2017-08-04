@@ -18,7 +18,11 @@ connect await ROUTED_SERVER
         "tcp://localhost:8080"
 connected
 
-write await CLOSEABLE
+write notify CLIENT_CONNECTION_ONE_ESTABLISHED
+read "server data 1"
 
-close
-closed
+connect await CLIENT_CONNECTION_ONE_ESTABLISHED
+        "tcp://localhost:8080"
+connected
+
+read "server data 2"

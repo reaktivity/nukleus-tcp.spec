@@ -14,11 +14,14 @@
 # under the License.
 #
 
-connect await ROUTED_SERVER
-        "tcp://localhost:8080"
+accept "tcp://localhost:8080"
+       notify ROUTED_SERVER
+accepted
 connected
 
-write await CLOSEABLE
+write "server data 1"
 
-close
-closed
+accepted
+connected
+
+write "server data 2"
