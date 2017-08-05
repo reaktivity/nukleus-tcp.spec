@@ -16,8 +16,6 @@
 
 property newClientAcceptRef ${nuklei:newReferenceId()} # external scope
 
-property correlationId ${nukleus:newCorrelationId()}
-
 connect await ROUTED_CLIENT
         "nukleus://tcp/streams/source"
     option nukleus:route ${newClientAcceptRef}

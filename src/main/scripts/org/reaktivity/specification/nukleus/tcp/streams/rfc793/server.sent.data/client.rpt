@@ -16,7 +16,6 @@
 
 property newClientAcceptRef ${nuklei:newReferenceId()} # external scope
 
-property correlationId ${nukleus:newCorrelationId()}
 property clientInitialWindow 8192
 
 connect await ROUTED_CLIENT
