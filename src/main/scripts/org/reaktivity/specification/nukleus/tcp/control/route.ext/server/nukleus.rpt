@@ -14,26 +14,28 @@
 # under the License.
 #
 
-property nukleiUR020001N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
+property nukleiRG010001N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property controlUR020001N ${nukleiUR020001N.controlNew("tcp")}
+property controlRG010001N ${nukleiRG010001N.controlNew("tcp")}
 
 connect "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:manyToOneReader(controlUR020001N.nukleus)}
-        option agrona:writer ${agrona:broadcastTransmitter(controlUR020001N.controller)}
+        option agrona:reader ${agrona:manyToOneReader(controlRG010001N.nukleus)}
+        option agrona:writer ${agrona:broadcastTransmitter(controlRG010001N.controller)}
 
 connected
 
-read [0x00 0x00 0x00 0x02]
-read ([0..8]:correlationIdUR020001N)
+read [0x00 0x00 0x00 0x01]
+read ([0..8]:correlationIdRG010001N)
 read [0x00]
 read [0x03] "any"
-read ([0..8]:anyPortRefRG010001N)
+read ([0..8]:anyPortRG010001N)
 read [0x06] "target"
 read ([0..8]:serverConnectRefRG010001N)
+read [0x01] [0x7f 0x00 0x00 0x01]
 
-write [0x40 0x00 0x00 0x02]
-write ${correlationIdUR020001N}
+write [0x40 0x00 0x00 0x01]
+write ${correlationIdRG010001N}
+write ${anyPortRG010001N}
 write flush
 
 close
