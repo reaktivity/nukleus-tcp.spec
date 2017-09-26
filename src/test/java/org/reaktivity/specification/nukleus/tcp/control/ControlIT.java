@@ -40,6 +40,18 @@ public class ControlIT
         "route/server/nukleus",
         "route/server/controller"
     })
+    public void shouldRouteServerWithoutExtension() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "route.ext/server/nukleus",
+        "route.ext/server/controller"
+    })
     public void shouldRouteServer() throws Exception
     {
         k3po.start();
@@ -49,8 +61,8 @@ public class ControlIT
 
     @Test
     @Specification({
-        "route/client/nukleus",
-        "route/client/controller"
+        "route.ext/client/nukleus",
+        "route.ext/client/controller"
     })
     public void shouldRouteClient() throws Exception
     {
@@ -64,6 +76,18 @@ public class ControlIT
         "unroute/server/nukleus",
         "unroute/server/controller"
     })
+    public void shouldUnrouteServerWithoutExtension() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_SERVER");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "unroute.ext/server/nukleus",
+        "unroute.ext/server/controller"
+    })
     public void shouldUnrouteServer() throws Exception
     {
         k3po.start();
@@ -73,8 +97,8 @@ public class ControlIT
 
     @Test
     @Specification({
-        "unroute/client/nukleus",
-        "unroute/client/controller"
+        "unroute.ext/client/nukleus",
+        "unroute.ext/client/controller"
     })
     public void shouldUnrouteClient() throws Exception
     {
