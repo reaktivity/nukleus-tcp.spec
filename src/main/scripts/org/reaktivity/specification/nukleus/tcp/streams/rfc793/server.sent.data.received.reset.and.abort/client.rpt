@@ -26,6 +26,6 @@ connected
 
 read "writing this data results in a reset"
 
-read aborted
+read abort
 
-read closed
+write abort
