@@ -31,7 +31,6 @@ connected
 
 write "writing this data results in a reset"
 
-read aborted
+write abort
 
-write aborted
-
+write close

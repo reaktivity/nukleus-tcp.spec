@@ -23,5 +23,3 @@ connect await ROUTED_CLIENT
     option nukleus:transmission "duplex"
 
 connected
-
-

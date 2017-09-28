@@ -20,12 +20,11 @@ connect await ROUTED_CLIENT
         "nukleus://tcp/streams/source"
     option nukleus:route ${newClientAcceptRef}
     option nukleus:window 8192
-    option nukleus:throttle "none"
     option nukleus:transmission "duplex"
 
 connected
 
-write "writing this data results in a reset"
+read notify CONNECTED
 
 read aborted
 
