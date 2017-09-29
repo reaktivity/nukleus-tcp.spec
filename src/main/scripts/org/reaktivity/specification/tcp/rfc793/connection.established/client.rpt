@@ -14,6 +14,8 @@
 # under the License.
 #
 
+property address "tcp://localhost:8080"
+
 connect await ROUTED_SERVER
-        "tcp://localhost:8080"
+        ${address}
 connected
