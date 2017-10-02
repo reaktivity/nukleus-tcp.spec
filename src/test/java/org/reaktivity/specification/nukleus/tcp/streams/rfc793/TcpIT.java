@@ -223,17 +223,17 @@ public class TcpIT
         k3po.finish();
     }
 
-//    @Test
-//    @Specification({
-//        "client.sent.reset.and.end/client",
-//        "client.sent.reset.and.end/server" })
-//    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-//    public void clientShouldResetConnectionThenEnd() throws Exception
-//    {
-//        k3po.start();
-//        k3po.notifyBarrier("ROUTED_CLIENT");
-//        k3po.finish();
-//    }
+    @Test
+    @Specification({
+        "client.sent.reset.and.end/client",
+        "client.sent.reset.and.end/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void clientShouldResetConnectionThenEnd() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
 
     @Test
     @Specification({

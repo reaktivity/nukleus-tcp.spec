@@ -26,6 +26,4 @@ connected
 
 write "some data"
 
-write aborted
-
 read closed
