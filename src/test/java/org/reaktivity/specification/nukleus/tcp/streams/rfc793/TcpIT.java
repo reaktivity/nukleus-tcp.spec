@@ -285,10 +285,10 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.received.abort.and.reset/client",
-        "server.received.abort.and.reset/server" })
+        "server.received.reset.and.abort/client",
+        "server.received.reset.and.abort/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-    public void serverShouldReceiveAbortAndResetAfterIOExceptionFromRead() throws Exception
+    public void serverShouldReceiveResetAndAbortAfterIOExceptionFromRead() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -385,7 +385,7 @@ public class TcpIT
         "server.sent.data.received.reset.and.abort/client",
         "server.sent.data.received.reset.and.abort/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-    public void shouldSendAbortAndResetToServerAfterIOExceptionFromWrite() throws Exception
+    public void shouldSendResetAndAbortToServerAfterIOExceptionFromWrite() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
