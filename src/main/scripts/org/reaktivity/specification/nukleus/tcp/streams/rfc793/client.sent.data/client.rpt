@@ -25,4 +25,3 @@ connect await ROUTED_CLIENT
 connected
 
 write "client data"
-

@@ -24,6 +24,8 @@ connect await ROUTED_CLIENT
 
 connected
 
+write "some data"
+
 write aborted
 
 read closed
