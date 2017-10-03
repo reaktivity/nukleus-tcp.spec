@@ -442,8 +442,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.reset.then.end/client",
-        "server.sent.reset.then.end/server" })
+        "server.sent.reset.and.end/client",
+        "server.sent.reset.and.end/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
     public void serverShouldResetConnectionThenEnd() throws Exception
     {
