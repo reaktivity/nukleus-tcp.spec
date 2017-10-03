@@ -24,7 +24,7 @@ connect "agrona://stream/bidirectional"
 
 connected
 
-read [0x00 0x00 0x00 0x01]
+read 0x00000001
 read ([0..8]:correlationIdRG010001N)
 read [0x00]
 read [0x03] "any"
@@ -32,7 +32,7 @@ read ([0..8]:anyPortRG010001N)
 read [0x06] "target"
 read ([0..8]:serverConnectRefRG010001N)
 
-write [0x40 0x00 0x00 0x01]
+write 0x40000001
 write ${correlationIdRG010001N}
 write ${anyPortRG010001N}
 write flush
