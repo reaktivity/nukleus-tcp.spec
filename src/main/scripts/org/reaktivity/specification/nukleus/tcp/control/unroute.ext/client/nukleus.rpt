@@ -25,12 +25,12 @@ connect "agrona://stream/bidirectional"
 connected
 
 read [0x00 0x00 0x00 0x02]
-read ([0..8]:correlationIdUR020101N)
+read (long:correlationIdUR020101N)
 read [0x01]
 read [0x06] "source"
-read ([0..8]:clientAcceptRefUR020101N)
+read (long:clientAcceptRefUR020101N)
 read [0x09] "localhost"
-read ([0..8]:localhostPortRefUR020101N)
+read (long:localhostPortRefUR020101N)
 read [0..8] # authorization
 
 write [0x40 0x00 0x00 0x02]
