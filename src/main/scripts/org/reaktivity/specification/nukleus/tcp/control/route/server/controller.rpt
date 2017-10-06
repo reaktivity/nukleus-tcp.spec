@@ -20,6 +20,8 @@ property nukleiRG010001C ${nuklei:directory("target/nukleus-itests").controlCapa
 
 property controlRG010001C ${nukleiRG010001C.control("tcp")}
 
+property routeAuthorization 0x0000_000000000000L
+
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:broadcastReceiver(controlRG010001C.controller)}
         option agrona:writer ${agrona:manyToOneWriter(controlRG010001C.nukleus)}
@@ -33,6 +35,7 @@ write [0x03] "any"
 write 8080L
 write [0x06] "target"
 write ${newServerConnectRef}
+write ${routeAuthorization}
 write flush
 
 read 0x40000001
