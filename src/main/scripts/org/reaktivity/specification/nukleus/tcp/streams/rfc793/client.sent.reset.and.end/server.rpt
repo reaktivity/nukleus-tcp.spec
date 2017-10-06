@@ -27,6 +27,4 @@ accepted
 
 connected
 
-write "some data"
-
 read closed

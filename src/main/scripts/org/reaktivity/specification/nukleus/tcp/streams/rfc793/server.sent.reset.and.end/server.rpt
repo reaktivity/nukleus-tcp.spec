@@ -29,8 +29,6 @@ accepted
 
 connected
 
-read "some data"
-
 read abort
 
 read notify READ_ABORTED
