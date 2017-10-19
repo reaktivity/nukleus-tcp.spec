@@ -56,6 +56,18 @@ public class TcpIT
 
     @Test
     @Specification({
+            "client.and.server.sent.data.with.padding/client",
+            "client.and.server.sent.data.with.padding/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void shouldSendAndReceiveDataWithPadding() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "client.close/client",
         "client.close/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
