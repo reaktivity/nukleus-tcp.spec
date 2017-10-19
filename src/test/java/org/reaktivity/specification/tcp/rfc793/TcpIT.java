@@ -51,6 +51,15 @@ public class TcpIT
 
     @Test
     @Specification({
+            "client.and.server.sent.data.with.padding/client",
+            "client.and.server.sent.data.with.padding/server" })
+    public void shouldSendAndReceiveDataWithPadding() throws Exception
+    {
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "client.close/client",
         "client.close/server" })
     public void shouldInitiateClientClose() throws Exception
