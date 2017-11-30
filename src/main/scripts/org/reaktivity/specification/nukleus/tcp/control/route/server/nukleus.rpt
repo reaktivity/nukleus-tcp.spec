@@ -27,7 +27,7 @@ connected
 read 0x00000001
 read (long:correlationIdRG010001N)
 read [0x00]
-read [0x03] "any"
+read [0x07] "0.0.0.0"
 read (long:anyPortRG010001N)
 read [0x06] "target"
 read (long:serverConnectRefRG010001N)

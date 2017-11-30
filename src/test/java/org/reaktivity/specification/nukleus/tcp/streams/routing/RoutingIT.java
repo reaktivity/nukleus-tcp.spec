@@ -13,22 +13,26 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.reaktivity.specification.nukleus.tcp.control;
+package org.reaktivity.specification.nukleus.tcp.streams.routing;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
 
+import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
 import org.junit.rules.TestRule;
 import org.junit.rules.Timeout;
+import org.kaazing.k3po.junit.annotation.ScriptProperty;
 import org.kaazing.k3po.junit.annotation.Specification;
 import org.kaazing.k3po.junit.rules.K3poRule;
 
-public class ControlIT
+public class RoutingIT
 {
-    private final K3poRule k3po = new K3poRule();
+
+    private final K3poRule k3po = new K3poRule()
+            .addScriptRoot("streams", "org/reaktivity/specification/nukleus/tcp/streams/routing");
 
     private final TestRule timeout = new DisableOnDebug(new Timeout(5, SECONDS));
 
@@ -37,70 +41,35 @@ public class ControlIT
 
     @Test
     @Specification({
-        "route/server/nukleus",
-        "route/server/controller"
-    })
-    public void shouldRouteServer() throws Exception
+        "client.connect.with.host.extension/client",
+        "client.connect.with.host.extension/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @Ignore("https://github.com/reaktivity/nukleus-maven-plugin/issues/49")
+    public void shouldConnectClientWithHostExtension() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_SERVER");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "route/client.ip/nukleus",
-        "route/client.ip/controller"
-    })
-    public void shouldRouteClientIp() throws Exception
+        "client.connect.with.ip.extension/client",
+        "client.connect.with.ip.extension/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void shouldConnectClientWithIpExtension() throws Exception
     {
         k3po.start();
-        k3po.awaitBarrier("ROUTED_CLIENT");
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "route/client.host/nukleus",
-        "route/client.host/controller"
-    })
-    public void shouldRouteClientHost() throws Exception
-    {
-        k3po.start();
-        k3po.awaitBarrier("ROUTED_CLIENT");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "route/client.subnet/nukleus",
-        "route/client.subnet/controller"
-    })
-    public void shouldRouteClientSubnet() throws Exception
-    {
-        k3po.start();
-        k3po.awaitBarrier("ROUTED_CLIENT");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/server/nukleus",
-        "unroute/server/controller"
-    })
-    public void shouldUnrouteServer() throws Exception
-    {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_SERVER");
-        k3po.finish();
-    }
-
-    @Test
-    @Specification({
-        "unroute/client/nukleus",
-        "unroute/client/controller"
-    })
-    public void shouldUnrouteClient() throws Exception
+        "client.reset.with.no.subnet.match/client",
+        "client.reset.with.no.subnet.match/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void shouldResetClientWithNoSubnetMatch() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
