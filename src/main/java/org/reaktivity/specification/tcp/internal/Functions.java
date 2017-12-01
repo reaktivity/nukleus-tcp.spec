@@ -45,10 +45,10 @@ public final class Functions
         MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024]);
         TcpBeginExFW begin = new TcpBeginExFW.Builder()
                 .wrap(writeBuffer, 0, writeBuffer.capacity())
-                .localAddress(addressBuilder)
-                .localPort(port)
-                .remoteAddress(b -> b.ipv4Address(o -> o.set(new byte[] {0, 0, 0, 0})))
-                .remotePort(0)
+                .localAddress(b -> b.ipv4Address(o -> o.set(new byte[] {0, 0, 0, 0})))
+                .localPort(0)
+                .remoteAddress(addressBuilder)
+                .remotePort(port)
                 .build();
         byte[] result = new byte[begin.sizeof()];
         begin.buffer().getBytes(0, result);
@@ -63,10 +63,10 @@ public final class Functions
         MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024]);
         TcpBeginExFW begin = new TcpBeginExFW.Builder()
                 .wrap(writeBuffer, 0, writeBuffer.capacity())
-                .localAddress(b -> b.host(host))
-                .localPort(port)
-                .remoteAddress(b -> b.ipv4Address(o -> o.set(new byte[] {0, 0, 0, 0})))
-                .remotePort(0)
+                .localAddress(b -> b.ipv4Address(o -> o.set(new byte[] {0, 0, 0, 0})))
+                .localPort(0)
+                .remoteAddress(b -> b.host(host))
+                .remotePort(port)
                 .build();
         byte[] result = new byte[begin.sizeof()];
         begin.buffer().getBytes(0, result);
