@@ -31,7 +31,7 @@ connected
 write 0x00000001
 write ${controlRG010001C.nextCorrelationId()}
 write [0x00]
-write [0x03] "any"
+write [0x07] "0.0.0.0"
 write 8080L
 write [0x06] "target"
 write ${newServerConnectRef}

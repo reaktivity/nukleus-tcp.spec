@@ -19,14 +19,7 @@ scope tcp
     {
         case 1: octets[4] ipv4Address;
         case 2: octets[16] ipv6Address;
-    }
-
-    scope control
-    {
-        struct TcpRouteEx
-        {
-            tcp::TcpAddress address;
-        }
+        case 3: string host;
     }
 
     scope stream

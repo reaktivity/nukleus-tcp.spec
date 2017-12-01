@@ -14,36 +14,31 @@
 # under the License.
 #
 
-property newServerConnectRef ${nuklei:newReferenceId()} # external scope
+property nukleiRG010101C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property nukleiRG010001C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
-
-property controlRG010001C ${nukleiRG010001C.control("tcp")}
-
-property routeAuthorization 0x0000_000000000000L
+property controlRG010101C ${nukleiRG010101C.control("tcp")}
 
 connect "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:broadcastReceiver(controlRG010001C.controller)}
-        option agrona:writer ${agrona:manyToOneWriter(controlRG010001C.nukleus)}
+        option agrona:reader ${agrona:broadcastReceiver(controlRG010101C.controller)}
+        option agrona:writer ${agrona:manyToOneWriter(controlRG010101C.nukleus)}
 
 connected
 
 write 0x00000001
-write ${controlRG010001C.nextCorrelationId()}
-write [0x00]
-write [0x03] "any"
+write ${controlRG010101C.nextCorrelationId()}
+write [0x01]
+write [0x06] "source"
+write 0L
+write [0x09] "127.0.0.1"
 write 8080L
-write [0x06] "target"
-write ${newServerConnectRef}
-write ${routeAuthorization}
-write [0x01] [0x7f 0x00 0x00 0x01]
+write 0L
 write flush
 
 read 0x40000001
-read ${controlRG010001C.correlationId()}
-read 8080L
+read ${controlRG010101C.correlationId()}
+read (long:newClientAcceptRef)
 
-read notify ROUTED_SERVER
+read notify ROUTED_CLIENT
 
 close
 closed
