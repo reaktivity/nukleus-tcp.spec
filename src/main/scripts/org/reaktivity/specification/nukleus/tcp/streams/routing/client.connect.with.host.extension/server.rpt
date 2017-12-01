@@ -26,6 +26,6 @@ accept ${serverConnect}
 
 accepted
 
-read nukleus:begin.ext ${tcp:clientBeginExtHost(host, 8080)}
+read nukleus:begin.ext ${tcp:beginExtRemoteHost(host, 8080)}
 
 connected

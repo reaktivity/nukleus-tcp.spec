@@ -25,7 +25,7 @@ public class FunctionsTest
     @Test
     public void shouldGenerateClientIpv4Ext() throws UnknownHostException
     {
-        byte[] actual = Functions.clientBeginExtIp("127.0.0.1", 8080);
+        byte[] actual = Functions.beginExtRemoteAddress("127.0.0.1", 8080);
         byte[] expected = new byte[] {1, 0, 0, 0, 0, 0, 0, 1, 127, 0, 0, 1, -112, 31};
         Assert.assertArrayEquals(expected, actual);
     }
@@ -33,7 +33,7 @@ public class FunctionsTest
     @Test
     public void shouldGenerateClientIpv6Ext() throws UnknownHostException
     {
-        byte[] actual = Functions.clientBeginExtIp("2001:0db8:85a3:0000:0000:8a2e:0370:7334", 8080);
+        byte[] actual = Functions.beginExtRemoteAddress("2001:0db8:85a3:0000:0000:8a2e:0370:7334", 8080);
         byte[] expected = new byte[]
             {1, 0, 0, 0, 0, 0, 0, 2, 32, 1, 13, -72, -123, -93, 0, 0, 0, 0, -118, 46, 3, 112, 115, 52, -112, 31};
         Assert.assertArrayEquals(expected, actual);
@@ -42,7 +42,7 @@ public class FunctionsTest
     @Test
     public void shouldGenerateClientHostExt()
     {
-        byte[] actual = Functions.clientBeginExtHost("localhost", 8080);
+        byte[] actual = Functions.beginExtRemoteHost("localhost", 8080);
         byte[] expected = new byte[] {1, 0, 0, 0, 0, 0, 0, 3, 9, 108, 111, 99, 97, 108, 104, 111, 115, 116, -112, 31};
         Assert.assertArrayEquals(expected, actual);
     }

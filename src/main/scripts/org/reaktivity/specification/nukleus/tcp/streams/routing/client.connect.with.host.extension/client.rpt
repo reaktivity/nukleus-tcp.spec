@@ -23,7 +23,7 @@ connect await ROUTED_CLIENT
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 
-write nukleus:begin.ext ${tcp:clientBeginExtHost(host, 8080)}
+write nukleus:begin.ext ${tcp:beginExtRemoteHost(host, 8080)}
 
 connected
 

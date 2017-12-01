@@ -31,21 +31,32 @@ import org.reaktivity.specification.tcp.internal.types.stream.TcpBeginExFW;
 public final class Functions
 {
 
+    private static final byte[] ANY_IP_ADDR = new byte[4];
+    private static final ThreadLocal<MutableDirectBuffer> WRITE_BUFFER = new ThreadLocal<MutableDirectBuffer>()
+    {
+        @Override
+        protected MutableDirectBuffer initialValue()
+        {
+            return new UnsafeBuffer(new byte[1024]);
+        }
+    };
+
+
     @Function
-    public static byte[] clientBeginExtIp(
+    public static byte[] beginExtRemoteAddress(
         String ipString,
         int port) throws UnknownHostException
     {
         final InetAddress inet = InetAddress.getByName(ipString);
-        byte[] ip = inet.getAddress();
+        final byte[] ip = inet.getAddress();
         final Consumer<Builder> addressBuilder = inet instanceof Inet4Address?
                 b -> b.ipv4Address(s -> s.put(ip)):
                 b -> b.ipv6Address(s -> s.put(ip));
 
-        MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024]);
+        final MutableDirectBuffer writeBuffer = WRITE_BUFFER.get();
         TcpBeginExFW begin = new TcpBeginExFW.Builder()
                 .wrap(writeBuffer, 0, writeBuffer.capacity())
-                .localAddress(b -> b.ipv4Address(o -> o.set(new byte[] {0, 0, 0, 0})))
+                .localAddress(b -> b.ipv4Address(o -> o.set(ANY_IP_ADDR)))
                 .localPort(0)
                 .remoteAddress(addressBuilder)
                 .remotePort(port)
@@ -56,14 +67,14 @@ public final class Functions
     }
 
     @Function
-    public static byte[] clientBeginExtHost(
-            String host,
-            int port)
+    public static byte[] beginExtRemoteHost(
+        String host,
+        int port)
     {
-        MutableDirectBuffer writeBuffer = new UnsafeBuffer(new byte[1024]);
+        final MutableDirectBuffer writeBuffer = WRITE_BUFFER.get();
         TcpBeginExFW begin = new TcpBeginExFW.Builder()
                 .wrap(writeBuffer, 0, writeBuffer.capacity())
-                .localAddress(b -> b.ipv4Address(o -> o.set(new byte[] {0, 0, 0, 0})))
+                .localAddress(b -> b.ipv4Address(o -> o.set(ANY_IP_ADDR)))
                 .localPort(0)
                 .remoteAddress(b -> b.host(host))
                 .remotePort(port)
