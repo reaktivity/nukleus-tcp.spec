@@ -18,7 +18,6 @@ package org.reaktivity.specification.nukleus.tcp.streams.routing;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
@@ -44,7 +43,6 @@ public class RoutingIT
         "client.connect.with.host.extension/client",
         "client.connect.with.host.extension/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-    @Ignore("https://github.com/reaktivity/nukleus-maven-plugin/issues/49")
     public void shouldConnectClientWithHostExtension() throws Exception
     {
         k3po.start();

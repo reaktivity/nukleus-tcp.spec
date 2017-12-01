@@ -97,8 +97,8 @@ public class ControlIT
 
     @Test
     @Specification({
-        "unroute/client/nukleus",
-        "unroute/client/controller"
+        "unroute/client.host/nukleus",
+        "unroute/client.host/controller"
     })
     public void shouldUnrouteClient() throws Exception
     {
