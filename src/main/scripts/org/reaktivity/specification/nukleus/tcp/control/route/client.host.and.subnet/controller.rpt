@@ -42,7 +42,7 @@ write 0x00000001
 write ${controlRG010101C.nextCorrelationId()}
 write [0x01]
 write [0x06] "source"
-write 0L
+write ${newClientAcceptRef}
 write [0x0C] "127.0.0.1/24"
 write 8080L
 write 0L
@@ -50,7 +50,7 @@ write flush
 
 read 0x40000001
 read ${controlRG010101C.correlationId()}
-read (long:newClientAcceptRef)
+read ${newClientAcceptRef}
 
 read notify ROUTED_CLIENT
 

@@ -17,6 +17,7 @@
 property nukleiRG010101N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
 property controlRG010101N ${nukleiRG010101N.controlNew("tcp")}
+property sourceRef ${nuklei:newReferenceId()}
 
 connect "agrona://stream/bidirectional"
         option agrona:reader ${agrona:manyToOneReader(controlRG010101N.nukleus)}
@@ -35,21 +36,21 @@ read [0..8] # authorization
 
 write 0x40000001
 write ${correlationIdRG010101N}
-write ${nuklei:newReferenceId()}
+write ${sourceRef}
 write flush
 
 read 0x00000001
 read (long:correlationIdRG010101N2)
 read [0x01]
 read [0x06] "source"
-read 0L
+read ${sourceRef}
 read [0x0C] "127.0.0.1/24"
 read (long:localhostPortRefRG010101N)
 read [0..8] # authorization
 
 write 0x40000001
 write ${correlationIdRG010101N2}
-write ${nuklei:newReferenceId()}
+write ${sourceRef}
 write flush
 
 close
