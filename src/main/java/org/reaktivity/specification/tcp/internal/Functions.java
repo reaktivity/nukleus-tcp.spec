@@ -84,7 +84,6 @@ public final class Functions
         return result;
     }
 
-
     public static class Mapper extends FunctionMapperSpi.Reflective
     {
 
