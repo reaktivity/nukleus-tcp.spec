@@ -85,6 +85,18 @@ public class ControlIT
 
     @Test
     @Specification({
+        "route/client.host.and.subnet/nukleus",
+        "route/client.host.and.subnet/controller"
+    })
+    public void shouldRouteClientHostAndSubnet() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "unroute/server/nukleus",
         "unroute/server/controller"
     })
