@@ -24,7 +24,6 @@ property serverConnectReply "nukleus://tcp/streams/target"
        
 accept ${serverConnect}
        option nukleus:route ${newServerConnectRef}
-       option nukleus:window 8192
        option nukleus:transmission "duplex"
 accepted
 

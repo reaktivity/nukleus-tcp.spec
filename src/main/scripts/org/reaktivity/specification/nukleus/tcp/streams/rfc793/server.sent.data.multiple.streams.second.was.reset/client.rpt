@@ -21,7 +21,6 @@ property correlationId ${nukleus:newCorrelationId()}
 connect await ROUTED_CLIENT
         "nukleus://tcp/streams/source"
     option nukleus:route ${newClientAcceptRef}
-    option nukleus:window 8192
     option nukleus:transmission "duplex"
 connected
 
@@ -32,7 +31,6 @@ read "server data 1"
 connect await CLIENT_CONNECTION_ONE_ESTABLISHED
         "nukleus://tcp/streams/source"
     option nukleus:route ${newClientAcceptRef}
-    option nukleus:window 8192
     option nukleus:transmission "duplex"
 connected
 

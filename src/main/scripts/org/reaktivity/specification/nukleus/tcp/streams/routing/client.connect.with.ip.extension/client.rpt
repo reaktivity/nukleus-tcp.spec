@@ -20,7 +20,6 @@ property ip "127.0.0.1"
 connect await ROUTED_CLIENT
         "nukleus://tcp/streams/source"
     option nukleus:route ${newClientAcceptRef}
-    option nukleus:window 8192
     option nukleus:transmission "duplex"
 
 write nukleus:begin.ext ${tcp:beginExtRemoteAddress(ip, 8080)}

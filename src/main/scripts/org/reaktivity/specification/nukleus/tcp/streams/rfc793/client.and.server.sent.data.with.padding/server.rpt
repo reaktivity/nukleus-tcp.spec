@@ -22,9 +22,7 @@ property serverInitialWindow 15
        
 accept ${serverConnect}
        option nukleus:route ${newServerConnectRef}
-       option nukleus:window ${serverInitialWindow}
        option nukleus:transmission "duplex"
-       option nukleus:padding 10
 accepted
 
 connected
