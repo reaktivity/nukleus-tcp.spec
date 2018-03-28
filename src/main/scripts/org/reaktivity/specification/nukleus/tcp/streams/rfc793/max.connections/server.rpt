@@ -26,7 +26,7 @@ accept ${serverConnect}
        option nukleus:transmission "duplex"
 accepted
 connected
-read notify CONNECTION_ACCEPTED
+read notify CONNECTION_ACCEPTED_1
 read closed
 read notify CLOSED
 
@@ -34,7 +34,7 @@ read notify CLOSED
 
 accepted
 connected
-read notify CONNECTION_ACCEPTED
+read notify CONNECTION_ACCEPTED_2
 read closed
 read notify CLOSED
 
@@ -43,7 +43,7 @@ read notify CLOSED
 
 accepted
 connected
-read notify CONNECTION_ACCEPTED
+read notify CONNECTION_ACCEPTED_3
 read closed
 read notify CLOSED
 
@@ -51,6 +51,6 @@ read notify CLOSED
 
 accepted
 connected
-read notify CONNECTION_ACCEPTED
+read notify CONNECTION_ACCEPTED_4
 read closed
 read notify CLOSED

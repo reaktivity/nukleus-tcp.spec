@@ -22,7 +22,7 @@ connect await ROUTED_CLIENT
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 connected
-write await CONNECTION_ACCEPTED
+write await CONNECTION_ACCEPTED_1
 write close
 
 connect await ROUTED_CLIENT
@@ -31,7 +31,7 @@ connect await ROUTED_CLIENT
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 connected
-write await CONNECTION_ACCEPTED
+write await CONNECTION_ACCEPTED_2
 write close
 
 connect await ROUTED_CLIENT
@@ -40,7 +40,7 @@ connect await ROUTED_CLIENT
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 connected
-write await CONNECTION_ACCEPTED
+write await CONNECTION_ACCEPTED_3
 write close
 
 connect await ROUTED_CLIENT
@@ -49,6 +49,6 @@ connect await ROUTED_CLIENT
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 connected
-write await CONNECTION_ACCEPTED
+write await CONNECTION_ACCEPTED_4
 write close
 
