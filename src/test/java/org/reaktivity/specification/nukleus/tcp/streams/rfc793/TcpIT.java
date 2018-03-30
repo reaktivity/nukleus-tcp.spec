@@ -261,6 +261,18 @@ public class TcpIT
 
     @Test
     @Specification({
+        "max.connections/client",
+        "max.connections/server" })
+    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    public void maxConnections() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "connection.established/client",
         "connection.established/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
