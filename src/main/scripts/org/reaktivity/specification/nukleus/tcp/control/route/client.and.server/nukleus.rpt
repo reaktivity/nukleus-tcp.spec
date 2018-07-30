@@ -36,6 +36,7 @@ read [0..8] # authorization
 write 0x40000001
 write ${correlationIdRG010101N}
 write ${nuklei:newReferenceId()}
+write ${localhostPortRefRG010101N}
 write flush
 
 read 0x00000001
@@ -50,6 +51,7 @@ read [0..8] # authorization
 write 0x40000001
 write ${correlationIdRG010001N}
 write ${anyPortRG010001N}
+write ${serverConnectRefRG010001N}
 write flush
 
 close

@@ -37,6 +37,7 @@ write flush
 read 0x40000001
 read ${controlRG010101C.correlationId()}
 read (long:newClientAcceptRef)
+read 8080L
 
 write 0x00000001
 write ${controlRG010101C.nextCorrelationId()}
@@ -51,6 +52,7 @@ write flush
 read 0x40000001
 read ${controlRG010101C.correlationId()}
 read ${newClientAcceptRef}
+read 8080L
 
 read notify ROUTED_CLIENT
 
