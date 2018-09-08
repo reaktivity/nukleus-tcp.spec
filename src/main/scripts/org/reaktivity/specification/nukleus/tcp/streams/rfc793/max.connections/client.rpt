@@ -24,6 +24,7 @@ connect await ROUTED_CLIENT
 connected
 write await CONNECTION_ACCEPTED_1
 write close
+read closed
 
 connect await ROUTED_CLIENT
         "nukleus://tcp/streams/source"
@@ -33,6 +34,7 @@ connect await ROUTED_CLIENT
 connected
 write await CONNECTION_ACCEPTED_2
 write close
+read closed
 
 connect await ROUTED_CLIENT
         "nukleus://tcp/streams/source"
@@ -42,6 +44,7 @@ connect await ROUTED_CLIENT
 connected
 write await CONNECTION_ACCEPTED_3
 write close
+read closed
 
 connect await ROUTED_CLIENT
         "nukleus://tcp/streams/source"
@@ -51,4 +54,4 @@ connect await ROUTED_CLIENT
 connected
 write await CONNECTION_ACCEPTED_4
 write close
-
+read closed
