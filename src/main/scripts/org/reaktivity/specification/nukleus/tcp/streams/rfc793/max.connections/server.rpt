@@ -28,7 +28,8 @@ accepted
 connected
 read notify CONNECTION_ACCEPTED_1
 read closed
-read notify CLOSED
+write close
+write notify CLOSED
 
 
 
@@ -36,7 +37,8 @@ accepted
 connected
 read notify CONNECTION_ACCEPTED_2
 read closed
-read notify CLOSED
+write close
+write notify CLOSED
 
 
 
@@ -45,7 +47,8 @@ accepted
 connected
 read notify CONNECTION_ACCEPTED_3
 read closed
-read notify CLOSED
+write close
+write notify CLOSED
 
 
 
@@ -53,4 +56,5 @@ accepted
 connected
 read notify CONNECTION_ACCEPTED_4
 read closed
-read notify CLOSED
+write close
+write notify CLOSED
