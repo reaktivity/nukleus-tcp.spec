@@ -29,7 +29,6 @@ connected
 
 write await CONNECTED
 
-read abort
-
 write abort
 
+read closed

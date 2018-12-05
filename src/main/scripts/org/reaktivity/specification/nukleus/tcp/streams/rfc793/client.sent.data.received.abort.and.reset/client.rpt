@@ -30,5 +30,3 @@ write "writing this data results in a reset"
 read aborted
 
 write aborted
-
-

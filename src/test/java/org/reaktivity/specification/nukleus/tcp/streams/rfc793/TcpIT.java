@@ -18,7 +18,6 @@ package org.reaktivity.specification.nukleus.tcp.streams.rfc793;
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
 
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
@@ -90,7 +89,6 @@ public class TcpIT
         k3po.finish();
     }
 
-    @Ignore("BEGIN vs RESET read order not yet guaranteed to match write order")
     @Test
     @Specification({
         "client.received.reset.and.abort/client",
@@ -177,10 +175,10 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.data.received.reset.and.abort/client",
-        "client.sent.data.received.reset.and.abort/server" })
+        "client.sent.data.received.abort.and.reset/client",
+        "client.sent.data.received.abort.and.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
-    public void shouldSendResetAndAbortToClientAfterIOExceptionFromWrite() throws Exception
+    public void shouldSendAbortAndResetToClientAfterIOExceptionFromWrite() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
@@ -343,7 +341,6 @@ public class TcpIT
         k3po.finish();
     }
 
-    @Ignore("BEGIN vs RESET read order not yet guaranteed to match write order")
     @Test
     @Specification({
         "server.sent.abort.and.reset/client",
@@ -464,7 +461,6 @@ public class TcpIT
         k3po.finish();
     }
 
-    @Ignore("BEGIN vs RESET read order not yet guaranteed to match write order")
     @Test
     @Specification({
         "server.sent.reset.and.end/client",
