@@ -23,7 +23,7 @@ property serverConnect "nukleus://target/streams/tcp#source"
 accept ${serverConnect}
        option nukleus:route ${newServerConnectRef}
        option nukleus:window 8192
-       option nukleus:transmission "half-duplex"
+       option nukleus:transmission "simplex"
 accepted
 
 read nukleus:begin.ext ${tcp:beginExtRemoteAddress(ip, 8080)}
