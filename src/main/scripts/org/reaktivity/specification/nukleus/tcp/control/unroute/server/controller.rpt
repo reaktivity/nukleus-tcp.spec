@@ -14,7 +14,7 @@
 # under the License.
 #
 
-property newServerConnectRef ${nuklei:newReferenceId()} # external scope
+property newServerRouteId ${nukleus:newServerRouteId("0.0.0.0:8080", "target#0")} # external
 
 property nukleiUR020001C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
@@ -31,12 +31,8 @@ connected
 
 write 0x00000002
 write ${controlUR020001C.nextCorrelationId()}
-write [0x00]
-write [0x07] "0.0.0.0"
-write 8080L
-write [0x06] "target"
-write ${newServerConnectRef}
-write ${routeAuthorization}
+write ${core:string("tcp")}
+write ${newServerRouteId}
 write flush
 
 read 0x40000002

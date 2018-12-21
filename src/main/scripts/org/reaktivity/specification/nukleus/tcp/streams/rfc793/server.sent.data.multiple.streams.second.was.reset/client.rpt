@@ -14,13 +14,10 @@
 # under the License.
 #
 
-property newClientAcceptRef ${nuklei:newReferenceId()} # external scope
-
 property correlationId ${nukleus:newCorrelationId()}
 
 connect await ROUTED_CLIENT
-        "nukleus://tcp/streams/source"
-    option nukleus:route ${newClientAcceptRef}
+        "nukleus://streams/tcp#0"
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 connected
@@ -30,8 +27,7 @@ write notify CLIENT_CONNECTION_ONE_ESTABLISHED
 read "server data 1"
 
 connect await CLIENT_CONNECTION_ONE_ESTABLISHED
-        "nukleus://tcp/streams/source"
-    option nukleus:route ${newClientAcceptRef}
+        "nukleus://streams/tcp#0"
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 connected

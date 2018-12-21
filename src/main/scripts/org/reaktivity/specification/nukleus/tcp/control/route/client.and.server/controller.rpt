@@ -14,8 +14,6 @@
 # under the License.
 #
 
-property newServerConnectRef ${nuklei:newReferenceId()} # external scope
-
 property nukleiRG010001CS ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
 property controlRG010001CS ${nukleiRG010001CS.control("tcp")}
@@ -35,18 +33,16 @@ connected
 #
 write 0x00000001
 write ${correlationIdC}
+write ${core:string("tcp")}
 write [0x01]
-write [0x06] "source"
 write 0L
-write [0x09] "localhost"
-write 8080L
-write 0L
+write ${core:string("tcp#0")}
+write ${core:string("localhost:8080")}
 write flush
 
 read 0x40000001
 read ${correlationIdC}
-read (long:newClientAcceptRef)
-read 8080L
+read (long:newClientRouteId)
 
 read notify ROUTED_CLIENT
 
@@ -55,18 +51,16 @@ read notify ROUTED_CLIENT
 #
 write 0x00000001
 write ${correlationIdS}
+write ${core:string("tcp")}
 write [0x00]
-write [0x07] "0.0.0.0"
-write 8080L
-write [0x06] "target"
-write ${newServerConnectRef}
 write ${routeAuthorization}
+write ${core:string("tcp#0.0.0.0:8080")}
+write ${core:string("target#0")}
 write flush
 
 read 0x40000001
 read ${correlationIdS}
-read 8080L
-read ${newServerConnectRef}
+read (long:newServerRouteId)
 
 read notify ROUTED_SERVER
 
