@@ -45,7 +45,7 @@ public class TcpIT
     @Specification({
         "client.and.server.sent.data.multiple.frames/client",
         "client.and.server.sent.data.multiple.frames/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldSendAndReceiveData() throws Exception
     {
         k3po.start();
@@ -57,7 +57,7 @@ public class TcpIT
     @Specification({
             "client.and.server.sent.data.with.padding/client",
             "client.and.server.sent.data.with.padding/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldSendAndReceiveDataWithPadding() throws Exception
     {
         k3po.start();
@@ -69,7 +69,7 @@ public class TcpIT
     @Specification({
         "client.close/client",
         "client.close/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldInitiateClientClose() throws Exception
     {
         k3po.start();
@@ -81,7 +81,7 @@ public class TcpIT
     @Specification({
         "client.received.abort.sent.end/client",
         "client.received.abort.sent.end/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void clientShouldReceiveResetAndAbortAndNoAdditionalResetWhensendEnd() throws Exception
     {
         k3po.start();
@@ -93,7 +93,7 @@ public class TcpIT
     @Specification({
         "client.received.reset.and.abort/client",
         "client.received.reset.and.abort/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void clientShouldReceiveResetAndAbortAfterIOExceptionFromRead() throws Exception
     {
         k3po.start();
@@ -105,7 +105,7 @@ public class TcpIT
     @Specification({
         "client.sent.abort/client",
         "client.sent.abort/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldProcessAbortFromClient() throws Exception
     {
         k3po.start();
@@ -117,7 +117,7 @@ public class TcpIT
     @Specification({
         "client.sent.abort.and.reset/client",
         "client.sent.abort.and.reset/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldProcessAbortAndResetFromClient() throws Exception
     {
         k3po.start();
@@ -129,7 +129,7 @@ public class TcpIT
     @Specification({
         "client.sent.data/client",
         "client.sent.data/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveClientSentData() throws Exception
     {
         k3po.start();
@@ -141,7 +141,7 @@ public class TcpIT
     @Specification({
         "client.sent.data.multiple.frames/client",
         "client.sent.data.multiple.frames/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveClientSentDataInMultipleFrames() throws Exception
     {
         k3po.start();
@@ -153,7 +153,7 @@ public class TcpIT
     @Specification({
         "client.sent.data.multiple.streams/client",
         "client.sent.data.multiple.streams/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveClientSentDataOnMultipleStreams() throws Exception
     {
         k3po.start();
@@ -165,7 +165,7 @@ public class TcpIT
     @Specification({
         "client.sent.data.multiple.streams.second.was.reset/client",
         "client.sent.data.multiple.streams.second.was.reset/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveClientSentDataWithMultipleStreamsSecondWasReset() throws Exception
     {
         k3po.start();
@@ -177,7 +177,7 @@ public class TcpIT
     @Specification({
         "client.sent.data.received.abort.and.reset/client",
         "client.sent.data.received.abort.and.reset/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldSendAbortAndResetToClientAfterIOExceptionFromWrite() throws Exception
     {
         k3po.start();
@@ -189,7 +189,7 @@ public class TcpIT
     @Specification({
         "client.sent.data.received.reset/client",
         "client.sent.data.received.reset/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldSendResetToClientAppWhenItExceedsWindow() throws Exception
     {
         k3po.start();
@@ -201,7 +201,7 @@ public class TcpIT
     @Specification({
         "client.sent.data.then.end/client",
         "client.sent.data.then.end/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveClientSentDataAndEnd() throws Exception
     {
         k3po.start();
@@ -213,7 +213,7 @@ public class TcpIT
     @Specification({
         "client.sent.end.then.received.data/client",
         "client.sent.end.then.received.data/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void clientShouldReceiveDataAfterEndingOutput() throws Exception
     {
         k3po.start();
@@ -225,7 +225,7 @@ public class TcpIT
     @Specification({
         "client.sent.reset/client",
         "client.sent.reset/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void clientShouldResetConnection() throws Exception
     {
         k3po.start();
@@ -237,7 +237,7 @@ public class TcpIT
     @Specification({
         "client.sent.reset.and.end/client",
         "client.sent.reset.and.end/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void clientShouldResetConnectionThenEnd() throws Exception
     {
         k3po.start();
@@ -249,7 +249,7 @@ public class TcpIT
     @Specification({
         "concurrent.connections/client",
         "concurrent.connections/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldConveyBidirectionalDataOnConcurrentConnections() throws Exception
     {
         k3po.start();
@@ -261,7 +261,7 @@ public class TcpIT
     @Specification({
         "max.connections/client",
         "max.connections/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void maxConnections() throws Exception
     {
         k3po.start();
@@ -273,7 +273,7 @@ public class TcpIT
     @Specification({
         "connection.established/client",
         "connection.established/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldEstablishConnection() throws Exception
     {
         k3po.start();
@@ -285,7 +285,7 @@ public class TcpIT
     @Specification({
         "connection.failed/client",
         "connection.failed/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldFailConnection() throws Exception
     {
         k3po.start();
@@ -297,7 +297,7 @@ public class TcpIT
     @Specification({
         "server.close/client",
         "server.close/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldInitiateServerClose() throws Exception
     {
         k3po.start();
@@ -309,7 +309,7 @@ public class TcpIT
     @Specification({
         "server.received.abort.sent.end/client",
         "server.received.abort.sent.end/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldReceiveResetAndAbortAndNoAdditionalResetWhensendEnd() throws Exception
     {
         k3po.start();
@@ -321,7 +321,7 @@ public class TcpIT
     @Specification({
         "server.received.reset.and.abort/client",
         "server.received.reset.and.abort/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldReceiveResetAndAbortAfterIOExceptionFromRead() throws Exception
     {
         k3po.start();
@@ -333,7 +333,7 @@ public class TcpIT
     @Specification({
         "server.sent.abort/client",
         "server.sent.abort/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldAbortConnection() throws Exception
     {
         k3po.start();
@@ -345,7 +345,7 @@ public class TcpIT
     @Specification({
         "server.sent.abort.and.reset/client",
         "server.sent.abort.and.reset/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldAbortAndResetConnection() throws Exception
     {
         k3po.start();
@@ -357,7 +357,7 @@ public class TcpIT
     @Specification({
         "server.sent.data/client",
         "server.sent.data/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveServerSentData() throws Exception
     {
         k3po.start();
@@ -369,7 +369,7 @@ public class TcpIT
     @Specification({
         "server.sent.data.multiple.frames/client",
         "server.sent.data.multiple.frames/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveServerSentDataMultipleFrames() throws Exception
     {
         k3po.start();
@@ -381,7 +381,7 @@ public class TcpIT
     @Specification({
         "server.sent.data.multiple.streams/client",
         "server.sent.data.multiple.streams/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveServerSentDataOnMultipleStreams() throws Exception
     {
         k3po.start();
@@ -393,7 +393,7 @@ public class TcpIT
     @Specification({
         "server.sent.data.multiple.streams.second.was.reset/client",
         "server.sent.data.multiple.streams.second.was.reset/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveServerSentDataWithMultipleStreamsSecondWasReset() throws Exception
     {
         k3po.start();
@@ -405,7 +405,7 @@ public class TcpIT
     @Specification({
         "server.sent.data.received.reset.and.abort/client",
         "server.sent.data.received.reset.and.abort/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldSendResetToServerAppWhenItExceedsWindow() throws Exception
     {
         k3po.start();
@@ -417,7 +417,7 @@ public class TcpIT
     @Specification({
         "server.sent.data.received.reset.and.abort/client",
         "server.sent.data.received.reset.and.abort/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldSendResetAndAbortToServerAfterIOExceptionFromWrite() throws Exception
     {
         k3po.start();
@@ -429,7 +429,7 @@ public class TcpIT
     @Specification({
         "server.sent.data.then.end/client",
         "server.sent.data.then.end/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveServerSentDataAndEnd() throws Exception
     {
         k3po.start();
@@ -441,7 +441,7 @@ public class TcpIT
     @Specification({
         "server.sent.end.then.received.data/client",
         "server.sent.end.then.received.data/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldReceiveDataAfterEndingOutput() throws Exception
     {
         k3po.start();
@@ -453,7 +453,7 @@ public class TcpIT
     @Specification({
         "server.sent.reset/client",
         "server.sent.reset/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldResetConnection() throws Exception
     {
         k3po.start();
@@ -465,7 +465,7 @@ public class TcpIT
     @Specification({
         "server.sent.reset.and.end/client",
         "server.sent.reset.and.end/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldResetConnectionThenEnd() throws Exception
     {
         k3po.start();

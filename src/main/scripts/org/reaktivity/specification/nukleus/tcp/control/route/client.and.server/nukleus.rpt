@@ -26,32 +26,28 @@ connected
 
 read 0x00000001
 read (long:correlationIdRG010101N)
+read ${core:string("tcp")}
 read [0x01]
-read [0x06] "source"
-read 0L
-read [0x09] "localhost"
-read (long:localhostPortRefRG010101N)
 read [0..8] # authorization
+read ${core:string("tcp#0")}
+read ${core:string("localhost:8080")}
 
 write 0x40000001
 write ${correlationIdRG010101N}
-write ${nuklei:newReferenceId()}
-write ${localhostPortRefRG010101N}
+write ${nukleus:newClientRouteId("tcp#0", "localhost:8080")}
 write flush
 
 read 0x00000001
 read (long:correlationIdRG010001N)
+read ${core:string("tcp")}
 read [0x00]
-read [0x07] "0.0.0.0"
-read (long:anyPortRG010001N)
-read [0x06] "target"
-read (long:serverConnectRefRG010001N)
 read [0..8] # authorization
+read ${core:string("tcp#0.0.0.0:8080")}
+read ${core:string("target#0")}
 
 write 0x40000001
 write ${correlationIdRG010001N}
-write ${anyPortRG010001N}
-write ${serverConnectRefRG010001N}
+write ${nukleus:newServerRouteId("tcp#0.0.0.0:8080", "target#0")}
 write flush
 
 close

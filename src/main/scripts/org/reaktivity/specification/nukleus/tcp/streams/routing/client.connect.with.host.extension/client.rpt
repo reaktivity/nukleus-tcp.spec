@@ -14,12 +14,10 @@
 # under the License.
 #
 
-property newClientAcceptRef ${nuklei:newReferenceId()} # external scope
 property host "localhost"
 
 connect await ROUTED_CLIENT
-        "nukleus://tcp/streams/source"
-    option nukleus:route ${newClientAcceptRef}
+        "nukleus://streams/tcp#0"
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 

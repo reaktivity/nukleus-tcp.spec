@@ -14,14 +14,11 @@
 # under the License.
 #
 
-property newClientAcceptRef ${nuklei:newReferenceId()} 
-property newServerConnectRef ${newClientAcceptRef} # external scope
 property ip "192.168.0.1"
 
-property serverConnect "nukleus://target/streams/tcp#source"
+property serverConnect "nukleus://streams/target#0"
 
 accept ${serverConnect}
-       option nukleus:route ${newServerConnectRef}
        option nukleus:window 8192
        option nukleus:transmission "simplex"
 accepted

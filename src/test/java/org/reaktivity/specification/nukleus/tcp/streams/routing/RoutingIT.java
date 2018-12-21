@@ -42,7 +42,7 @@ public class RoutingIT
     @Specification({
         "client.connect.with.host.extension/client",
         "client.connect.with.host.extension/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldConnectClientWithHostExtension() throws Exception
     {
         k3po.start();
@@ -54,7 +54,7 @@ public class RoutingIT
     @Specification({
         "client.connect.with.ip.extension/client",
         "client.connect.with.ip.extension/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldConnectClientWithIpExtension() throws Exception
     {
         k3po.start();
@@ -66,7 +66,7 @@ public class RoutingIT
     @Specification({
         "client.reset.with.no.subnet.match/client",
         "client.reset.with.no.subnet.match/server" })
-    @ScriptProperty("serverConnect \"nukleus://tcp/streams/source\"")
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldResetClientWithNoSubnetMatch() throws Exception
     {
         k3po.start();

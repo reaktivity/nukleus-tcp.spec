@@ -14,14 +14,10 @@
 # under the License.
 #
 
-property newClientAcceptRef ${nuklei:newReferenceId()} 
-property newServerConnectRef ${newClientAcceptRef} # external scope
-
-property serverConnect "nukleus://target/streams/tcp#source"
+property serverConnect "nukleus://streams/target#0"
 property serverInitialWindow 8192
-       
+
 accept ${serverConnect}
-       option nukleus:route ${newServerConnectRef}
        option nukleus:window ${serverInitialWindow}
        option nukleus:transmission "duplex"
 accepted
@@ -37,6 +33,3 @@ write "server data 2"
 write aborted
 
 write notify SECOND_STREAM_RESET_RECEIVED
-
-
-
