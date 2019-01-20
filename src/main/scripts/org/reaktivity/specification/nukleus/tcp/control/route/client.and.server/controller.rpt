@@ -16,7 +16,7 @@
 
 property nukleiRG010001CS ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property controlRG010001CS ${nukleiRG010001CS.control("tcp")}
+property controlRG010001CS ${nukleiRG010001CS.control()}
 property correlationIdS ${controlRG010001CS.nextCorrelationId()}
 property correlationIdC ${controlRG010001CS.nextCorrelationId()}
 
