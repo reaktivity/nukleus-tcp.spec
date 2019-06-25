@@ -23,6 +23,12 @@ accept ${serverConnect}
 
 accepted
 
-read nukleus:begin.ext ${tcp:beginExtRemoteHost(host, 8080)}
+read nukleus:begin.ext ${tcp:beginEx()
+                            .typeId(nukleus:id("tcp"))
+                            .localAddress("0.0.0.0")
+                            .localPort(0)
+                            .remoteHost(host)
+                            .remotePort(8080)
+                            .build()}
 
 connected
