@@ -24,7 +24,7 @@ scope tcp
 
     scope stream
     {
-        struct TcpBeginEx
+        struct TcpBeginEx extends core::stream::Extension
         {
             tcp::TcpAddress localAddress;
             uint16 localPort;

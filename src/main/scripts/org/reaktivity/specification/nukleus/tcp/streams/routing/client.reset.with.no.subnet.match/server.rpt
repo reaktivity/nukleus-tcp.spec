@@ -23,7 +23,13 @@ accept ${serverConnect}
        option nukleus:transmission "simplex"
 accepted
 
-read nukleus:begin.ext ${tcp:beginExtRemoteAddress(ip, 8080)}
+read nukleus:begin.ext ${tcp:beginEx()
+                            .typeId(nukleus:id("tcp"))
+                            .localAddress("0.0.0.0")
+                            .localPort(0)
+                            .remoteAddress(ip)
+                            .remotePort(8080)
+                            .build()}
 
 connected
 
