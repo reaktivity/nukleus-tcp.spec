@@ -19,7 +19,6 @@ property ip "192.168.0.1"
 connect await ROUTED_CLIENT
         "nukleus://streams/tcp#0"
     option nukleus:window 8192
-    option nukleus:transmission "simplex"
 
 write nukleus:begin.ext ${tcp:beginEx()
                              .typeId(nukleus:id("tcp"))
@@ -29,6 +28,4 @@ write nukleus:begin.ext ${tcp:beginEx()
                              .remotePort(8080)
                              .build()}
 
-connected
-
-write aborted
+connect aborted

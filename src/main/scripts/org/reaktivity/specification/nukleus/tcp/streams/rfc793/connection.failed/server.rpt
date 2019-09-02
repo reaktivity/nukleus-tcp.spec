@@ -19,11 +19,5 @@ property serverInitialWindow 8192
 
 accept ${serverConnect}
        option nukleus:window ${serverInitialWindow}
-       option nukleus:transmission "simplex"
-accepted
 
-connected
-read abort
-
-
-
+rejected

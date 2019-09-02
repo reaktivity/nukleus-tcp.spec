@@ -17,10 +17,5 @@
 connect await ROUTED_CLIENT
         "nukleus://streams/tcp#0"
     option nukleus:window 8192
-    option nukleus:transmission "simplex"
 
-# TODO: expect a RESET frame to be received instead of WINDOW when k3po nukleus transport adds 
-# support for this ("write aborted" or "connect aborted" without the presence on the connected keyword). 
-# For now all we can do is expect WINDOW (connected) followed by RESET
-connected
-write aborted
+connect aborted

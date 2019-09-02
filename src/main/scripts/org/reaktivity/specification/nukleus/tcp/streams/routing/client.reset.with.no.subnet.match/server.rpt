@@ -14,23 +14,9 @@
 # under the License.
 #
 
-property ip "192.168.0.1"
-
 property serverConnect "nukleus://streams/target#0"
 
 accept ${serverConnect}
        option nukleus:window 8192
-       option nukleus:transmission "simplex"
-accepted
 
-read nukleus:begin.ext ${tcp:beginEx()
-                            .typeId(nukleus:id("tcp"))
-                            .localAddress("0.0.0.0")
-                            .localPort(0)
-                            .remoteAddress(ip)
-                            .remotePort(8080)
-                            .build()}
-
-connected
-
-read abort
+rejected
