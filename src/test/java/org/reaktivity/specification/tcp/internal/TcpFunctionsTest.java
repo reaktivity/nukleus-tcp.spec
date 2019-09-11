@@ -98,7 +98,7 @@ public class TcpFunctionsTest
         assertEquals(0x01, beginEx.typeId());
         assertEquals(KIND_IPV4_ADDRESS, beginEx.localAddress().kind());
         assertArrayEquals(new byte[4],
-        copyOfRange(beginEx.buffer().byteArray(), beginEx.localAddress().offset() + 1, beginEx.localAddress().limit()));
+            copyOfRange(beginEx.buffer().byteArray(), beginEx.localAddress().offset() + 1, beginEx.localAddress().limit()));
         assertEquals(0, beginEx.localPort());
         assertEquals(KIND_HOST, beginEx.remoteAddress().kind());
         assertEquals("localhost", beginEx.remoteAddress().host().asString());
