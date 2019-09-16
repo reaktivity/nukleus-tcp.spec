@@ -58,9 +58,9 @@ public final class TcpFunctions
         {
             final InetAddress inet = InetAddress.getByName(localAddress);
             final byte[] ip = inet.getAddress();
-            final Consumer<Builder> addressBuilder = inet instanceof Inet4Address?
-                b -> b.ipv4Address(s -> s.put(ip)):
-                b -> b.ipv6Address(s -> s.put(ip));
+            final Consumer<Builder> addressBuilder = inet instanceof Inet4Address
+                ? b -> b.ipv4Address(s -> s.put(ip))
+                : b -> b.ipv6Address(s -> s.put(ip));
 
             beginExRW.localAddress(addressBuilder);
             return this;
@@ -78,9 +78,9 @@ public final class TcpFunctions
         {
             final InetAddress inet = InetAddress.getByName(remoteAddress);
             final byte[] ip = inet.getAddress();
-            final Consumer<Builder> addressBuilder = inet instanceof Inet4Address?
-                b -> b.ipv4Address(s -> s.put(ip)):
-                b -> b.ipv6Address(s -> s.put(ip));
+            final Consumer<Builder> addressBuilder = inet instanceof Inet4Address
+                ? b -> b.ipv4Address(s -> s.put(ip))
+                : b -> b.ipv6Address(s -> s.put(ip));
 
             beginExRW.remoteAddress(addressBuilder);
             return this;
