@@ -6,7 +6,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.reaktivity</groupId>
   <artifactId>nukleus-tcp.spec</artifactId>
-  <version>0.56</version>
+  <version>0.57</version>
   <name>TCP Nukleus Specification</name>
   <description>TCP Nukleus Specification</description>
   <url>https://github.com/reaktivity/nukleus-tcp.spec</url>
@@ -47,8 +47,8 @@
 
     <junit.version>4.12</junit.version>
     <k3po.version>3.0.0-alpha-103</k3po.version>
-    <reaktor.version>0.102</reaktor.version>
-    <nukleus.spec.version>0.41</nukleus.spec.version>
+    <reaktor.version>0.104</reaktor.version>
+    <nukleus.spec.version>0.42</nukleus.spec.version>
     <nukleus.plugin.version>0.42</nukleus.plugin.version>
   </properties>
 
