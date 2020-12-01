@@ -13,24 +13,42 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.reaktivity.specification.tcp.internal;
+package org.reaktivity.specification.nukleus.tcp.internal;
 
 import static java.util.Arrays.copyOfRange;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.reaktivity.specification.tcp.internal.types.TcpAddressFW.KIND_HOST;
-import static org.reaktivity.specification.tcp.internal.types.TcpAddressFW.KIND_IPV4_ADDRESS;
-import static org.reaktivity.specification.tcp.internal.types.TcpAddressFW.KIND_IPV6_ADDRESS;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.reaktivity.specification.nukleus.tcp.internal.types.TcpAddressFW.KIND_HOST;
+import static org.reaktivity.specification.nukleus.tcp.internal.types.TcpAddressFW.KIND_IPV4_ADDRESS;
+import static org.reaktivity.specification.nukleus.tcp.internal.types.TcpAddressFW.KIND_IPV6_ADDRESS;
 
+import java.lang.reflect.Method;
 import java.net.UnknownHostException;
+
+import javax.el.ELContext;
+import javax.el.FunctionMapper;
 
 import org.agrona.DirectBuffer;
 import org.agrona.concurrent.UnsafeBuffer;
 import org.junit.Test;
-import org.reaktivity.specification.tcp.internal.types.stream.TcpBeginExFW;
+import org.kaazing.k3po.lang.internal.el.ExpressionContext;
+import org.reaktivity.specification.nukleus.tcp.internal.types.stream.TcpBeginExFW;
 
 public class TcpFunctionsTest
 {
+    @Test
+    public void shouldResolveFunction() throws Exception
+    {
+        final ELContext ctx = new ExpressionContext();
+        final FunctionMapper mapper = ctx.getFunctionMapper();
+        final Method function = mapper.resolveFunction("tcp", "beginEx");
+
+        assertNotNull(function);
+        assertSame(TcpFunctions.class, function.getDeclaringClass());
+    }
+
     @Test
     public void shouldGenerateTcpBeginExtensionWithIpv4Address() throws UnknownHostException
     {

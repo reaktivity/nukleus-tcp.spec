@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.reaktivity.specification.tcp.internal;
+package org.reaktivity.specification.nukleus.tcp.internal;
 
 import java.net.Inet4Address;
 import java.net.InetAddress;
@@ -24,8 +24,8 @@ import org.agrona.MutableDirectBuffer;
 import org.agrona.concurrent.UnsafeBuffer;
 import org.kaazing.k3po.lang.el.Function;
 import org.kaazing.k3po.lang.el.spi.FunctionMapperSpi;
-import org.reaktivity.specification.tcp.internal.types.TcpAddressFW.Builder;
-import org.reaktivity.specification.tcp.internal.types.stream.TcpBeginExFW;
+import org.reaktivity.specification.nukleus.tcp.internal.types.TcpAddressFW.Builder;
+import org.reaktivity.specification.nukleus.tcp.internal.types.stream.TcpBeginExFW;
 
 public final class TcpFunctions
 {
