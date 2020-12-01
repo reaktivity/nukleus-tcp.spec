@@ -23,7 +23,6 @@ import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
 import org.junit.rules.TestRule;
 import org.junit.rules.Timeout;
-import org.kaazing.k3po.junit.annotation.ScriptProperty;
 import org.kaazing.k3po.junit.annotation.Specification;
 import org.kaazing.k3po.junit.rules.K3poRule;
 
@@ -42,7 +41,6 @@ public class ApplicationRoutingIT
     @Specification({
         "${app}/client.connect.with.host.extension/client",
         "${app}/client.connect.with.host.extension/server" })
-    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldConnectClientWithHostExtension() throws Exception
     {
         k3po.start();
@@ -54,7 +52,6 @@ public class ApplicationRoutingIT
     @Specification({
         "${app}/client.connect.with.ip.extension/client",
         "${app}/client.connect.with.ip.extension/server" })
-    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldConnectClientWithIpExtension() throws Exception
     {
         k3po.start();
@@ -66,7 +63,6 @@ public class ApplicationRoutingIT
     @Specification({
         "${app}/client.reset.with.no.subnet.match/client",
         "${app}/client.reset.with.no.subnet.match/server" })
-    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldResetClientWithNoSubnetMatch() throws Exception
     {
         k3po.start();

@@ -15,9 +15,8 @@
 #
 
 property host "localhost"
-property serverConnect "nukleus://streams/target#0"
 
-accept ${serverConnect}
+accept "nukleus://streams/app#0"
        option nukleus:window 8192
        option nukleus:transmission "duplex"
 

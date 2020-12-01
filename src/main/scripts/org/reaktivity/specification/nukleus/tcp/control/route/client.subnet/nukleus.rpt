@@ -29,12 +29,12 @@ read (long:correlationIdRG010101N)
 read ${core:string("tcp")}
 read [0x01]
 read [0..8] # authorization
-read ${core:string("tcp#0")}
+read ${core:string("app#0")}
 read ${core:string("127.0.0.1/24:8080")}
 
 write 0x40000001
 write ${correlationIdRG010101N}
-write ${nukleus:newClientRouteId("tcp#0", "127.0.0.1/24:8080")}
+write ${nukleus:newClientRouteId("app#0", "127.0.0.1/24:8080")}
 write flush
 
 close

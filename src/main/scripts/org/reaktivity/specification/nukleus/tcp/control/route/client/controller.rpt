@@ -14,27 +14,30 @@
 # under the License.
 #
 
-property newClientRouteId ${nukleus:newClientRouteId("tcp#0", "localhost:8080")} # external
+property nukleiRG010001C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
 
-property nukleiUR020101C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
+property controlRG010001C ${nukleiRG010001C.control()}
 
-property controlUR020101C ${nukleiUR020101C.control()}
-
-connect await ROUTED_CLIENT
-        "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:broadcastReceiver(controlUR020101C.controller)}
-        option agrona:writer ${agrona:manyToOneWriter(controlUR020101C.nukleus)}
+connect "agrona://stream/bidirectional"
+        option agrona:reader ${agrona:broadcastReceiver(controlRG010001C.controller)}
+        option agrona:writer ${agrona:manyToOneWriter(controlRG010001C.nukleus)}
 
 connected
 
-write 0x00000002
-write ${controlUR020101C.nextCorrelationId()}
+write 0x00000001
+write ${controlRG010001C.nextCorrelationId()}
 write ${core:string("tcp")}
-write ${newClientRouteId}
+write [0x01]
+write 0L
+write ${core:string("app#0")}
+write ${core:string("localhost:8080")}
 write flush
 
-read 0x40000002
-read ${controlUR020101C.correlationId()}
+read 0x40000001
+read ${controlRG010001C.correlationId()}
+read (long:newClientRouteId)
+
+read notify ROUTED_CLIENT
 
 close
 closed

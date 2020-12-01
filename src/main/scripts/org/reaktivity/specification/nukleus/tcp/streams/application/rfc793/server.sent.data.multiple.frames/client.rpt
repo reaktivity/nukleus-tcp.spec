@@ -17,7 +17,7 @@
 property clientInitialWindow 8192
 
 connect await ROUTED_CLIENT
-        "nukleus://streams/tcp#0"
+        "nukleus://streams/app#0"
     option nukleus:window ${clientInitialWindow}
     option nukleus:transmission "duplex"
 

@@ -17,7 +17,7 @@
 property ip "127.0.0.1"
 
 connect await ROUTED_CLIENT
-        "nukleus://streams/tcp#0"
+        "nukleus://streams/app#0"
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 

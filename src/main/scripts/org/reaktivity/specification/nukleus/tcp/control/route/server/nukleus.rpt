@@ -30,11 +30,11 @@ read ${core:string("tcp")}
 read [0x00]
 read [0..8]
 read ${core:string("tcp#0.0.0.0:8080")}
-read ${core:string("target#0")}
+read ${core:string("app#0")}
 
 write 0x40000001
 write ${correlationIdRG010001N}
-write ${nukleus:newServerRouteId("tcp#0.0.0.0:8080", "target#0")}
+write ${nukleus:newServerRouteId("tcp#0.0.0.0:8080", "app#0")}
 write flush
 
 close
