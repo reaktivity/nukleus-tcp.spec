@@ -15,7 +15,7 @@
 #
 
 connect await ROUTED_CLIENT
-        "nukleus://streams/tcp#0"
+        "nukleus://streams/app#0"
     option nukleus:window 15
     option nukleus:padding 10
 

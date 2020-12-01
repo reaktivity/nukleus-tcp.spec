@@ -14,10 +14,9 @@
 # under the License.
 #
 
-property serverConnect "nukleus://streams/target#0"
 property serverInitialWindow 8192
 
-accept ${serverConnect}
+accept "nukleus://streams/app#0"
        option nukleus:window ${serverInitialWindow}
        option nukleus:transmission "duplex"
 accepted

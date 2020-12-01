@@ -14,15 +14,27 @@
 # under the License.
 #
 
+property newClientRouteId ${nukleus:newClientRouteId("app#0", "localhost:8080")} # external
+
+property nukleiUR020101C ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
+
+property controlUR020101C ${nukleiUR020101C.control()}
+
 connect await ROUTED_CLIENT
-        "nukleus://streams/app#0"
-    option nukleus:window 8192
-    option nukleus:transmission "duplex"
+        "agrona://stream/bidirectional"
+        option agrona:reader ${agrona:broadcastReceiver(controlUR020101C.controller)}
+        option agrona:writer ${agrona:manyToOneWriter(controlUR020101C.nukleus)}
 
 connected
 
-read notify CONNECTED
+write 0x00000002
+write ${controlUR020101C.nextCorrelationId()}
+write ${core:string("tcp")}
+write ${newClientRouteId}
+write flush
 
-read aborted 
+read 0x40000002
+read ${controlUR020101C.correlationId()}
 
-write close
+close
+closed
