@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.reaktivity.specification.tcp.routing;
+package org.reaktivity.specification.nukleus.tcp.streams;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
@@ -23,14 +23,15 @@ import org.junit.Test;
 import org.junit.rules.DisableOnDebug;
 import org.junit.rules.TestRule;
 import org.junit.rules.Timeout;
+import org.kaazing.k3po.junit.annotation.ScriptProperty;
 import org.kaazing.k3po.junit.annotation.Specification;
 import org.kaazing.k3po.junit.rules.K3poRule;
 
-public class RoutingIT
+public class ApplicationRoutingIT
 {
 
     private final K3poRule k3po = new K3poRule()
-            .addScriptRoot("streams", "org/reaktivity/specification/tcp/routing");
+            .addScriptRoot("app", "org/reaktivity/specification/nukleus/tcp/streams/application/routing");
 
     private final TestRule timeout = new DisableOnDebug(new Timeout(5, SECONDS));
 
@@ -39,20 +40,37 @@ public class RoutingIT
 
     @Test
     @Specification({
-        "client.connect.with.host.extension/client",
-        "client.connect.with.host.extension/server" })
+        "${app}/client.connect.with.host.extension/client",
+        "${app}/client.connect.with.host.extension/server" })
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldConnectClientWithHostExtension() throws Exception
     {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
     @Test
     @Specification({
-        "client.connect.with.ip.extension/client",
-        "client.connect.with.ip.extension/server" })
+        "${app}/client.connect.with.ip.extension/client",
+        "${app}/client.connect.with.ip.extension/server" })
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldConnectClientWithIpExtension() throws Exception
     {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "${app}/client.reset.with.no.subnet.match/client",
+        "${app}/client.reset.with.no.subnet.match/server" })
+    @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
+    public void shouldResetClientWithNoSubnetMatch() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
 }

@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-package org.reaktivity.specification.nukleus.tcp.streams.rfc793;
+package org.reaktivity.specification.nukleus.tcp.streams;
 
 import static java.util.concurrent.TimeUnit.SECONDS;
 import static org.junit.rules.RuleChain.outerRule;
@@ -30,11 +30,11 @@ import org.kaazing.k3po.junit.rules.K3poRule;
 /**
  * RFC-793
  */
-public class TcpIT
+public class ApplicationIT
 {
 
     private final K3poRule k3po = new K3poRule()
-            .addScriptRoot("streams", "org/reaktivity/specification/nukleus/tcp/streams/rfc793");
+            .addScriptRoot("app", "org/reaktivity/specification/nukleus/tcp/streams/application/rfc793");
 
     private final TestRule timeout = new DisableOnDebug(new Timeout(5, SECONDS));
 
@@ -43,8 +43,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.and.server.sent.data.multiple.frames/client",
-        "client.and.server.sent.data.multiple.frames/server" })
+        "${app}/client.and.server.sent.data.multiple.frames/client",
+        "${app}/client.and.server.sent.data.multiple.frames/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldSendAndReceiveData() throws Exception
     {
@@ -55,8 +55,8 @@ public class TcpIT
 
     @Test
     @Specification({
-            "client.and.server.sent.data.with.padding/client",
-            "client.and.server.sent.data.with.padding/server" })
+        "${app}/client.and.server.sent.data.with.padding/client",
+        "${app}/client.and.server.sent.data.with.padding/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldSendAndReceiveDataWithPadding() throws Exception
     {
@@ -67,8 +67,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.close/client",
-        "client.close/server" })
+        "${app}/client.close/client",
+        "${app}/client.close/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldInitiateClientClose() throws Exception
     {
@@ -79,8 +79,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.received.abort.sent.end/client",
-        "client.received.abort.sent.end/server" })
+        "${app}/client.received.abort.sent.end/client",
+        "${app}/client.received.abort.sent.end/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void clientShouldReceiveResetAndAbortAndNoAdditionalResetWhensendEnd() throws Exception
     {
@@ -91,8 +91,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.received.reset.and.abort/client",
-        "client.received.reset.and.abort/server" })
+        "${app}/client.received.reset.and.abort/client",
+        "${app}/client.received.reset.and.abort/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void clientShouldReceiveResetAndAbortAfterIOExceptionFromRead() throws Exception
     {
@@ -103,8 +103,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.abort/client",
-        "client.sent.abort/server" })
+        "${app}/client.sent.abort/client",
+        "${app}/client.sent.abort/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldProcessAbortFromClient() throws Exception
     {
@@ -115,8 +115,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.abort.and.reset/client",
-        "client.sent.abort.and.reset/server" })
+        "${app}/client.sent.abort.and.reset/client",
+        "${app}/client.sent.abort.and.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldProcessAbortAndResetFromClient() throws Exception
     {
@@ -127,8 +127,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.data/client",
-        "client.sent.data/server" })
+        "${app}/client.sent.data/client",
+        "${app}/client.sent.data/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveClientSentData() throws Exception
     {
@@ -139,8 +139,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.data.multiple.frames/client",
-        "client.sent.data.multiple.frames/server" })
+        "${app}/client.sent.data.multiple.frames/client",
+        "${app}/client.sent.data.multiple.frames/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveClientSentDataInMultipleFrames() throws Exception
     {
@@ -151,8 +151,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.data.multiple.streams/client",
-        "client.sent.data.multiple.streams/server" })
+        "${app}/client.sent.data.multiple.streams/client",
+        "${app}/client.sent.data.multiple.streams/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveClientSentDataOnMultipleStreams() throws Exception
     {
@@ -163,8 +163,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.data.multiple.streams.second.was.reset/client",
-        "client.sent.data.multiple.streams.second.was.reset/server" })
+        "${app}/client.sent.data.multiple.streams.second.was.reset/client",
+        "${app}/client.sent.data.multiple.streams.second.was.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveClientSentDataWithMultipleStreamsSecondWasReset() throws Exception
     {
@@ -175,8 +175,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.data.received.abort.and.reset/client",
-        "client.sent.data.received.abort.and.reset/server" })
+        "${app}/client.sent.data.received.abort.and.reset/client",
+        "${app}/client.sent.data.received.abort.and.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldSendAbortAndResetToClientAfterIOExceptionFromWrite() throws Exception
     {
@@ -187,8 +187,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.data.received.reset/client",
-        "client.sent.data.received.reset/server" })
+        "${app}/client.sent.data.received.reset/client",
+        "${app}/client.sent.data.received.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldSendResetToClientAppWhenItExceedsWindow() throws Exception
     {
@@ -199,8 +199,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.data.then.end/client",
-        "client.sent.data.then.end/server" })
+        "${app}/client.sent.data.then.end/client",
+        "${app}/client.sent.data.then.end/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveClientSentDataAndEnd() throws Exception
     {
@@ -211,8 +211,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.end.then.received.data/client",
-        "client.sent.end.then.received.data/server" })
+        "${app}/client.sent.end.then.received.data/client",
+        "${app}/client.sent.end.then.received.data/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void clientShouldReceiveDataAfterEndingOutput() throws Exception
     {
@@ -223,8 +223,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.reset/client",
-        "client.sent.reset/server" })
+        "${app}/client.sent.reset/client",
+        "${app}/client.sent.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void clientShouldResetConnection() throws Exception
     {
@@ -235,8 +235,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "client.sent.reset.and.end/client",
-        "client.sent.reset.and.end/server" })
+        "${app}/client.sent.reset.and.end/client",
+        "${app}/client.sent.reset.and.end/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void clientShouldResetConnectionThenEnd() throws Exception
     {
@@ -247,8 +247,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "concurrent.connections/client",
-        "concurrent.connections/server" })
+        "${app}/concurrent.connections/client",
+        "${app}/concurrent.connections/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldConveyBidirectionalDataOnConcurrentConnections() throws Exception
     {
@@ -259,8 +259,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "max.connections/client",
-        "max.connections/server" })
+        "${app}/max.connections/client",
+        "${app}/max.connections/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void maxConnections() throws Exception
     {
@@ -271,8 +271,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "connection.established/client",
-        "connection.established/server" })
+        "${app}/connection.established/client",
+        "${app}/connection.established/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldEstablishConnection() throws Exception
     {
@@ -283,8 +283,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "connection.failed/client",
-        "connection.failed/server" })
+        "${app}/connection.failed/client",
+        "${app}/connection.failed/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldFailConnection() throws Exception
     {
@@ -295,8 +295,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.close/client",
-        "server.close/server" })
+        "${app}/server.close/client",
+        "${app}/server.close/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldInitiateServerClose() throws Exception
     {
@@ -307,8 +307,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.received.abort.sent.end/client",
-        "server.received.abort.sent.end/server" })
+        "${app}/server.received.abort.sent.end/client",
+        "${app}/server.received.abort.sent.end/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldReceiveResetAndAbortAndNoAdditionalResetWhensendEnd() throws Exception
     {
@@ -319,8 +319,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.received.reset.and.abort/client",
-        "server.received.reset.and.abort/server" })
+        "${app}/server.received.reset.and.abort/client",
+        "${app}/server.received.reset.and.abort/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldReceiveResetAndAbortAfterIOExceptionFromRead() throws Exception
     {
@@ -331,8 +331,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.abort/client",
-        "server.sent.abort/server" })
+        "${app}/server.sent.abort/client",
+        "${app}/server.sent.abort/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldAbortConnection() throws Exception
     {
@@ -343,8 +343,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.abort.and.reset/client",
-        "server.sent.abort.and.reset/server" })
+        "${app}/server.sent.abort.and.reset/client",
+        "${app}/server.sent.abort.and.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldAbortAndResetConnection() throws Exception
     {
@@ -355,8 +355,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.data/client",
-        "server.sent.data/server" })
+        "${app}/server.sent.data/client",
+        "${app}/server.sent.data/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveServerSentData() throws Exception
     {
@@ -367,8 +367,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.data.multiple.frames/client",
-        "server.sent.data.multiple.frames/server" })
+        "${app}/server.sent.data.multiple.frames/client",
+        "${app}/server.sent.data.multiple.frames/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveServerSentDataMultipleFrames() throws Exception
     {
@@ -379,8 +379,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.data.multiple.streams/client",
-        "server.sent.data.multiple.streams/server" })
+        "${app}/server.sent.data.multiple.streams/client",
+        "${app}/server.sent.data.multiple.streams/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveServerSentDataOnMultipleStreams() throws Exception
     {
@@ -391,8 +391,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.data.multiple.streams.second.was.reset/client",
-        "server.sent.data.multiple.streams.second.was.reset/server" })
+        "${app}/server.sent.data.multiple.streams.second.was.reset/client",
+        "${app}/server.sent.data.multiple.streams.second.was.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveServerSentDataWithMultipleStreamsSecondWasReset() throws Exception
     {
@@ -403,8 +403,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.data.received.reset.and.abort/client",
-        "server.sent.data.received.reset.and.abort/server" })
+        "${app}/server.sent.data.received.reset.and.abort/client",
+        "${app}/server.sent.data.received.reset.and.abort/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldSendResetToServerAppWhenItExceedsWindow() throws Exception
     {
@@ -415,8 +415,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.data.received.reset.and.abort/client",
-        "server.sent.data.received.reset.and.abort/server" })
+        "${app}/server.sent.data.received.reset.and.abort/client",
+        "${app}/server.sent.data.received.reset.and.abort/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldSendResetAndAbortToServerAfterIOExceptionFromWrite() throws Exception
     {
@@ -427,8 +427,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.data.then.end/client",
-        "server.sent.data.then.end/server" })
+        "${app}/server.sent.data.then.end/client",
+        "${app}/server.sent.data.then.end/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void shouldReceiveServerSentDataAndEnd() throws Exception
     {
@@ -439,8 +439,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.end.then.received.data/client",
-        "server.sent.end.then.received.data/server" })
+        "${app}/server.sent.end.then.received.data/client",
+        "${app}/server.sent.end.then.received.data/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldReceiveDataAfterEndingOutput() throws Exception
     {
@@ -451,8 +451,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.reset/client",
-        "server.sent.reset/server" })
+        "${app}/server.sent.reset/client",
+        "${app}/server.sent.reset/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldResetConnection() throws Exception
     {
@@ -463,8 +463,8 @@ public class TcpIT
 
     @Test
     @Specification({
-        "server.sent.reset.and.end/client",
-        "server.sent.reset.and.end/server" })
+        "${app}/server.sent.reset.and.end/client",
+        "${app}/server.sent.reset.and.end/server" })
     @ScriptProperty("serverConnect \"nukleus://streams/tcp#0\"")
     public void serverShouldResetConnectionThenEnd() throws Exception
     {
