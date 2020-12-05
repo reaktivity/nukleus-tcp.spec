@@ -14,21 +14,6 @@
 # under the License.
 #
 
-property ip "192.168.0.1"
-
-connect await ROUTED_CLIENT
-        "nukleus://streams/app#0"
-    option nukleus:window 8192
-
-write nukleus:begin.ext ${proxy:beginEx()
-                               .typeId(nukleus:id("proxy"))
-                               .addressInet()
-                                 .protocol("stream")
-                                 .source("0.0.0.0")
-                                 .destination(ip)
-                                 .sourcePort(0)
-                                 .destinationPort(8080)
-                                 .build()
-                               .build()}
-
-connect aborted
+connect await ROUTED_SERVER
+        "tcp://127.0.0.1:8080"
+connected

@@ -97,10 +97,34 @@ public class ControlIT
 
     @Test
     @Specification({
+        "route/client.subnet.ipv6/nukleus",
+        "route/client.subnet.ipv6/controller"
+    })
+    public void shouldRouteClientSubnetIpv6() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "route/client.host.and.subnet/nukleus",
         "route/client.host.and.subnet/controller"
     })
     public void shouldRouteClientHostAndSubnet() throws Exception
+    {
+        k3po.start();
+        k3po.awaitBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "route/client.host.and.subnet.ipv6/nukleus",
+        "route/client.host.and.subnet.ipv6/controller"
+    })
+    public void shouldRouteClientHostAndSubnetIpv6() throws Exception
     {
         k3po.start();
         k3po.awaitBarrier("ROUTED_CLIENT");
