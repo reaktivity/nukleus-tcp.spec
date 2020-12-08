@@ -22,12 +22,15 @@ accept "nukleus://streams/app#0"
 
 accepted
 
-read nukleus:begin.ext ${tcp:beginEx()
-                            .typeId(nukleus:id("tcp"))
-                            .localAddress("0.0.0.0")
-                            .localPort(0)
-                            .remoteHost(host)
-                            .remotePort(8080)
-                            .build()}
+read nukleus:begin.ext ${proxy:beginEx()
+                              .typeId(nukleus:id("proxy"))
+                              .addressInet()
+                                .protocol("stream")
+                                .source("0.0.0.0")
+                                .destination(host)
+                                .sourcePort(0)
+                                .destinationPort(8080)
+                                .build()
+                              .build()}
 
 connected

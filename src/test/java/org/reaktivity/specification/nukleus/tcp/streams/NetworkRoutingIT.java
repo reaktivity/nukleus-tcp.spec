@@ -48,11 +48,19 @@ public class NetworkRoutingIT
 
     @Test
     @Specification({
-        "${net}/client.connect.with.ip.extension/client",
-        "${net}/client.connect.with.ip.extension/server" })
-    public void shouldConnectClientWithIpExtension() throws Exception
+        "${net}/client.connect.with.ipv4.extension/client",
+        "${net}/client.connect.with.ipv4.extension/server" })
+    public void shouldConnectClientWithIpv4Extension() throws Exception
     {
         k3po.finish();
     }
 
+    @Test
+    @Specification({
+        "${net}/client.connect.with.ipv6.extension/client",
+        "${net}/client.connect.with.ipv6.extension/server" })
+    public void shouldConnectClientWithIpv6Extension() throws Exception
+    {
+        k3po.finish();
+    }
 }
