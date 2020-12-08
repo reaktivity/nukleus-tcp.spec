@@ -50,9 +50,20 @@ public class ApplicationRoutingIT
 
     @Test
     @Specification({
-        "${app}/client.connect.with.ip.extension/client",
-        "${app}/client.connect.with.ip.extension/server" })
-    public void shouldConnectClientWithIpExtension() throws Exception
+        "${app}/client.connect.with.ipv4.extension/client",
+        "${app}/client.connect.with.ipv4.extension/server" })
+    public void shouldConnectClientWithIpv4Extension() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${app}/client.connect.with.ipv6.extension/client",
+        "${app}/client.connect.with.ipv6.extension/server" })
+    public void shouldConnectClientWithIpv6Extension() throws Exception
     {
         k3po.start();
         k3po.notifyBarrier("ROUTED_CLIENT");
