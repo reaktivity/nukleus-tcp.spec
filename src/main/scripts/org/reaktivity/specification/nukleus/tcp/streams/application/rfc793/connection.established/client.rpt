@@ -19,6 +19,17 @@ connect await ROUTED_CLIENT
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 
+write nukleus:begin.ext ${proxy:beginEx()
+                               .typeId(nukleus:id("proxy"))
+                               .addressInet4()
+                                 .protocol("stream")
+                                 .source("127.0.0.1")
+                                 .destination("127.0.0.1")
+                                 .sourcePort(32768)
+                                 .destinationPort(8080)
+                                 .build()
+                               .build()}
+
 connected
 
 

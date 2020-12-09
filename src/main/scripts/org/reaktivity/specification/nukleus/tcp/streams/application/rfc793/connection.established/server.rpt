@@ -21,6 +21,15 @@ accept "nukleus://streams/app#0"
        option nukleus:transmission "duplex"
 accepted
 
+read nukleus:begin.ext ${proxy:matchBeginEx()
+                              .typeId(nukleus:id("proxy"))
+                              .addressInet4()
+                                .protocol("stream")
+                                .destination("127.0.0.1")
+                                .destinationPort(8080)
+                                .build()
+                              .build()}
+
 connected
 
 
