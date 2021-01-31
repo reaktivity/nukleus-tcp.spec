@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations
  * under the License.
  */
-open module org.reaktivity.nukleus.spec.tcp
+open module org.reaktivity.specification.nukleus.tcp
 {
-    requires transitive org.reaktivity.nukleus.spec;
+    requires transitive org.reaktivity.specification.nukleus.proxy;
 }
