@@ -262,6 +262,17 @@ public class ApplicationIT
 
     @Test
     @Specification({
+        "${app}/connection.established.ipv6/client",
+        "${app}/connection.established.ipv6/server" })
+    public void shouldEstablishConnectionIPv6() throws Exception
+    {
+        k3po.start();
+        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
         "${app}/connection.failed/client",
         "${app}/connection.failed/server" })
     public void shouldFailConnection() throws Exception
