@@ -43,8 +43,6 @@ public class ApplicationRoutingIT
         "${app}/client.connect.with.host.extension/server" })
     public void shouldConnectClientWithHostExtension() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -54,8 +52,6 @@ public class ApplicationRoutingIT
         "${app}/client.connect.with.ipv4.extension/server" })
     public void shouldConnectClientWithIpv4Extension() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -65,8 +61,6 @@ public class ApplicationRoutingIT
         "${app}/client.connect.with.ipv6.extension/server" })
     public void shouldConnectClientWithIpv6Extension() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -76,8 +70,6 @@ public class ApplicationRoutingIT
         "${app}/client.reset.with.no.subnet.match/server" })
     public void shouldResetClientWithNoSubnetMatch() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 }

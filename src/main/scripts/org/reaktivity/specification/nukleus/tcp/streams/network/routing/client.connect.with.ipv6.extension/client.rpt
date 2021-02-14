@@ -14,6 +14,5 @@
 # under the License.
 #
 
-connect await ROUTED_SERVER
-        "tcp://[::1]:8080"
+connect "tcp://[::1]:8080"
 connected
