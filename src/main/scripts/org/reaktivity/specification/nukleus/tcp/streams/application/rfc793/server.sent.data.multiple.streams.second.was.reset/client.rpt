@@ -14,8 +14,6 @@
 # under the License.
 #
 
-property correlationId ${nukleus:newCorrelationId()}
-
 connect "nukleus://streams/app#0"
     option nukleus:window 8192
     option nukleus:transmission "duplex"
