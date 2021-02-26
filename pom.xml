@@ -57,7 +57,6 @@
 
     <reaktor.version>develop-SNAPSHOT</reaktor.version>
     <nukleus.proxy.spec.version>develop-SNAPSHOT</nukleus.proxy.spec.version>
-    <nukleus.plugin.version>0.85</nukleus.plugin.version>
   </properties>
 
   <dependencies>
@@ -97,23 +96,6 @@
     </resources>
 
     <plugins>
-      <plugin>
-        <groupId>org.reaktivity</groupId>
-        <artifactId>nukleus-maven-plugin</artifactId>
-        <version>${nukleus.plugin.version}</version>
-        <configuration>
-          <scopeNames>core</scopeNames>
-          <packageName>org.reaktivity.specification.nukleus.tcp.internal.types</packageName>
-        </configuration>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate</goal>
-              <goal>validate</goal>
-            </goals>
-          </execution>
-        </executions>
-      </plugin>
       <plugin>
         <groupId>com.mycila</groupId>
         <artifactId>license-maven-plugin</artifactId>
