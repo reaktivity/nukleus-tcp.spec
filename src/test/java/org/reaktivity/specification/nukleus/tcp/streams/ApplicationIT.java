@@ -46,8 +46,6 @@ public class ApplicationIT
         "${app}/client.and.server.sent.data.multiple.frames/server" })
     public void shouldSendAndReceiveData() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -57,8 +55,6 @@ public class ApplicationIT
         "${app}/client.and.server.sent.data.with.padding/server" })
     public void shouldSendAndReceiveDataWithPadding() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -68,8 +64,6 @@ public class ApplicationIT
         "${app}/client.close/server" })
     public void shouldInitiateClientClose() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -79,8 +73,6 @@ public class ApplicationIT
         "${app}/client.received.abort.sent.end/server" })
     public void clientShouldReceiveResetAndAbortAndNoAdditionalResetWhensendEnd() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -90,8 +82,6 @@ public class ApplicationIT
         "${app}/client.received.reset.and.abort/server" })
     public void clientShouldReceiveResetAndAbortAfterIOExceptionFromRead() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -101,8 +91,6 @@ public class ApplicationIT
         "${app}/client.sent.abort/server" })
     public void shouldProcessAbortFromClient() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -112,8 +100,6 @@ public class ApplicationIT
         "${app}/client.sent.abort.and.reset/server" })
     public void shouldProcessAbortAndResetFromClient() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -123,8 +109,6 @@ public class ApplicationIT
         "${app}/client.sent.data/server" })
     public void shouldReceiveClientSentData() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -134,8 +118,6 @@ public class ApplicationIT
         "${app}/client.sent.data.multiple.frames/server" })
     public void shouldReceiveClientSentDataInMultipleFrames() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -145,8 +127,6 @@ public class ApplicationIT
         "${app}/client.sent.data.multiple.streams/server" })
     public void shouldReceiveClientSentDataOnMultipleStreams() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -156,8 +136,6 @@ public class ApplicationIT
         "${app}/client.sent.data.multiple.streams.second.was.reset/server" })
     public void shouldReceiveClientSentDataWithMultipleStreamsSecondWasReset() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -167,8 +145,6 @@ public class ApplicationIT
         "${app}/client.sent.data.received.abort.and.reset/server" })
     public void shouldSendAbortAndResetToClientAfterIOExceptionFromWrite() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -178,8 +154,6 @@ public class ApplicationIT
         "${app}/client.sent.data.received.reset/server" })
     public void shouldSendResetToClientAppWhenItExceedsWindow() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -189,8 +163,6 @@ public class ApplicationIT
         "${app}/client.sent.data.then.end/server" })
     public void shouldReceiveClientSentDataAndEnd() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -200,8 +172,6 @@ public class ApplicationIT
         "${app}/client.sent.end.then.received.data/server" })
     public void clientShouldReceiveDataAfterEndingOutput() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -211,8 +181,6 @@ public class ApplicationIT
         "${app}/client.sent.reset/server" })
     public void clientShouldResetConnection() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -222,8 +190,6 @@ public class ApplicationIT
         "${app}/client.sent.reset.and.end/server" })
     public void clientShouldResetConnectionThenEnd() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -233,8 +199,6 @@ public class ApplicationIT
         "${app}/concurrent.connections/server" })
     public void shouldConveyBidirectionalDataOnConcurrentConnections() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -244,8 +208,6 @@ public class ApplicationIT
         "${app}/max.connections/server" })
     public void maxConnections() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -255,8 +217,15 @@ public class ApplicationIT
         "${app}/connection.established/server" })
     public void shouldEstablishConnection() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
+        k3po.finish();
+    }
+
+    @Test
+    @Specification({
+        "${app}/connection.established.ipv6/client",
+        "${app}/connection.established.ipv6/server" })
+    public void shouldEstablishConnectionIPv6() throws Exception
+    {
         k3po.finish();
     }
 
@@ -266,8 +235,6 @@ public class ApplicationIT
         "${app}/connection.failed/server" })
     public void shouldFailConnection() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -277,8 +244,6 @@ public class ApplicationIT
         "${app}/server.close/server" })
     public void shouldInitiateServerClose() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -288,8 +253,6 @@ public class ApplicationIT
         "${app}/server.received.abort.sent.end/server" })
     public void serverShouldReceiveResetAndAbortAndNoAdditionalResetWhensendEnd() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -299,8 +262,6 @@ public class ApplicationIT
         "${app}/server.received.reset.and.abort/server" })
     public void serverShouldReceiveResetAndAbortAfterIOExceptionFromRead() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -310,8 +271,6 @@ public class ApplicationIT
         "${app}/server.sent.abort/server" })
     public void serverShouldAbortConnection() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -321,8 +280,6 @@ public class ApplicationIT
         "${app}/server.sent.abort.and.reset/server" })
     public void serverShouldAbortAndResetConnection() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -332,8 +289,6 @@ public class ApplicationIT
         "${app}/server.sent.data/server" })
     public void shouldReceiveServerSentData() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -343,8 +298,6 @@ public class ApplicationIT
         "${app}/server.sent.data.multiple.frames/server" })
     public void shouldReceiveServerSentDataMultipleFrames() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -354,8 +307,6 @@ public class ApplicationIT
         "${app}/server.sent.data.multiple.streams/server" })
     public void shouldReceiveServerSentDataOnMultipleStreams() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -365,8 +316,6 @@ public class ApplicationIT
         "${app}/server.sent.data.multiple.streams.second.was.reset/server" })
     public void shouldReceiveServerSentDataWithMultipleStreamsSecondWasReset() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -376,8 +325,6 @@ public class ApplicationIT
         "${app}/server.sent.data.received.reset.and.abort/server" })
     public void shouldSendResetToServerAppWhenItExceedsWindow() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -387,8 +334,6 @@ public class ApplicationIT
         "${app}/server.sent.data.received.reset.and.abort/server" })
     public void shouldSendResetAndAbortToServerAfterIOExceptionFromWrite() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -398,8 +343,6 @@ public class ApplicationIT
         "${app}/server.sent.data.then.end/server" })
     public void shouldReceiveServerSentDataAndEnd() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -409,8 +352,6 @@ public class ApplicationIT
         "${app}/server.sent.end.then.received.data/server" })
     public void serverShouldReceiveDataAfterEndingOutput() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -420,8 +361,6 @@ public class ApplicationIT
         "${app}/server.sent.reset/server" })
     public void serverShouldResetConnection() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 
@@ -431,8 +370,6 @@ public class ApplicationIT
         "${app}/server.sent.reset.and.end/server" })
     public void serverShouldResetConnectionThenEnd() throws Exception
     {
-        k3po.start();
-        k3po.notifyBarrier("ROUTED_CLIENT");
         k3po.finish();
     }
 }

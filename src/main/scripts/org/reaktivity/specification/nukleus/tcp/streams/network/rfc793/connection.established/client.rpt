@@ -16,6 +16,5 @@
 
 property address "tcp://localhost:8080"
 
-connect await ROUTED_SERVER
-        ${address}
+connect ${address}
 connected

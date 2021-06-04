@@ -14,24 +14,21 @@
 # under the License.
 #
 
-property nukleiUR020001N ${nuklei:directory("target/nukleus-itests").controlCapacity(1024, 1024)}
+connect "nukleus://streams/app#0"
+    option nukleus:window 8192
+    option nukleus:transmission "duplex"
 
-property controlUR020001N ${nukleiUR020001N.controlNew()}
-
-connect "agrona://stream/bidirectional"
-        option agrona:reader ${agrona:manyToOneReader(controlUR020001N.nukleus)}
-        option agrona:writer ${agrona:broadcastTransmitter(controlUR020001N.controller)}
+write nukleus:begin.ext ${proxy:beginEx()
+                               .typeId(nukleus:id("proxy"))
+                               .addressInet6()
+                                 .protocol("stream")
+                                 .source("::1")
+                                 .destination("::1")
+                                 .sourcePort(32768)
+                                 .destinationPort(8080)
+                                 .build()
+                               .build()}
 
 connected
 
-read 0x00000002
-read (long:correlationIdUR020001N)
-read ${core:string("tcp")}
-read [0..8] # routeId
 
-write 0x40000002
-write ${correlationIdUR020001N}
-write flush
-
-close
-closed
