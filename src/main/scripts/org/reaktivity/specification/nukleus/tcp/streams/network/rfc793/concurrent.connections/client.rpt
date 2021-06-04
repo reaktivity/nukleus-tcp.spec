@@ -15,8 +15,7 @@
 #
 
 # Stream 1
-connect await ROUTED_SERVER
-        "tcp://localhost:8080"
+connect "tcp://localhost:8080"
 connected
 write "Hello"
 read "Hello"
@@ -26,8 +25,7 @@ close
 closed
 
 # Stream 2
-connect await ROUTED_SERVER
-        "tcp://localhost:8080"
+connect "tcp://localhost:8080"
 connected
 write "Hello"
 read "Hello"
@@ -37,8 +35,7 @@ close
 closed
 
 # Stream 3
-connect await ROUTED_SERVER
-        "tcp://localhost:8080"
+connect "tcp://localhost:8080"
 connected
 write "Hello"
 read "Hello"

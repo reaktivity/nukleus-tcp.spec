@@ -16,8 +16,7 @@
 
 property ip "127.0.0.1"
 
-connect await ROUTED_CLIENT
-        "nukleus://streams/app#0"
+connect "nukleus://streams/app#0"
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 
@@ -29,6 +28,9 @@ write nukleus:begin.ext ${proxy:beginEx()
                                  .destination(ip)
                                  .sourcePort(0)
                                  .destinationPort(8080)
+                                 .build()
+                               .info()
+                                 .authority("localhost")
                                  .build()
                                .build()}
 

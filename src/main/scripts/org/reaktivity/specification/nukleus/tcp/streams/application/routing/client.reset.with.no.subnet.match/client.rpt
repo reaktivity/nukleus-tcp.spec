@@ -16,8 +16,7 @@
 
 property ip "192.168.0.1"
 
-connect await ROUTED_CLIENT
-        "nukleus://streams/app#0"
+connect "nukleus://streams/app#0"
     option nukleus:window 8192
 
 write nukleus:begin.ext ${proxy:beginEx()

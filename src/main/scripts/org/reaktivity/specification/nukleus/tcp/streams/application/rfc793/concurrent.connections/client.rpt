@@ -14,8 +14,7 @@
 # under the License.
 #
 
-connect await ROUTED_CLIENT
-        "nukleus://streams/app#0"
+connect "nukleus://streams/app#0"
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 connected
@@ -28,8 +27,7 @@ read "Goodbye"
 write close
 read closed
 
-connect await ROUTED_CLIENT
-        "nukleus://streams/app#0"
+connect "nukleus://streams/app#0"
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 connected
@@ -42,8 +40,7 @@ read "Goodbye"
 write close
 read closed
 
-connect await ROUTED_CLIENT
-        "nukleus://streams/app#0"
+connect "nukleus://streams/app#0"
     option nukleus:window 8192
     option nukleus:transmission "duplex"
 connected

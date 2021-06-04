@@ -31,6 +31,9 @@ read nukleus:begin.ext ${proxy:beginEx()
                                 .sourcePort(0)
                                 .destinationPort(8080)
                                 .build()
+                              .info()
+                                .authority("localhost")
+                                .build()
                               .build()}
 
 connected
